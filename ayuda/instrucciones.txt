@@ -1,0 +1,10 @@
+php artisan migrate:refresh --seed
+
+-en el index de encuestas mostrar el numero de personas q han aplicado la encuesta
+-boton para abrir o cerrar la encuesta
+-usar iconos en los botones
+-boton para ver el reporte de una encuesta
+-login social
+-rango de encuesta decreciente
+-agregar etiketas
+-filtrar por categoria
