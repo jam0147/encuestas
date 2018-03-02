@@ -24,7 +24,7 @@
             @show
 
   		@include('user/layouts/footer')
-  		
+  		@stack('js')
 
 	</body>
 </html>
