@@ -44,7 +44,7 @@
       		@if (!empty($questions))
      		  @foreach($questions as $item)
            <div class="box-body">
-            <table class="table table-bordered">
+            <table class="table table-striped table-hover table-bordered dataTable">
              <tr >
                <th style="width: 10px">{{ $loop->iteration }}</th>
                <th class="question" id="{{ $item->id }}" data-toggle="modal" data-target="#questionModal"><a href="{{ route('questions.edit', $item->id) }}">{{ $item->name }}</a>

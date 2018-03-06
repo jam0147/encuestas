@@ -33,7 +33,7 @@
           </div>
           <!-- /.box-header -->
           <div class="box-body">
-            <table id="example1" class="table table-bordered table-striped">
+            <table id="example1" class="table table-striped table-hover table-bordered dataTable">
               <thead>
               <tr>
                 <th>ID</th><th>Nombre de la categoria</th><th>Tipo de tiempo</th><th>Es pausable</th><th>Preguntas obligatorias</th><th>Acciones</th>
@@ -75,13 +75,15 @@
                       </td>
                       
 
-                      <td>
-                          <a href="{{ url('admin/categories/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs">Actualizar</a> 
+                      <td >
+                          <a href="{{ url('admin/categories/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i></a> 
                           <form action="{{ route('categories.destroy',  $item->id) }}" method="post" style="display:inline">
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
                             
-                            <input type="submit" value="Eliminar" class="btn btn-danger btn-xs" onclick="return confirm('Esta seguro de eliminar?');">
+                             <button type="submit" alt="Eliminar"  class="btn btn-danger btn-xs" onclick="return confirm('Esta seguro de eliminar?');">
+                              <i class="fa fa-minus"></i>
+                            </button>
                           </form>
                           
                              
