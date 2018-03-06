@@ -68,7 +68,7 @@ class EncuestasController extends Controller
             $aplication_poll = new AplicationPoll();
             $total += Answer::where('id', $value)->first()->value;
             $answer = Answer::find($value);
-            $aplication_poll->start = Carbon::now();
+            $aplication_poll->start = $st;
             $aplication_poll->end = Carbon::now();
             $aplication_poll->value = $answer->value;
             $aplication_poll->user_id = Auth::user()->id;
@@ -128,28 +128,28 @@ class EncuestasController extends Controller
             ->where('poll_id', '=', $request->poll_id)
             ->delete();
 
-        foreach ($request->id_respuestas as $key => $value) {
-            //print_r('llave: '.$key .' valor: '. $value. ' ');
-            $aplication_poll = new AplicationPoll();
-            $total += Answer::where('id', $value)->first()->value;
-            $answer = Answer::find($value);
-            $aplication_poll->start = Carbon::now();
-            $aplication_poll->end = Carbon::now();
-            $aplication_poll->value = $answer->value;
-            $aplication_poll->user_id = Auth::user()->id;
-            $aplication_poll->poll_id = $request->poll_id;
-            $aplication_poll->question_id = $answer->question_id;
-            $aplication_poll->answer_id = $answer->id;
-            $aplication_poll->save();
-        }
-        //dd($total);        
+        if(isset($request->id_respuestas) && count($request->id_respuestas) > 0)
+            foreach ($request->id_respuestas as $key => $value) {
+                //print_r('llave: '.$key .' valor: '. $value. ' ');
+                $aplication_poll = new AplicationPoll();
+                $total += Answer::where('id', $value)->first()->value;
+                $answer = Answer::find($value);
+                $aplication_poll->start = Carbon::now();
+                $aplication_poll->end = Carbon::now();
+                $aplication_poll->value = $answer->value;
+                $aplication_poll->user_id = Auth::user()->id;
+                $aplication_poll->poll_id = $request->poll_id;
+                $aplication_poll->question_id = $answer->question_id;
+                $aplication_poll->answer_id = $answer->id;
+                $aplication_poll->save();
+            }
 
         //determinar el rango
-        //$ranges = null;
+
         $resume = new \stdClass();
         $resume->text = null;
         $ranges = Range::where('poll_id', '=', $request->poll_id)->get();
-        //dd($ranges);
+
         foreach ($ranges as $key => $value) {
             if ( $total >= $value->from && $total <= $value->to) {
                 $range = $value;
@@ -161,12 +161,9 @@ class EncuestasController extends Controller
                 $resume->to = $value->to;
                 $resume->text = $value->text;
                 $resume->save();
-                //return $resume;
             }
         }
         return view('user.encuestas.resultados.resultado', compact('resume', 'total', 'encuesta'));
-      
-        
     }
    
     public function show($id)
@@ -176,24 +173,22 @@ class EncuestasController extends Controller
         $master_aplication = MasterAplication::where('poll_id', '=', $id)
             ->where('user_id', '=', Auth::user()->id)
             ->first();
+        
+        $encuesta = Poll::find($id);
+        $preguntas = Question::where('poll_id', '=', $encuesta->id)->get();
             
         if (!$master_aplication == null) {
-            //Cuando la encuesta esta cerrada
-            if ($master_aplication->status == 1) {
-                return "la encusta esta cerrada";
+            if ($master_aplication->status == 1) { //Cuando la encuesta esta cerrada
+                return "la encuesta esta cerrada";
             }
-            //Cando reanudamos la encuesta
+
             $detail_aplication = DetailAplication::where('master_aplication_id', '=', $master_aplication->id)->get();
-            $encuesta = Poll::find($id);
-            $preguntas = Question::where('poll_id', '=', $encuesta->id)
-                ->get();
+
             return view('user.encuestas.general.show', compact('encuesta', 'preguntas', 'detail_aplication', 'contestadas'));
         }
 
         Session::put('start_date', Carbon::now()->format('Y-m-d H:i:s'));
-        $encuesta = Poll::find($id);
 
-        $preguntas = Question::where('poll_id', '=', $encuesta->id)->get();
         $numero_preguntas = Question::where('poll_id', '=', $encuesta->id)->count();
         //Vista especial para 1 sola pregunta
         if ($encuesta->category->show_all_questions == 0)
@@ -204,8 +199,7 @@ class EncuestasController extends Controller
         return view('user.encuestas.general.test', compact('encuesta', 'contestadas', 'pregs'));
     }
 
-    public function reanudar($id)
-    {
+    public function reanudar($id){
         //dd($id);
         $contestadas = AplicationPoll::where('poll_id', '=', $id)
             //->where('user_id', '=', Auth::user()->id)

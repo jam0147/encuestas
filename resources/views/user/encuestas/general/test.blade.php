@@ -16,6 +16,7 @@
         </div>
       @endif
      </p>
+     
         <input  type="hidden" id="seconds" value="{{ $encuesta->category->seconds }}" >
         <form action="{{ route('encuestas.store') }}" method="post" id="formid"> 
             {{ csrf_field()  }} 
@@ -26,7 +27,7 @@
           <div class="col-md-12">
             <div class=""><br>               
                 <div class="sec-title text-center">
-                  <h2 class="wow animated text-center" style="color: #999999;">vista deprueba:  {{ $encuesta->name }}</h2>
+                  <h2 class="wow animated text-center" style="color: #999999;">vista de prueba:  {{ $encuesta->name }}</h2>
                 </div>
                 @if ($encuesta->category->timer_type >1)                
                   <div style="text-align:center;">
@@ -157,10 +158,8 @@
 <script src="{{ asset('admin/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
 <script src="{{ asset('js/encuestas/general.js') }}"></script>
 <script>    
-console.log("archivo interno");
 $(function () {
   
-  console.log("regitrar encuestas con $ each 2"); 
   console.log("hay tiempo " + {{ $timer }} ); 
    /*$('a.anchorclass').click(yourfunction);
     
