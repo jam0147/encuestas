@@ -13,24 +13,44 @@
         </div>
       </div>
     
-      <ul class="sidebar-menu">
-        <li class="header">Opciones {{-- {{Auth::user()->id}} --}}</li>
-        <li class="active treeview">
-          <li class=""><a href="{{ route('admins.index') }}"><i class="fa fa-circle-o"></i> Administradores</a></li>
+      <ul class="sidebar-menu tree" data-widget="tree">
+              <li class="header">Opciones {{Auth::user()->name}} </li>
+               <li class="header"></li>
+                <li class="active treeview menu-open">
+                  <a href="{{ route('admins.index') }}">
+                    <i class="fa fa-users"></i> 
+                    <span>Administradores</span>
+                  </a>
 
-          <li class=""><a href="{{ route('categories.index') }}"><i class="fa fa-circle-o"></i> Categorias</a></li>
-          <li class=""><a href="{{ route('polls.index') }}"><i class="fa fa-circle-o"></i> Encuestas</a></li>
-          <li class=""><a href="{{ route('ranges.index') }}"><i class="fa fa-circle-o"></i> Establecer Rangos</a></li>
-          <li class=""><a href="{{ route('user.index') }}"><i class="fa fa-circle-o"></i>index</a></li>
-          <li class=""><a href="{{ route('admin.logout') }}"
-                          onclick="event.preventDefault();
+                  <a href="{{ route('categories.index') }}">
+                    <i class="fa fa-dashboard"></i> <span>Categorias</span>
+                  </a>
+                  <a href="{{ route('categories.index') }}">
+                    <i class="fa fa-folder"></i> 
+                    <span>Categorias</span>
+                  </a>
+                  <a href="{{ route('polls.index') }}">
+                    <i class="fa fa-clipboard"></i>         
+                    <span>Encuestas</span>
+                  </a>
+                  <a href="{{ route('ranges.index') }}">
+                    <i class="fa fa-calendar"></i>        
+                    <span>Establecer Rangos</span>  
+                  </a>
+                  <a href="{{ route('user.index') }}">
+                      <i class="fa fa-circle-o"></i> 
+                      <span>index</span>
+                  </a>
+                  <a href="{{ route('admin.logout') }}" onclick="event.preventDefault();
                                    document.getElementById('logout-form').submit();">
-            <i class="fa fa-circle-o"></i>Salir</a></li>
-          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-              {{ csrf_field() }}
-          </form>
-
-      </ul>
+                      <i class="fa fa-sign-out"></i><span>Salir</span></a></li> 
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                          {{ csrf_field() }}
+                      </form>
+                  </a>
+                  </li>
+                </li>
+              </ul>
     </section>
     <!-- /.sidebar -->
   </aside>
