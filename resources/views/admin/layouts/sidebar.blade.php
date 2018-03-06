@@ -21,10 +21,6 @@
                     <i class="fa fa-users"></i> 
                     <span>Administradores</span>
                   </a>
-
-                  <a href="{{ route('categories.index') }}">
-                    <i class="fa fa-dashboard"></i> <span>Categorias</span>
-                  </a>
                   <a href="{{ route('categories.index') }}">
                     <i class="fa fa-folder"></i> 
                     <span>Categorias</span>
