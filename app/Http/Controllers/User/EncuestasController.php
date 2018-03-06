@@ -176,6 +176,7 @@ class EncuestasController extends Controller
         $master_aplication = MasterAplication::where('poll_id', '=', $id)
             ->where('user_id', '=', Auth::user()->id)
             ->first();
+            
         if (!$master_aplication == null) {
             //Cuando la encuesta esta cerrada
             if ($master_aplication->status == 1) {
@@ -188,29 +189,19 @@ class EncuestasController extends Controller
                 ->get();
             return view('user.encuestas.general.show', compact('encuesta', 'preguntas', 'detail_aplication', 'contestadas'));
         }
-        //Creacion de una encusta
-        //creacion de el maestro
+
         Session::put('start_date', Carbon::now()->format('Y-m-d H:i:s'));
         $encuesta = Poll::find($id);
 
+        $preguntas = Question::where('poll_id', '=', $encuesta->id)->get();
+        $numero_preguntas = Question::where('poll_id', '=', $encuesta->id)->count();
         //Vista especial para 1 sola pregunta
-        if ($encuesta->category->show_all_questions == 0) {
-            $preguntas = Question::where('poll_id', '=', $encuesta->id)
-                ->get();
-            $numero_preguntas = Question::where('poll_id', '=', $encuesta->id)
-                ->count()
-                /*->get()*/;
+        if ($encuesta->category->show_all_questions == 0)
             return view('user.encuestas.individual.ajax', compact('encuesta', 'preguntas', 'contestadas', 'numero_preguntas'));
-            //return view('user.encuestas.show_1_question', compact('encuesta', 'preguntas'));
-        }
 
-        $preguntas = Question::where('poll_id', '=', $encuesta->id)
-            ->get();
         $pregs = $preguntas->chunk(10);
         //dd($pregs);
         return view('user.encuestas.general.test', compact('encuesta', 'contestadas', 'pregs'));
-        //return view('user.encuestas.general.show', compact('encuesta', 'preguntas', 'contestadas'));
-
     }
 
     public function reanudar($id)

@@ -100,13 +100,12 @@
                 <br>    
                 <br>
                 <div class="col-md-4 col-xs-4"">
-                  <button id="evaluar" class="btn btn-danger block">Terminar encuesta</button>
-                  @if($encuesta->category->pausable == 0)
-                      <input type="hidden" name="pausable" value="0">                    
-                  @else
+                  <button id="terminar_encuesta" class="btn btn-danger block">Terminar encuesta</button>
+                  
+                  @if($encuesta->category->pausable == 1)
                       <button id="pausar" class="btn btn-success block">pausar encuesta</button>
-                      <input type="hidden" name="pausable" value="1">                    
                   @endif
+
                   <input type="text" id="arreglo" class="form-control" name="arreglo[]">
                 </div>                     
             </div>
@@ -128,8 +127,10 @@
   <input type="hidden" id="seg" name="seg" value="{{ $encuesta->category->seconds }}">
 </div><script src="{{ asset('admin/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
 <script>  
-
-console.log("no ha iniciado jq 2");
+  var $pausable = "{{ $encuesta->category->pausable }}";
+  var $horas_categoria = "{{ $encuesta->category->hour }}"
+  var $mins_categoria = "{{ $encuesta->category->minutes }}"
+  var $segs_categoria = "{{ $encuesta->category->seconds }}"
 $(function () {
   var inicio = 0;
 
@@ -204,31 +205,28 @@ $(function () {
   {
     var n = 0;
     var nn = 0;
-    var hour = $('input[name=hour]').val();
-    var min = $('input[name=min]').val();
-    var seg = $('input[name=seg]').val();
 
-    if ( hour == null) {hour=0; }
-    if ( min == null) {min=0; }
-    if ( seg == null) {seg=0; }
+    if ( $horas_categoria == null) {$horas_categoria=0; }
+    if ( $mins_categoria == null) {$mins_categoria=0; }
+    if ( $segs_categoria == null) {$segs_categoria=0; }
     
     console.log("Encuesta por tiempo "); 
     console.log("minutos: " + min + " " + "segundos: " + seg);
 
     function reloj() {
-      if (seg > 0) {
-           seg = seg - 1;
+      if ($segs_categoria > 0) {
+           $segs_categoria = $segs_categoria - 1;
         }
-      if ((min > 0)  && (seg == 0)){
-            min = min - 1;
-            seg = 60;
+      if (($mins_categoria > 0)  && ($segs_categoria == 0)){
+            $mins_categoria = $mins_categoria - 1;
+            $segs_categoria = 60;
         }
-        if ((min == 0) && (seg == 0)){
-          document.getElementById('displayReloj').innerHTML = min + " : " + seg;
+        if (($mins_categoria == 0) && ($segs_categoria == 0)){
+          document.getElementById('displayReloj').innerHTML = $mins_categoria + " : " + $segs_categoria;
           alert("Fin : " + nn);
         exit();
         }
-        document.getElementById('displayReloj').innerHTML = min + " : " + seg;
+        document.getElementById('displayReloj').innerHTML = $mins_categoria + " : " + $segs_categoria;
         var t = setTimeout(function(){reloj()},1000);
     }
     reloj();
@@ -240,7 +238,7 @@ $(function () {
     console.log("Encuesta sin tiempo "); 
   }
 
-  $("#evaluar").click(function(){
+  $("#terminar_encuesta").click(function(){
       var preguntas_input = $(":input");      
       //var preguntas_input = $("[name=respuestas]");
       var i = 0;

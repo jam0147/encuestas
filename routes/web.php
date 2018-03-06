@@ -21,6 +21,15 @@ Route::group(['namespace' => 'Admin'],function(){
 	Route::get('admin/login', 'Auth\LoginController@showLoginForm')->name('admin.login');
 	Route::post('admin/login', 'Auth\LoginController@login')->name('admin.login.post');
 	Route::post('admin/logout', 'Auth\LoginController@logout')->name('admin.logout');
+
+	Route::get('admin/questions/buscar/{id}','QuestionController@buscar')->name('preguntas.buscar');
+	Route::put('admin/questions/guardar/{id}','QuestionController@guardar')->name('preguntas.guardar');
+	Route::put('admin/questions/actualizar/{id}','QuestionController@actualizar')->name('preguntas.actualizar');
+
+	Route::get('admin/answers/buscar/{id}','AnswerController@buscar')->name('respuestas.buscar');
+	Route::put('admin/answers/guardar/{id}','AnswerController@guardar')->name('respuestas.guardar');
+	Route::put('admin/answers/actualizar/{id}','AnswerController@actualizar')->name('respuestas.actualizar');
+	Route::get('admin/answers/eliminar/{id}','AnswerController@eliminar')->name('respuestas.eliminar');
 });
 
 Route::group(['namespace' => 'User'],function(){
