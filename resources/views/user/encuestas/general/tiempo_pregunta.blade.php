@@ -72,27 +72,9 @@
                                     <div class="radio">
                                       @if (!empty($pregunta->answers))
                                         @foreach($pregunta->answers as $answer)
-                                          @if ($pregunta->multiple_answers == 1)
-                                              <div class="respuesta">
-                                                <input type="checkbox" 
-                                                name="respuestas" 
-                                                value="{{ $answer->id }}" 
-                                                class="chk input_respuesta" 
-                                                id="{{ $answer->id }}"
-                                                @if (!$contestadas == null)
-                                                  @foreach ($contestadas as $item)
-                                                    @if ($item->answer_id == $answer->id)
-                                                      checked
-                                                    @endif
-                                                  @endforeach
-                                                @endif
-                                                > 
-                                                {{ $answer->name }}
-                                              </div>
-                                          @else
-                                            <div style="float: left;padding: 6px; margin-bottom: 8px; border: 1px solid #bad3e8; border-radius: 10px;width: 100%;     font-weight: bold !important;">
+                                            <div class="respuesta">
                                               <input type="radio" 
-                                              name="respuestas{{$pregunta->id}}" 
+                                              name="" e="respuestas{{$pregunta->id}}" 
                                               value="{{ $answer->id }}" 
                                               class="rad input_respuesta" 
                                               id="{{ $answer->id }}" 
@@ -109,7 +91,6 @@
                                                   {{ $answer->name }}
                                                 </label> 
                                             </div>
-                                          @endif  
                                         @endforeach
                                       @endif
                                     </div>
@@ -142,152 +123,126 @@
 <script src="{{ asset('admin/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
 <script>
 var hour, min, seg;
-
-var $horas    = "{{ $encuesta->category->hour }}";
-var $minutos  = "{{ $encuesta->category->minutes }}";
-var $segundos = "{{ $encuesta->category->seconds }}";
-var poll_id = "{{ $encuesta->id }}";
-var $timer = "{{ $timer }}";
+var $horas     = "{{ $encuesta->category->hour }}";
+var $minutos   = "{{ $encuesta->category->minutes }}";
+var $segundos  = "{{ $encuesta->category->seconds }}";
+var poll_id    = "{{ $encuesta->id }}";
+var $timer     = "{{ $timer }}";
 var finEncuesta = false;
 var avanzarFilaReloj = false;
 var $filaActiva = 1;
 var cantidadPreguntas = 0;
 var temporizador;
+var $reiniciaReloj = false;
+
 $(function () {  
-  cantidadPreguntas = $(".panelPregunta", ".contenedorRows").length;
+   cantidadPreguntas = $(".panelPregunta", ".contenedorRows").length;
 
-  $("input:submit").click(function() { return false; });
-  
-  $("input", ".radio").click(function(){
-    $divRadio = $(this).parents('.radio');
+   $("input:submit").click(function() { return false; });
 
-    var fila = $(this).parents(".panelPregunta");
-    var filaId = $(this).parents(".panelPregunta").attr("panelpregunta");
-    var nroFila = $(this).parents(".panelPregunta").attr("id_fila");//Determina el numero de fila donde estoy ubicado
+   $("input", ".radio").click(function(){
+      $divRadio = $(this).parents('.radio');
 
-    $vacios = 0; 
-    $(".panelPregunta", ".contenedorRows").each(function(){
-      $filaAnterior = $(this).attr("id_fila");
-      if($filaAnterior < fila.attr("id_fila") ){
-        if($("input:disabled", ".panelPregunta[id_fila='" + $filaAnterior +"']").length == 0)
-          if($("input[name='id_respuestas[]']", ".panelPregunta[id_fila='" + $filaAnterior +"']").length == 0)  
-            $vacios++;
+      var fila = $(this).parents(".panelPregunta");
+      var filaId = $(this).parents(".panelPregunta").attr("panelpregunta");
+      var nroFila = $(this).parents(".panelPregunta").attr("id_fila");//Determina el numero de fila donde estoy ubicado
+
+      $vacios = 0; 
+      $(".panelPregunta", ".contenedorRows").each(function(){
+         $filaAnterior = $(this).attr("id_fila");
+
+         if($filaAnterior < fila.attr("id_fila") ){
+            if($("input:disabled", ".panelPregunta[id_fila='" + $filaAnterior +"']").length == 0)
+               if($("input[name='id_respuestas[]']", ".panelPregunta[id_fila='" + $filaAnterior +"']").length == 0)  
+                  $vacios++;
+         }
+      });
+
+      if ($vacios > 0) {
+         alert("Tiene " + $vacios + " preguntas anteriores sin responder");
+         return false;
       }
-    });
 
-    if ($vacios > 0) {
-      alert("Tiene " + $vacios + " preguntas anteriores sin responder");
-      return false;
-    }
+      if($divRadio.hasClass('deshabilitada'))
+         return false;
 
-    if($divRadio.hasClass('deshabilitada'))
-      return false;
+      $idRespuesta = $(this).attr('id');
 
-    $idRespuesta = $(this).attr('id');
+      $("input.oculto[r='" + $idRespuesta + "']", $divRadio).detach();
 
-    $("input.oculto[r='" + $idRespuesta + "']", $divRadio).detach();
+      if($(this).attr('type') == 'radio')
+         $("input.oculto", $divRadio).detach();
 
-    if($(this).attr('type') == 'radio')
-      $("input.oculto", $divRadio).detach();
+      if($(this).prop('checked')){
+         $('<input>').attr({
+         type  : 'hidden',
+         name  : 'id_respuestas[]',
+         value : $idRespuesta,
+         'r'   : $idRespuesta,
+         class : 'oculto'
+         }).appendTo($divRadio);
+      }
 
-    if($(this).prop('checked')){
-      $('<input>').attr({
-          type  : 'hidden',
-          name  : 'id_respuestas[]',
-          value : $idRespuesta,
-          'r'   : $idRespuesta,
-          class : 'oculto'
-      }).appendTo($divRadio);
-    }
+      deshabilitarFilaActiva();
+   });
 
-     if($(".panelPregunta").length == nroFila){
-          alert("esta es la ultima pregunta");
-     }
-  });
+   //Encuesta por tiempo
+   if ($timer == 1){
+      var n = 0;
+      var nn = 0;
+      hour = $horas;
+      min = $minutos;
+      seg = $segundos;
 
-  //Encuesta por tiempo
-  if ($timer == 1){
-    var n = 0;
-    var nn = 0;
-    hour = $horas;
-    min = $minutos;
-    seg = $segundos;
+      if ( hour == null || hour == '') {hour=0; }
+      if ( min == null || min == '') {min=0; }
+      if ( seg == null || seg == '') {seg=0; }
 
-    if ( hour == null || hour == '') {hour=0; }
-    if ( min == null || min == '') {min=0; }
-    if ( seg == null || seg == '') {seg=0; }
-
-    //reloj();
-    reloj_pregunta();
-  }
+      reloj_pregunta();
+   }
 });
 
 function enviarDatos(){
-  document.getElementById('evaluar').click();
-}
-
-function reloj() {
-  if (seg > 0)
-  seg = seg - 1;
-
-  if ((min > 0)  && (seg == 0)){
-    min = min - 1;
-    seg = 60;
-  }
-
-  if ((hour > 0) && (min == 0)){
-    hour = hour - 1;
-    min = 60;
-  }
-
-  document.getElementById('displayReloj').innerHTML = hour + " : " + min + " : " + seg;
-
-  if ((hour == 0) && (min == 0) && (seg == 0))
-    enviarDatos();
-
-  var t = setTimeout(function(){ reloj() }, 1000 );
+   document.getElementById('evaluar').click();
 }
 
 function reloj_pregunta() {
-     console.log("filaactiva" +  $filaActiva);
+   if (min > 0  && seg <= 1){
+      min = min - 1;
+      seg = 59;
+   }
 
-     if (min > 0  && seg <= 1){
-          alert(min + " dsasd " + seg);
-          min = min - 1;
-          seg = 59;
-     }
+   document.getElementById('displayReloj').innerHTML = min + " : " + seg;
 
-     document.getElementById('displayReloj').innerHTML = min + " : " + seg;
+   if (min == 0 && seg == 0)
+      deshabilitarFilaActiva();
 
-     if (min == 0 && seg == 0)
-          deshabilitarFilaActiva();
-
-     var temporizador = setTimeout(function(){
-          reloj_pregunta();
-          seg--;
-     }, 1000);
+   var temporizador = setTimeout(function(){
+      reloj_pregunta();
+      seg--;
+   }, 1000);
 }
 
 function deshabilitarFilaActiva(){
-     $(".panelPregunta[id_fila='" + $filaActiva +"']").removeClass('panel-primary');
-     $(".panelPregunta[id_fila='" + $filaActiva +"']").addClass('panel-warning');
+   $(".panelPregunta[id_fila='" + $filaActiva +"']").removeClass('panel-primary');
+   $(".panelPregunta[id_fila='" + $filaActiva +"']").addClass('panel-warning deshabilitada');
 
-     $(".input_respuesta", ".panelPregunta[id_fila='" + $filaActiva +"']").prop("disabled", "disabled");
+   $(".input_respuesta", ".panelPregunta[id_fila='" + $filaActiva +"']").prop("disabled", "disabled");
 
-     if ($filaActiva >= cantidadPreguntas) 
-          finEncuesta = true;
+   if ($filaActiva >= cantidadPreguntas)
+       finEncuesta = true;
 
-     if(finEncuesta)
-          enviarDatos();
+   if(finEncuesta)
+       enviarDatos();
 
-     hour = $horas;
-     min = $minutos;
-     seg = $segundos;
+   $filaActiva++;
 
-     $filaActiva++;
+   hour  = $horas;
+   min   = $minutos;
+   seg   = $segundos;
+   $reiniciaReloj = true;
 }
 </script>
-
 @endsection
 
 
