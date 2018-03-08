@@ -10,108 +10,117 @@
 @section('main-content')
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-  <section class="content-header">
-    <h1>
-     Rangos de: {{ $poll->name }}
-    </h1>   
-  </section>
-  <!-- Main content -->
-  <section class="content">
-    <!-- Default box -->
-    <div class="box">
-      <div class="box-header with-border">
-      </div>
-      <div class="box-body">
-        <div class="box">
-          <div class="box-header">            
-            <div class="form-group row add">
-                <div class="col-md-8">
-                	{{ csrf_field() }}                  
-                  <a href="#" id="addRange" data-toggle="modal" data-target="#addRangeModal" 
-                  class="" data-toggle="tooltip" title="Añdir pregunta!"><i class="fa fa-plus" aria-hidden="true" class="pull-right"></i></a>
-                </div>                
-            </div>
-          </div> 
-            <div id="myDiv">
-        		@if (!empty($poll->ranges))
-              <div class="box-body">
-                <table class="table table-bordered">
-                  <thead>
-                   <tr >                 
-                     <th class="question" >Desde</th>
-                     <th>Hasta </th>
-                     <th>Observacion</th>    
-                   </tr>                
-                  </thead>
-                   @foreach($poll->ranges as $item)
-                    <tbody>
-                      <input type="hidden" id="range_id" value="{{ $item->id }}">
+  <section class="content" style=" background: #fff">
+      <div class="row">
+        <fieldset>
+          <legend style="text-align: center;font-weight: 900;padding: 10px;">AGREGAR RANGOS A ENCUESTA   <small></small></legend>
+          @include('includes.messages')  
+            {{ csrf_field() }}                  
+              <div class="col-md-12">
+                <div id="myDiv">
+                  @if (!empty($poll->ranges))
+                        <div class="box-body">
+                          <div>
+                            <label style="text-transform: uppercase;">Encuesta:</label>
+                            <label style="text-transform: uppercase;">{{ $poll->name }}</label>
+                          </div> 
+                          <div class="panel panel-primary filterable" style="    border-color: #e5e5e5;">
+                            <div class="panel-heading" style="background-color: rgba(96, 92, 168, 0.58);     border-color: rgba(96, 92, 168, 0.58);">
+                                <div class="panel-title">Rangos
+                                  <button id="addRange" class="btn btn-default" data-toggle="modal" data-target="#addRangeModal" style="float: right;">
+                                      <i class="fa fa-plus" aria-hidden="true" class="pull-right" ></i>
+                                      Agregar rango
+                                    </button>
+                                </div>
+                                <div class="pull-right" style="width: 30%">
+                                    
+                                </div>
+                            </div>
+                            <table class="table table-bordered">
+                              <thead>
+                               <tr >                 
+                                 <th class="question" >Desde</th>
+                                 <th>Hasta </th>
+                                 <th>Observacion</th>    
+                               </tr>                
+                              </thead>
+                              @foreach($poll->ranges as $item)
+                              <tbody>
+                                <input type="hidden" id="range_id" value="{{ $item->id }}">
 
-                      <td class="range" name="@php
-                        echo "from".$item->id ;
-                      @endphp"  id="{{ $item->id }}" data-toggle="modal" data-target="#addRangeModal" value="{{ $item->from }}">{{ $item->from }} </td>
-                      <td class="range" name="@php
-                        echo "to".$item->id ;
-                      @endphp  id="{{ $item->id }}" data-toggle="modal" data-target="#addRangeModal">{{ $item->to }} </td>
-                      <td class="range" name="@php
-                        echo "text".$item->id ;
-                      @endphp  id="{{ $item->id }}" data-toggle="modal" data-target="#addRangeModal">{{ $item->text }} </td>
-                    </tbody>                    
-           		     @endforeach
-                </table>
+                                <td class="range" name="@php
+                                  echo "from".$item->id ;
+                                @endphp"  id="{{ $item->id }}" data-toggle="modal" data-target="#addRangeModal" value="{{ $item->from }}">{{ $item->from }} </td>
+                                <td class="range" name="@php
+                                  echo "to".$item->id ;
+                                @endphp  id="{{ $item->id }}" data-toggle="modal" data-target="#addRangeModal">{{ $item->to }} </td>
+                                <td class="range" name="@php
+                                  echo "text".$item->id ;
+                                @endphp  id="{{ $item->id }}" data-toggle="modal" data-target="#addRangeModal">{{ $item->text }} </td>
+                              </tbody>                    
+                              @endforeach
+                            </table>
+                          </div>
+                          
+                        </div>
+                  @endif
+                </div>
               </div>
-               <!-- /.box-body -->  
-    	      @endif
-            </div>
-        </div>
-        </div>
+        </fieldset>
       </div>
-      <!-- /.box-body -->
-      <div class="box-footer">
-      </div>
-      <!-- /.box-footer-->
-    </div>
-    <!-- /.box --> 
+      <br><br><br>
   </section>
-  <!-- /.content -->
 </div>
 
-{{-- Range modal --}}
-<div class="modal fade" id="addRangeModal" tabindex="-1" role="dialog">
- <div class="modal-dialog" role="document">
-   <div class="modal-content">
-     <div class="modal-header">
-       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-       <h4 class="modal-title" id="title">Añadir Rango</h4>
-     </div>
-     <div class="modal-body">
-       <input type="number" min="1" id="from" name="from" placeholder="Desde" class="form-control">
-       <input type="number" min="1" id="to" name="to" placeholder="Hasta" class="form-control">
-       <input type="text" id="text" name="text" placeholder="Observacion" class="form-control">
-       <input type="hidden" id="id">
-     </div>
-     <div class="modal-footer">
-       {{-- <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove-sign"></span></button> --}}
-       <button type="button" id="delete" style="display: none" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-trash"></span></button>
-       <button type="button" id="saveChanges" style="display: none" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk"></span></button>
-       <button type="button" id="add" style="display: none" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk"></span></button>
-     </div>
-   </div><!-- /.modal-content -->
- </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+
+
+<div class="modal fade" id="addRangeModal" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true">
+    <div class="modal-dialog" style="">
+        <div class="panel panel-primary" style="border-color: #605ca8 !important">
+            <div class="panel-heading" style="background: #605ca8; border: 1px solid #605ca8">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="panel-title" id="contactLabel"><span class="glyphicon glyphicon-info-sign"></span> Añadir Rango.</h4>
+            </div>
+            <form action="#" method="post" accept-charset="utf-8">
+            <div class="modal-body" style="padding: 5px;">
+                  <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6" style="padding-bottom: 10px;">
+                            <input type="number" min="1" id="from" name="from" placeholder="Desde" class="form-control">
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6" style="padding-bottom: 10px;">
+                            <input type="number" min="1" id="to" name="to" placeholder="Hasta" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12" style="padding-bottom: 10px;">
+                          <textarea id="text" name="text" class="form-control" rows="5" placeholder="Observacion"></textarea>
+                          <input type="hidden" id="id">
+                        </div>
+                    </div>
+                    
+                </div>  
+                <div class="panel-footer" style="margin-bottom:-14px;">
+                    {{-- <button type="button" class="btn btn-default" style="background: #605ca8 !important;" data-dismiss="modal"><span class="glyphicon glyphicon-remove-sign"></span></button> --}}
+                     <button type="button" id="delete" style="display: none" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-trash"></span></button>
+                     <button type="button" id="saveChanges" style="display: none" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+                     <button type="button" id="add" style="display: none" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection
 @section('footerSection')
 <script src="{{ asset('admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('admin/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
-<script>	
+<script>  
 
 $(function () {
-	/*$("#example1").DataTable();*/
-	$("#example1").DataTable( {
-	  "pageLength": 100
-	});
+  /*$("#example1").DataTable();*/
+  $("#example1").DataTable( {
+    "pageLength": 100
+  });
   console.log("pagina para editar los rangos");
   
   var url = '{{ route('ranges.store') }}';
