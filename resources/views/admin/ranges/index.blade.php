@@ -5,71 +5,47 @@
 @endsection
 
 @section('main-content')
-<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-  <section class="content-header">
-    <h1>
-     Rangos de Encuestas
-    </h1>    
-  </section>
-  <!-- Main content -->
-  <section class="content">
-    <!-- Default box -->
-    <div class="box">
-      <div class="box-header with-border">
-      </div>
-      <div class="box-body">
-        <div class="box">
-          {{-- <div class="box-header">
-            <h1>Encuestas <a href="{{ url('admin/polls/create') }}" class="btn btn-primary pull-right btn-sm">Crear Encuesta</a></h1>
-          </div> --}}
-          <!-- /.box-header -->
-          <div class="box-body">
-            @include('includes.messages')
-            <table id="example1" class="table table-striped table-hover table-bordered dataTable">
-              <thead>
-              <tr>
-                <th>ID</th><th>Nombre de la encuesta</th>{{-- <th>Categoria</th><th>Hora</th><th>Minutos</th><th>Segundos</th> --}}
-              </tr>
-              </thead>
-              <tbody>
-              @if (!empty($polls))
-                @foreach ($polls as $item)
-                  <tr>
-                      <td>{{ $item->id }}</td>
-                      <td>
-                        <a href="{{ url('admin/ranges', $item->id ) }}">{{ $item->name }}</a>{{ $item->nif_cif }}
-                      </td>
-                      {{-- <td>{{ $item->category->name }}</td>
-                      <td> 
-                        {{ $item->hour }}
-                      </td>
-                      <td>  {{ $item->minutes }} </td>
-                      <td> {{ $item->seconds }}</td> --}}
-                      
-
-                      
-                    </tr>
-                @endforeach
-              @endif
-              </tbody>
-             
-            </table>
-          </div>
-          <!-- /.box-body -->
+    <section class="content">
+        <div class="row">
+            <fieldset>
+                <legend style="text-align: center;font-weight: 900;padding: 10px;">LISTADO DE ENCUESTAS POR RANGOS <small></small></legend>
+                <div class="box-header with-border">
+                    <p>{{-- categoria  {{ $encuesta->category }} --}}
+                      @if(session()->has('message'))
+                        <div class="alert alert-danger">
+                            {{ session()->get('message') }}
+                        </div>
+                      @endif
+                    </p>
+                </div>
+                <div class="col-md-12">@include('includes.messages')</div>
+                <div class="col-md-12">
+                    <table id="example1" class="table table-striped table-hover table-bordered dataTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre de la encuesta</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (!empty($polls))
+                                @foreach ($polls as $item)
+                                    <tr>
+                                        <td>{{ $item->id }}</td>
+                                        <td>
+                                            <a href="{{ url('admin/ranges', $item->id ) }}">{{ $item->name }}</a>{{ $item->nif_cif }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
+            </fieldset>
         </div>
-      </div>
-      <!-- /.box-body -->
-      <div class="box-footer">
-      </div>
-      <!-- /.box-footer-->
-    </div>
-    <!-- /.box -->
-  </section>
-  <!-- /.content -->
+    </section>  
 </div>
-<!-- /.content-wrapper -->
 @endsection
 @section('footerSection')
 <script src="{{ asset('admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
