@@ -53,11 +53,21 @@
 		    		<div class="box box-primary" style="border-top-color: #605ca8;">
 		    			<fieldset>
 		    				<legend style="text-align: center;font-weight: 900;padding: 10px;">PREGUNTAS DE LA ENCUESTA</legend>
-		    				<input type="button" id="addPregunta" name="addPregunta" class="btn bg-light-blue pull-right" value="Agregar Pregunta" data-toggle="modal" data-target="#modalPreguntas" poll_id="{{$poll->id}}" style="background-color: #f4f4f4;">
-
-				    		<div class="clearfix"></div>
+		    				<div class="clearfix"></div>
 				    		<div id="col-lg-12 col-md-12 col-sm-12 col-xs-12 contenedorPreguntas">
 							@if (!empty($questions))
+								<table class="table table-bordered">
+									<tbody style="background-color: rgba(96, 92, 168, 0.58);border-color: rgb(8, 1, 125);">
+										<tr >
+											<td ><strong>DESCRIPCION</strong></td>
+											<td>
+												<button id="addPregunta" class="btn btn-default" data-toggle="modal" data-target="#modalPreguntas" style="float: right;" style="background-color: #f4f4f4 !important; color: #000 #000 !important;">
+		    										<i class="fa fa-plus" aria-hidden="true" class="pull-right" ></i> Agregar Pregunta
+		    									</button>
+		    								</td>
+										</tr>
+									</tbody>
+								</table>
 								@foreach($questions as $item)
 									<div class="box-body">
 										<table class="table table-bordered tblPregunta" question_id="{{ $item->id }}">
@@ -150,39 +160,41 @@
 	<div class="modal fade" id="modalRespuestas" tabindex="-1" role="dialog" aria-labelledby="modalRespuestasLabel">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h3 class="modal-title" id="modalRespuestasLabel"> Respuestas </h3>
-					<h4 class="modal-title"> Respuesta </h4>
-				</div>
+				<div class="panel panel-primary" style="border-color: #605ca8 !important">
+	                <div class="panel-heading" style="background: #605ca8; border: 1px solid #605ca8">
+	                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	                    <h4 class="panel-title" id="contactLabel"><span class="glyphicon glyphicon-info-sign"></span> RESPUESTA.</h4>
+	                </div>
+				
 
-				<div class="modal-body">
-					<form id="fRespuesta" role="form">
-			            {{ csrf_field() }}
-			            {{ method_field('PUT') }}
-			            <input type="hidden" name="poll_id" value="{{$poll->id}}">
-              			<input type="hidden" name="question_id" value="0">
-              			<input type="hidden" name="answer_id" value="0">
-	              
-	              		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-			                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group">
-			                    <label for="name">Respuesta</label>
-			                  <input type="text" class="form-control" id="name" name="name" placeholder="Respuesta">
-			                </div>
+					<div class="modal-body">
+						<form id="fRespuesta" role="form">
+				            {{ csrf_field() }}
+				            {{ method_field('PUT') }}
+				            <input type="hidden" name="poll_id" value="{{$poll->id}}">
+	              			<input type="hidden" name="question_id" value="0">
+	              			<input type="hidden" name="answer_id" value="0">
+		              
+		              		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group">
+				                    <label for="name">Respuesta</label>
+				                  <input type="text" class="form-control" id="name" name="name" placeholder="Respuesta">
+				                </div>
 
-			                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group">
-			                    <label for="name">Valoracion</label>
-			                  <input type="number" class="form-control" id="value" name="value" placeholder="Valoracion" min="0" required>
-			                </div>
-			            </div>
-	           		</form>
+				                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group">
+				                    <label for="name">Valoracion</label>
+				                  <input type="number" class="form-control" id="value" name="value" placeholder="Valoracion" min="0" required>
+				                </div>
+				            </div>
+		           		</form>
 
-	           		<div class="clearfix"></div>
-				</div>
+		           		<div class="clearfix"></div>
+					</div>
 
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-					<button id="guardarRespuesta" type="button" class="btn btn-primary">Guardar</button>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+						<button id="guardarRespuesta" type="button" class="btn btn-primary">Guardar</button>
+					</div>
 				</div>
 			</div>
 		</div>
