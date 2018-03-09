@@ -6,13 +6,13 @@
 	  <!-- Content Header (Page header) -->
 	  <section class="content-header">
 	    
-	    <ol class="breadcrumb" style="font-size: 27px">
+	    <ol class="breadcrumb" style="font-size: 20px">
 	      <li><a href="{{ route('categories.index') }}"><i class="fa fa-dashboard"></i> Index</a></li>
 	    </ol>
 	  </section>
 
 	
-	<section class="content" style="float: left; margin-top: 10px; background: #fff">
+	<section class="content" style="float: left; margin-top: 47px; background: #fff">
 	    <div class="row">
 	    	<fieldset>
 	    		<legend style="text-align: center;font-weight: 900;padding: 10px;">EDITAR CATEGORIAS DE ENCUESTAS <small></small></legend>

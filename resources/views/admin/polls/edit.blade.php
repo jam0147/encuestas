@@ -12,58 +12,51 @@
 	  </section>
 
 	  <!-- Main content -->
-	  <section class="content">
+	  <section class="content" style="background: #fff;">
 		    <div class="row">
-		      <div class="col-lg-12">
-				<div class="box box-primary">
-					<h2 class="titulo">
-			      		Editar Encuesta
-				    </h2>
-					@include('includes.messages')      
+	            <fieldset>
+	                <legend style="text-align: center;font-weight: 900;padding: 10px;">ENCUESTAS </legend>
+	                <div class="col-md-12">@include('includes.messages')</div>
+	                <div class="col-md-12">
+	                    <form role="form" action="{{ route('polls.update', $poll->id) }}" method="post">
+	                        {{ csrf_field() }}
+	                        {{ method_field('PUT') }}
+	                        <div class="box-body">
+	                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	                                <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
+	                                    <label for="categoria">Categoria</label><br>
+	                                    <select name="category_id" id="" class="form-control">
+	                                        @foreach ($categories as $item)
+	                                            <option value="{{$item->id}}">{{$item->name}}</option>
+	                                        @endforeach
+	                                    </select>                   
+	                                </div>
 
-					<form role="form" action="{{ route('polls.update', $poll->id) }}" method="post">
-						{{ csrf_field() }}
-						{{ method_field('PUT') }}
-						<div class="box-body">
-							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-								<div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
-									<label for="categoria">Categoria</label><br>
-									<select name="category_id" id="" class="form-control">
-										@foreach ($categories as $item)
-											<option value="{{$item->id}}">{{$item->name}}</option>
-										@endforeach
-									</select>	                
-								</div>
+	                                <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
+	                                    <label for="name">Nombre de la encuesta</label>
+	                                    <input type="text" class="form-control" id="name" name="name" placeholder="Nombre de la encuesta" value="{{ $poll->name }}">
+	                                </div>
 
-								<div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
-									<label for="name">Nombre de la encuesta</label>
-									<input type="text" class="form-control" id="name" name="name" placeholder="Nombre de la encuesta" value="{{ $poll->name }}">
-								</div>
-
-								<div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12" style="margin-top: 25px;">
-									<button type="submit" class="btn btn-primary">Guardar</button>
-									<a href='{{ route('polls.index') }}' class="btn btn-warning">Regresar</a>
-								</div>
-							</div>
-						</div>
-					</form>
-				</div>
-		        <!-- /.box -->
-		        
-		      </div>
-		      <!-- /.col-->
-		    </div>
-		    <!-- ./row -->
+	                                <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12" style="margin-top: 25px;">
+	                                    <button type="submit" class="btn btn-primary">Guardar</button>
+	                                    <a href='{{ route('polls.index') }}' class="btn btn-warning">Regresar</a>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </form>
+	                </div>
+	            </fieldset>
+	        </div>
 
 		    <div class="row">
 		    	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		    		<div class="box box-primary">
-			    		<h2 class="titulo"> Preguntas de la Encuesta </h2>
-				    	<input type="button" id="addPregunta" name="addPregunta" class="btn bg-light-blue pull-right" value="Agregar Pregunta" data-toggle="modal" data-target="#modalPreguntas" poll_id="{{$poll->id}}">
+		    		<div class="box box-primary" style="border-top-color: #605ca8;">
+		    			<fieldset>
+		    				<legend style="text-align: center;font-weight: 900;padding: 10px;">PREGUNTAS DE LA ENCUESTA</legend>
+		    				<input type="button" id="addPregunta" name="addPregunta" class="btn bg-light-blue pull-right" value="Agregar Pregunta" data-toggle="modal" data-target="#modalPreguntas" poll_id="{{$poll->id}}" style="background-color: #f4f4f4;">
 
-				    	<div class="clearfix"></div>
-
-						<div id="col-lg-12 col-md-12 col-sm-12 col-xs-12 contenedorPreguntas">
+				    		<div class="clearfix"></div>
+				    		<div id="col-lg-12 col-md-12 col-sm-12 col-xs-12 contenedorPreguntas">
 							@if (!empty($questions))
 								@foreach($questions as $item)
 									<div class="box-body">
@@ -104,23 +97,22 @@
 									</div>
 								@endforeach	{{-- FIN PREGUNTAS --}}
 							@endif
-						</div>
-		    		</div>
+						</fieldset>
+			    	</div>
 		    	</div>
 		    </div>
 
 	  </section>
-	  <!-- /.content -->
 	</div>
-	<!-- /.content-wrapper -->
+	
 
 	<div class="modal fade" id="modalPreguntas" tabindex="-1" role="dialog" aria-labelledby="modalPreguntasLabel">
 		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h3 class="modal-title" id="modalPreguntasLabel">Crear Pregunta</h3>
-				</div>
+			<div class="panel panel-primary" style="border-color: #605ca8 !important">
+                <div class="panel-heading" style="background: #605ca8; border: 1px solid #605ca8">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="panel-title" id="contactLabel"><span class="glyphicon glyphicon-info-sign"></span> CREAR PREGUNTA.</h4>
+                </div>
 
 				<div class="modal-body">
 					<form id="fPregunta" role="form">
