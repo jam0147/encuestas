@@ -172,31 +172,31 @@ class EncuestasController extends Controller
 
         $master_aplication = MasterAplication::where('poll_id', '=', $id)
             ->where('user_id', '=', Auth::user()->id)
+            ->where('status', '=', 0)
             ->first();
         
-        $encuesta = Poll::find($id);
-        $preguntas = Question::where('poll_id', '=', $encuesta->id)->get();
-            
-        if (!$master_aplication == null) {
-            if ($master_aplication->status == 1) { //Cuando la encuesta esta cerrada
-                return "la encuesta esta cerrada";
-            }
+        $encuesta   = Poll::findOrFail($id);
+        $preguntas  = Question::where('poll_id', '=', $encuesta->id)->get();
+        $detail_aplication = [];
 
+        if ($master_aplication) // si ha guardado la encuesta anteriormente
             $detail_aplication = DetailAplication::where('master_aplication_id', '=', $master_aplication->id)->get();
-
-            return view('user.encuestas.general.show', compact('encuesta', 'preguntas', 'detail_aplication', 'contestadas'));
-        }
 
         Session::put('start_date', Carbon::now()->format('Y-m-d H:i:s'));
 
         $numero_preguntas = Question::where('poll_id', '=', $encuesta->id)->count();
-        //Vista especial para 1 sola pregunta
-        if ($encuesta->category->show_all_questions == 0)
-            return view('user.encuestas.individual.ajax', compact('encuesta', 'preguntas', 'contestadas', 'numero_preguntas'));
 
-        $pregs = $preguntas->chunk(10);
-        //dd($pregs);
-        return view('user.encuestas.general.test', compact('encuesta', 'contestadas', 'pregs'));
+        if($encuesta->category->timer_type == 2){ // Cuando el tiempo es 
+            if ($encuesta->category->show_all_questions == 0) // tiempo por pregunta y mostrar una sola pregunta
+                return view('user.encuestas.individual.tiempo_pregunta_individual', compact('encuesta', 'preguntas', 'contestadas', 'numero_preguntas'));
+            
+            return view('user.encuestas.general.tiempo_pregunta', compact('encuesta', 'preguntas', 'detail_aplication', 'contestadas'));
+        }else{
+            if ($encuesta->category->show_all_questions == 0) // tiempo por pregunta y mostrar una sola pregunta
+                return view('user.encuestas.individual.ajax', compact('encuesta', 'preguntas', 'contestadas', 'numero_preguntas'));
+
+            return view('user.encuestas.general.show', compact('encuesta', 'preguntas', 'detail_aplication', 'contestadas'));
+        }
     }
 
     public function reanudar($id){

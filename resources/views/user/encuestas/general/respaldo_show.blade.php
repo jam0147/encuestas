@@ -140,22 +140,13 @@
     @endphp
 </div>
 <script src="{{ asset('admin/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
-<script>
-var hour, min, seg;
-
+<script>    
 var $horas    = "{{ $encuesta->category->hour }}";
 var $minutos  = "{{ $encuesta->category->minutes }}";
 var $segundos = "{{ $encuesta->category->seconds }}";
 var poll_id = "{{ $encuesta->id }}";
 var $timer = "{{ $timer }}";
-var finEncuesta = false;
-var avanzarFilaReloj = false;
-var $filaActiva = 1;
-var cantidadPreguntas = 0;
-var temporizador;
 $(function () {  
-  cantidadPreguntas = $(".panelPregunta", ".contenedorRows").length;
-
   $("input:submit").click(function() { return false; });
   
   $("input", ".radio").click(function(){
@@ -199,26 +190,21 @@ $(function () {
           class : 'oculto'
       }).appendTo($divRadio);
     }
-
-     if($(".panelPregunta").length == nroFila){
-          alert("esta es la ultima pregunta");
-     }
   });
 
   //Encuesta por tiempo
   if ($timer == 1){
     var n = 0;
     var nn = 0;
-    hour = $horas;
-    min = $minutos;
-    seg = $segundos;
+    var hour = $horas;
+    var min = $minutos;
+    var seg = $segundos;
 
     if ( hour == null || hour == '') {hour=0; }
     if ( min == null || min == '') {min=0; }
     if ( seg == null || seg == '') {seg=0; }
 
     //reloj();
-    reloj_pregunta();
   }
 });
 
@@ -246,45 +232,6 @@ function reloj() {
     enviarDatos();
 
   var t = setTimeout(function(){ reloj() }, 1000 );
-}
-
-function reloj_pregunta() {
-     console.log("filaactiva" +  $filaActiva);
-
-     if (min > 0  && seg <= 1){
-          alert(min + " dsasd " + seg);
-          min = min - 1;
-          seg = 59;
-     }
-
-     document.getElementById('displayReloj').innerHTML = min + " : " + seg;
-
-     if (min == 0 && seg == 0)
-          deshabilitarFilaActiva();
-
-     var temporizador = setTimeout(function(){
-          reloj_pregunta();
-          seg--;
-     }, 1000);
-}
-
-function deshabilitarFilaActiva(){
-     $(".panelPregunta[id_fila='" + $filaActiva +"']").removeClass('panel-primary');
-     $(".panelPregunta[id_fila='" + $filaActiva +"']").addClass('panel-warning');
-
-     $(".input_respuesta", ".panelPregunta[id_fila='" + $filaActiva +"']").prop("disabled", "disabled");
-
-     if ($filaActiva >= cantidadPreguntas) 
-          finEncuesta = true;
-
-     if(finEncuesta)
-          enviarDatos();
-
-     hour = $horas;
-     min = $minutos;
-     seg = $segundos;
-
-     $filaActiva++;
 }
 </script>
 
