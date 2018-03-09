@@ -6,7 +6,7 @@
 	  <!-- Content Header (Page header) -->
 	  <section class="content-header">
 	    
-	    <ol class="breadcrumb">
+	    <ol class="breadcrumb" style="font-size: 20px">
 	      <li><a href="{{ route('polls.index') }}"> Inicio </a> / <a href="{{ route('polls.index') }}"> Inicio </a>Encuestas </li>
 	    </ol>
 	  </section>
