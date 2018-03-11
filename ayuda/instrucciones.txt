@@ -8,3 +8,5 @@ php artisan migrate:refresh --seed
 -rango de encuesta decreciente
 -agregar etiketas
 -filtrar por categoria
+
+ok, porbando push
