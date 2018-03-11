@@ -18,7 +18,7 @@
                         </div>
                       @endif
                     </p>
-                    <h1> <a href="{{ url('admin/categories/create') }}" class="btn btn-primary pull-right btn-sm" style="float: right;">Crear Encuesta</a></h1>
+                    <h1> <a href="{{ url('admin/polls/create') }}" class="btn btn-primary pull-right btn-sm" style="float: right;">Crear Encuesta</a></h1>
                 </div>
                 <div class="col-md-12">@include('includes.messages')</div>
                 <div class="col-md-12">
