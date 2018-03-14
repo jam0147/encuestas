@@ -30,6 +30,7 @@ Route::group(['namespace' => 'Admin'],function(){
 	Route::put('admin/answers/guardar/{id}','AnswerController@guardar')->name('respuestas.guardar');
 	Route::put('admin/answers/actualizar/{id}','AnswerController@actualizar')->name('respuestas.actualizar');
 	Route::get('admin/answers/eliminar/{id}','AnswerController@eliminar')->name('respuestas.eliminar');
+	Route::put('admin/polls/eliminar/{id}', 'PollsController@eliminar')->name('polls.eliminar');
 });
 
 Route::group(['namespace' => 'User'],function(){
