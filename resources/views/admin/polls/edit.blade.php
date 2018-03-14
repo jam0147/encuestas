@@ -4,7 +4,7 @@
 	<div class="content-wrapper">
 	  	<section class="content-header">
 		    <ol class="breadcrumb" style="font-size: 20px">
-		      <li><a href="{{ route('polls.index') }}"> Inicio </a> / <a href="{{ route('polls.index') }}"> Inicio </a>Encuestas </li>
+		      <li><a href="{{ route('polls.index') }}"> Inicio </a> / <a href="{{ route('polls.index') }}"></a>Encuestas </li>
 		    </ol>
 	  	</section>
 
@@ -78,7 +78,7 @@
 
 												<th style="width: 65px">
 													<span name="addRespuesta" class="btn btn-success btn-xs addRespuesta" title="Agregar Respuesta"  data-toggle="modal" data-target="#modalRespuestas" poll_id="{{$poll->id}}" question_id="{{ $item->id }}"> <i class="fa fa-plus"></i> </span>
-													<span class="btn btn-danger btn-xs eliminarPregunta" title="Eliminar Pregunta"> <i class="fa fa-minus"></i> </span>
+													<span class="btn btn-danger btn-xs eliminarPregunta" title="Eliminar Pregunta" poll_id="{{$poll->id}}"question_id="{{ $item->id }}"> <i class="fa fa-minus"></i> </span>
 
 												</th>
 												<th style="width: 20px">Valoracion</th>
@@ -286,6 +286,32 @@
 					}
 				});
 				
+			});
+			$(".eliminarPregunta").click(function(){
+				if(!confirm("¿Realmente desea eliminar esta pregunta?"))
+					return false;
+				$btn = $(this);
+				$idquestion = $(this).attr('question_id');
+				var $url = '{{ url('admin/polls/eliminar') }}/' + $(this).attr('question_id');
+				
+				$.ajax({
+					url 	 : $url,
+					//data: $("#fRespuesta").serialize(),
+					data: {
+						'_token': '{{ csrf_token() }}',
+						'question_id': $(this).attr('question_id'),
+						'poll_id' : $(this).attr('poll_id')
+					},
+					dataType :'json',
+					type 	 :'PUT',
+					success  :function(r){
+						alert(r.msj);
+						if(r.s == 's'){
+							$("table[question_id='" + $idquestion + "']").detach();
+							$btn.parents("tr").detach();
+						}
+					}
+				});
 			});
 		});
 
