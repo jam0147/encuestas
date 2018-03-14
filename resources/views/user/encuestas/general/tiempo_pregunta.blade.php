@@ -21,6 +21,26 @@
     transition: 0.5ms;
     width: 100%;
   }
+
+   .respuesta:hover{
+      background-color:#337ab7;
+      color:#FFF;
+   }
+
+   .input_respuesta{
+      width: 20px;
+      height: 20px;
+      margin: 4px 0px 0 0 !important;
+   }
+
+   .labelRespuesta{
+      font-weight: bold;
+      margin-left: 10px;
+   }
+
+   .deshabilitada{
+      opacity: 0.6 !important;
+   }
 </style>
 <div class="container">
   <br><br><br><br>
@@ -74,7 +94,7 @@
                                         @foreach($pregunta->answers as $answer)
                                             <div class="respuesta">
                                               <input type="radio" 
-                                              name="" e="respuestas{{$pregunta->id}}" 
+                                              name="" e="respuestas{{$pregunta->id}}"
                                               value="{{ $answer->id }}" 
                                               class="rad input_respuesta" 
                                               id="{{ $answer->id }}" 
@@ -85,9 +105,8 @@
                                                   @endif
                                                 @endforeach
                                               @endif
-                                              style="margin-left: 0px !important; "
-                                              >
-                                                <label style="font-weight: bold;">
+                                              />
+                                                <label for="r_{{ $answer->id }}" class="labelRespuesta">
                                                   {{ $answer->name }}
                                                 </label> 
                                             </div>
@@ -123,7 +142,7 @@
 <script src="{{ asset('admin/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
 <script>
 var hour, min, seg;
-var $horas     = "{{ $encuesta->category->hour }}";
+var $horas     = "1";
 var $minutos   = "{{ $encuesta->category->minutes }}";
 var $segundos  = "{{ $encuesta->category->seconds }}";
 var poll_id    = "{{ $encuesta->id }}";
@@ -183,6 +202,7 @@ $(function () {
          }).appendTo($divRadio);
       }
 
+      $(this).parents(".respuesta").addClass('respuesta_seleccionada');
       deshabilitarFilaActiva();
    });
 
@@ -224,6 +244,7 @@ function reloj_pregunta() {
 }
 
 function deshabilitarFilaActiva(){
+   console.log("deshabilitarFilaActiva");
    $(".panelPregunta[id_fila='" + $filaActiva +"']").removeClass('panel-primary');
    $(".panelPregunta[id_fila='" + $filaActiva +"']").addClass('panel-warning deshabilitada');
 

@@ -217,8 +217,8 @@ $(function () {
     if ( min == null || min == '') {min=0; }
     if ( seg == null || seg == '') {seg=0; }
 
-    //reloj();
-    reloj_pregunta();
+    reloj();
+    //reloj_pregunta();
   }
 });
 

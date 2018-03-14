@@ -88,8 +88,13 @@
                                   </div>
                                 </div>
                                   <div>
+                                    @if($encuesta->category->pausable == 1)
+                                        <a class="" href="#carousel-example-generic"  role="button" data-slide="previous" id="anterior">
+                                        <button class="btn btn-warning" id="right.carousel-control"> Anterior </button>
+                                      </a>
+                                    @endif
                                     <a class="" href="#carousel-example-generic"  role="button" data-slide="next" id="next">
-                                      <button class="btn btn-primary" id="right.carousel-control">siguiente pregunta</button>
+                                      <button class="btn btn-primary" id="right.carousel-control"> Siguiente </button>
                                     </a>
                                   </div>
                                 </div>
