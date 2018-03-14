@@ -1,18 +1,14 @@
 @extends('admin.layouts.app')
 
 @section('main-content')
-	<!-- Content Wrapper. Contains page content -->
 	<div class="content-wrapper">
-	  <!-- Content Header (Page header) -->
-	  <section class="content-header">
-	    
-	    <ol class="breadcrumb" style="font-size: 20px">
-	      <li><a href="{{ route('polls.index') }}"> Inicio </a> / <a href="{{ route('polls.index') }}"> Inicio </a>Encuestas </li>
-	    </ol>
-	  </section>
+	  	<section class="content-header">
+		    <ol class="breadcrumb" style="font-size: 20px">
+		      <li><a href="{{ route('polls.index') }}"> Inicio </a> / <a href="{{ route('polls.index') }}"> Inicio </a>Encuestas </li>
+		    </ol>
+	  	</section>
 
-	  <!-- Main content -->
-	  <section class="content" style="background: #fff;">
+	  	<section class="content" style="background: #fff;">
 		    <div class="row">
 	            <fieldset>
 	                <legend style="text-align: center;font-weight: 900;padding: 10px;">ENCUESTAS </legend>
@@ -47,8 +43,7 @@
 	                </div>
 	            </fieldset>
 	        </div>
-
-		    <div class="row">
+			<div class="row">
 		    	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 		    		<div class="box box-primary" style="border-top-color: #605ca8;">
 		    			<fieldset>
@@ -61,7 +56,7 @@
 										<tr >
 											<td ><strong>DESCRIPCION</strong></td>
 											<td>
-												<button id="addPregunta" class="btn btn-default" data-toggle="modal" data-target="#modalPreguntas" style="float: right;" style="background-color: #f4f4f4 !important; color: #000 #000 !important;">
+												<button id="addPregunta" class="btn btn-default" data-toggle="modal" data-target="#modalPreguntas" style="float: right;" style="background-color: #f4f4f4 !important; color: #000 #000 !important;" poll_id="{{$poll->id}}">
 		    										<i class="fa fa-plus" aria-hidden="true" class="pull-right" ></i> Agregar Pregunta
 		    									</button>
 		    								</td>
@@ -111,8 +106,7 @@
 			    	</div>
 		    	</div>
 		    </div>
-
-	  </section>
+		</section>
 	</div>
 	
 
@@ -207,7 +201,6 @@
 			border-bottom: 1px solid #EAEAEA;
 			padding-left: 10px;
 		}
-
 		.box.box-primary{padding: 10px;}
 	</style>
 @endpush
@@ -218,6 +211,7 @@
 			$("#addPregunta").click(function(){
 				limpiarModal("modalPreguntas");
 				$("input[name='poll_id']", "#fPregunta").val($(this).attr('poll_id'));
+				console.log();
 			});
 
 			$("span[name='addRespuesta']").click(function(){
