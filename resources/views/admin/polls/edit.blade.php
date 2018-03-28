@@ -15,6 +15,7 @@
 	                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 	                                <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
 	                                    <label for="categoria">Categoria</label><br>
+
 	                                    <select name="category_id" id="" class="form-control">
 	                                        @foreach ($categories as $item)
 	                                            <option value="{{$item->id}}">{{$item->name}}</option>
@@ -202,6 +203,8 @@
 @push('js')
 	<script type="text/javascript">
 		$(function(){
+			var categoria = "{{$poll->category_id}}";
+			$("select[name='category_id']").val(categoria);
 			$("#addPregunta").click(function(){
 				limpiarModal("modalPreguntas");
 				$("input[name='poll_id']", "#fPregunta").val($(this).attr('poll_id'));
