@@ -54,6 +54,7 @@
         <script src="{{ asset('js/wow.min.js') }}"></script>
 		<!-- Custom Functions -->
         <script src="{{ asset('js/main.js') }}"></script>
+        <script src="{{ asset('js/highcharts/highcharts.js') }}"></script>
 
 	@section('footer')
 	       @show

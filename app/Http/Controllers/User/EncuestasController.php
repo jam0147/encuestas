@@ -28,7 +28,11 @@ class EncuestasController extends Controller
    
     public function index()
     {
-        $polls = Poll::all();
+        /*$polls = Poll::all();
+        return view('user.encuestas.index', compact('polls'));*/
+        $respuestas = Answer::where('id', '>', 0)->distinct('poll_id')->pluck('poll_id');
+        $polls = Poll::find($respuestas);
+
         return view('user.encuestas.index', compact('polls'));
     }
   
@@ -80,8 +84,17 @@ class EncuestasController extends Controller
         $resume = new \stdClass();
         $resume->text = null;
         $ranges = Range::where('poll_id', '=', $request->poll_id)->get();
+        $rangos = array();
+        $rango_usuario = array();
+
         if(count($ranges) > 0)
             foreach ($ranges as $key => $value) {
+                $rangos[] = array(
+                    'name'      => $value->text,
+                    'y'         => $value->to,
+                    'drilldown' => $value->text
+                );
+
                 if ( $total >= $value->from && $total <= $value->to) {
                     $range = $value;
                     $resume = new Resume();
@@ -92,10 +105,20 @@ class EncuestasController extends Controller
                     $resume->to = $value->to;
                     $resume->text = $value->text;
                     $resume->save();
-                    //return $resume;
+
+                    $rango_usuario = array(
+                        'name'      => 'Su rango',
+                        'y'         => $value->to,
+                        'drilldown' => 'Su rango'
+                    );
                 }
             }
-        return view('user.encuestas.resultados.resultado', compact('resume', 'total', 'encuesta'));
+
+        $rangos[] = $rango_usuario;
+
+        $rangos = json_encode($rangos);
+
+        return view('user.encuestas.resultados.resultado', compact('resume', 'total', 'encuesta', 'rangos'));
     }
 
     public function individualStore(Request $request)
@@ -138,13 +161,18 @@ class EncuestasController extends Controller
                 $aplication_poll->save();
             }
 
-        //determinar el rango
-
         $resume = new \stdClass();
         $resume->text = null;
         $ranges = Range::where('poll_id', '=', $request->poll_id)->get();
-
+        $rangos = array();
+        $rango_usuario = array();
         foreach ($ranges as $key => $value) {
+            $rangos[] = array(
+                'name'      => $value->text,
+                'y'         => $value->to,
+                'drilldown' => $value->text
+            );
+            
             if ( $total >= $value->from && $total <= $value->to) {
                 $range = $value;
                 $resume = new Resume();
@@ -155,9 +183,19 @@ class EncuestasController extends Controller
                 $resume->to = $value->to;
                 $resume->text = $value->text;
                 $resume->save();
+
+                $rango_usuario = array(
+                    'name'      => 'Su rango',
+                    'y'         => $value->to,
+                    'drilldown' => 'Su rango'
+                );
             }
         }
-        return view('user.encuestas.resultados.resultado', compact('resume', 'total', 'encuesta'));
+        $rangos[] = $rango_usuario;
+
+        $rangos = json_encode($rangos);
+
+        return view('user.encuestas.resultados.resultado', compact('resume', 'total', 'encuesta', 'rangos'));
     }
    
     public function show($id)
