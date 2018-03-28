@@ -100,11 +100,13 @@ class EncuestasController extends Controller
 
     public function individualStore(Request $request)
     {
-        if ($request->id_respuestas == null) {
-            return redirect()->back()->with('message', 'Debes responder al menos 1 pregunta!');
+
+        $encuesta = Poll::find($request->poll_id);
+
+        if($request->id_respuestas == null) {
+            if($encuesta->category->timer_type != 2)
+                return redirect()->back()->with('message', 'Debes responder al menos 1 pregunta!');
         }
-        
-        //dd($request->all());
         
         $st = Session::get('start_date');
         $master_aplication = new MasterAplication();
@@ -113,11 +115,8 @@ class EncuestasController extends Controller
         $master_aplication->poll_id = $request->poll_id;;
         $master_aplication->status = 0;
         $master_aplication->save();
-        //dd($request->all());        
 
-        $encuesta = Poll::find($request->poll_id);
         $preguntas = Question::where('poll_id', '=', $request->poll_id)->get();
-        //$respuestas = Answer::where('poll_id', $encuesta->id)->get();
         $total = 0;
 
         AplicationPoll::where('user_id', '=', Auth::user()->id)
@@ -126,7 +125,6 @@ class EncuestasController extends Controller
 
         if(isset($request->id_respuestas) && count($request->id_respuestas) > 0)
             foreach ($request->id_respuestas as $key => $value) {
-                //print_r('llave: '.$key .' valor: '. $value. ' ');
                 $aplication_poll = new AplicationPoll();
                 $total += Answer::where('id', $value)->first()->value;
                 $answer = Answer::find($value);

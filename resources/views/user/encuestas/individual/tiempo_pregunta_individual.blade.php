@@ -7,9 +7,12 @@
     .carousel h2 {color: #0072b5;}
     .carousel h2 small{color: #289bde}
     .carousel col-lg-4 p {text-align: center;}
+    .owl-prev{display: none;}
+    #deshabilitadas{display: none;}
   </style>
   <br><br><br><br>
     <div class="row">
+        
         <form action="{{ route('encuestas.individual') }}" method="post" id="formid"> 
             {{ csrf_field()  }} 
 
@@ -18,91 +21,47 @@
             <div class="col-md-12 col-xs-12">
                 <div >
                     <h1 class="text-center" style="color: #999999;">{{ $encuesta->name }}</h1><br>
-                    
-                      <div class='container carousel' id="mycarrousel" data-interval="false">
-                        <div id="carousel-example-generic" class="carousel slide" {{-- data-ride="carousel" --}}>
-                            <div class="carousel-inner text-center" role="listbox">
-                              @foreach ($preguntas as $pregunta)
-                                @if($loop->index == 0)
-                                  <div class="item active">
-                                @else  
-                                  <div class="item">
-                                @endif
-                                <div class="panel panel-primary">
-                                  <div class="panel-heading">
-                                    <h3 class="panel-title">
-                                        <span class="glyphicon "></span>{{  $pregunta->name }}? <a href="http://www.jquery2dotnet.com" target="_blank"><span
-                                            class="glyphicon "></span></a>
-                                    </h3>
-                                  </div>
-                                  <div class="panel-body">
-                                    <div class="radio">
-                                      @if (!empty($pregunta->answers))
-                                        @foreach($pregunta->answers as $answer)
-                                          @if ($pregunta->multiple_answers == 1)
-                                              <div style="float: left;padding: 6px;margin-bottom: 8px;border: 1px solid #bad3e8;border-radius: 10px; width: 100%;     font-weight: bold !important;">
-                                                <input type="checkbox" 
-                                                name="respuestas" 
-                                                value="{{ $answer->id }}" 
-                                                class="chk" 
-                                                id="{{ $answer->id }}"
-                                                @if (!$contestadas == null)
-                                                  @foreach ($contestadas as $item)
-                                                    @if ($item->answer_id == $answer->id)
-                                                      checked
-                                                    @endif
-                                                  @endforeach
-                                                @endif
-                                                > 
-                                                {{ $answer->name }}
-                                              </div>
-                                          @else
-                                            <div style="float: left;padding: 6px; margin-bottom: 8px; border: 1px solid #bad3e8; border-radius: 10px;width: 100%;     font-weight: bold !important;">
-                                              <input type="radio" 
-                                              name="respuestas{{$pregunta->id}}" 
-                                              value="{{ $answer->id }}" 
-                                              class="rad" 
-                                              id="{{ $answer->id }}" 
-                                              @if (!$contestadas == null)
-                                                @foreach ($contestadas as $item)
-                                                  @if ($item->answer_id == $answer->id)
-                                                    checked
-                                                  @endif
-                                                @endforeach
-                                              @endif
-                                              style="margin-left: 0px !important; "
-                                              >
-                                                <label style="font-weight: bold;">
-                                                  {{ $answer->name }}
-                                                </label> 
-                                            </div>
-                                          @endif  
-                                        @endforeach
-                                      @endif
-                                    </div>
-                                  </div>
+                    <div style="text-align:center;">
+                      <p>Tiempo para responder: {{ $encuesta->category->hour }}:{{ $encuesta->category->minutes }}:{{ $encuesta->category->seconds }}</p>
+                      <div id="cabecera"></div>
+                      <p>Tiempo restante:</p>
+                      <div style="color:#337ab7; font-family: verdana, arial; font-size:30px; padding:15px;" id ="displayReloj" > &nbsp;
+                      </div>
+                      <h2 id='CuentaAtras'></h2>
+                    </div>
+                      <div id="owl-demo" class="owl-carousel owl-theme">
+                        @foreach ($preguntas as $pregunta)
+                            @if($loop->index == 0)
+                              <div class="item active" nro_pregunta="{{ $loop->index }}">
+                            @else  
+                              <div class="item" nro_pregunta="{{ $loop->index }}">
+                            @endif
+                            <div class="panel panel-primary">
+                              <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    <span class="glyphicon "></span>{{  $pregunta->name }}? <a href="http://www.jquery2dotnet.com" target="_blank"><span
+                                        class="glyphicon "></span></a>
+                                </h3>
+                              </div>
+                              <div class="panel-body">
+                                <div class="radio">
+                                  @if (!empty($pregunta->answers))
+                                    @foreach($pregunta->answers as $answer)
+                                      <div style="float: left;padding: 6px; margin-bottom: 8px; border: 1px solid #bad3e8; border-radius: 10px;width: 100%;     font-weight: bold !important;">
+                                          <input type="radio" name="respuestas{{$pregunta->id}}" value="{{ $answer->id }}" class="rad" id="{{ $answer->id }}" style="margin-left: 0px !important; "/>                                              
+                                          <label style="font-weight: bold;"> {{ $answer->name }} </label> 
+                                        </div>
+                                    @endforeach
+                                  @endif
                                 </div>
                               </div>
-                              @endforeach 
-
-                              <div id="controles_carousel">
-                                @if($encuesta->category->pausable == 1)
-                                    <a class="" href="#carousel-example-generic" role="button" data-slide="prev" id="anterior" style="display: none;">
-                                    <button class="btn btn-warning" id="right.carousel-control"> Anterior </button>
-                                  </a>
-                                @endif
-
-                                <a id="next" href="#carousel-example-generic"  role="button" data-slide="next" >
-                                  <button class="btn btn-primary" id="right.carousel-control"> Siguiente </button>
-                                </a>
-                              </div>
-
-                            </div>                           
-                        </div>
-                    </div> 
+                            </div>
+                          </div>
+                          @endforeach
+                      </div>
                 <br>    
                 <br>
-                <div class="col-md-4 col-xs-4"">
+                <div class="col-md-2 col-xs-4 pull-right">
                   <button id="terminar_encuesta" class="btn btn-danger block">Terminar encuesta</button>
                   
                   @if($encuesta->category->pausable == 1)
@@ -110,6 +69,8 @@
                   @endif
                 </div>                     
             </div>
+
+            <div id="deshabilitadas"></div>
         </div>
         </form>
     </div>
@@ -124,54 +85,47 @@
 
 <script>  
   var $pausable = "{{ $encuesta->category->pausable }}";
-  var $horas_categoria = "{{ $encuesta->category->hour }}";
-  var $mins_categoria = "{{ $encuesta->category->minutes }}";
-  var $segs_categoria = "{{ $encuesta->category->seconds }}";
+  var $horas_categoria = $horasDefecto = "{{ $encuesta->category->hour }}";
+  var $mins_categoria = $minsDefecto = "{{ $encuesta->category->minutes }}";
+  var $segs_categoria = $segsDefecto = "{{ $encuesta->category->seconds }}";
   var poll_id = {{ $encuesta->id }};
   var $numero_preguntas = {{ $numero_preguntas }};
   var inicio = 0;
   var $preguntaActual = 1;
+  var owl;
 $(function () {
-  $('.carousel').carousel({
-    wrap: false,
-    autoPlay : false
+  /*$('.carousel').carousel({
+      wrap: false,
+      autoPlay : false
+  });*/
+
+
+  $("#owl-demo").owlCarousel({
+      navigation  : false, // Show next and prev buttons
+      slideSpeed  : 300,
+      paginationSpeed : 400,
+      singleItem  :true,
+      autoPlay    : false,
+      navigationText : ["anterior",'<a class="btn btn-primary" id="right.carousel-control"> Siguiente </a>']
   });
+
+  owl = $(".owl-carousel").data('owlCarousel');
 
   /*
     Pendiente:
       
-      - Quitar los checkbox y que sean solo type radio.
       - Hacer que se deshabilite el div.item de la pregunta que se ha respondido, venció el tiempo o le dió a "siguiente".
-      - Eliminar el botón anterior porque no deberia permitir regresar en esta categoria.
-      - Eliminar el autoPlay para que no siga pasando.
-      - Cuando se deshabilite la ultima pregunta, no debe pasar a la primera nuevamente, solo enviar formulario.
       - Cuando se haga click en pausar, se debe eliminar todo lo que tiene el detalle de la encuesta y volver a guardar.
   */
-
-  $('.carousel').on('slid.bs.carousel', function (e) {
-      var carouselData = $(this).data('bs.carousel');
-      var currentIndex = carouselData.getItemIndex(carouselData.$element.find('.item.active'));
-      $(this).children('.carousel-control').show();
-  });
-
-  $("#next").click(function(){
-    $preguntaActual++;
-    
-    $("#anterior").fadeIn();
-
+/*
+  $(".owl-next").click(function(){
     if($preguntaActual == $numero_preguntas){
       $(this).fadeOut();
     }
   });
-
-  $("#anterior").click(function(){
-    $preguntaActual--;
-
-    $("#next").fadeIn();
-
-    if($preguntaActual <= 1){
-      $(this).fadeOut();
-    }
+*/
+  $("input.rad").click(function(){
+    deshabilitarActiva();
   });
 
   $("input:submit").click(function() { return false; });
@@ -184,7 +138,7 @@ $(function () {
     if ( $mins_categoria == null) {$mins_categoria=0; }
     if ( $segs_categoria == null) {$segs_categoria=0; }
     
-    reloj();
+    setTimeout(function(){reloj()},1000);
   }
 
   $("#terminar_encuesta").click(function(){
@@ -219,10 +173,27 @@ function reloj() {
   }
     
   if (($mins_categoria == 0) && ($segs_categoria == 0))
-    document.getElementById('displayReloj').innerHTML = $mins_categoria + " : " + $segs_categoria;
+    deshabilitarActiva();
 
   document.getElementById('displayReloj').innerHTML = $mins_categoria + " : " + $segs_categoria;
   var t = setTimeout(function(){reloj()},1000);
+}
+
+function deshabilitarActiva(){
+  if($preguntaActual == $numero_preguntas){
+    $("#terminar_encuesta").trigger("click");
+    return false;
+  }
+
+  $horas_categoria = $horasDefecto;
+  $mins_categoria = $minsDefecto;
+  $segs_categoria = $segsDefecto;
+
+  owl.next(); //$(".owl-next").trigger("click");
+  //  $(".item[nro_pregunta='" + ($preguntaActual - 1) + "']").appendTo("#deshabilitadas");
+
+
+  $preguntaActual++;
 }
 </script>
 @endsection

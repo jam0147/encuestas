@@ -252,7 +252,6 @@ function reloj_pregunta() {
      console.log("filaactiva" +  $filaActiva);
 
      if (min > 0  && seg <= 1){
-          alert(min + " dsasd " + seg);
           min = min - 1;
           seg = 59;
      }
