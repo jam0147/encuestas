@@ -5,7 +5,7 @@
 @endsection
 
 @section('main-content')
-<div class="content-wrapper">
+<div class="content-wrapper" style="background: #fff">
     <section class="content">
         <div class="row">
             <fieldset>
@@ -52,7 +52,7 @@
 
                                         <td>
                                             <a href="{{ url('admin/polls/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs">
-                                            <i class="fa fa-eye"></i>
+                                            <i class="fa fa-pencil"></i>
                                             </a>                            
                                             <form action="{{ route('polls.destroy',  $item->id) }}" method="post" style="display:inline">
                                             {{ csrf_field() }}

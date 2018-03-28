@@ -8,7 +8,7 @@
 @endsection
 
 @section('main-content')
-    <div class="content-wrapper">
+    <div class="content-wrapper" style="background: #fff">
       <section class="content" style=" background: #fff">
           <div class="row">
             <fieldset>
@@ -26,7 +26,7 @@
                               <div class="panel panel-primary filterable" style="    border-color: #e5e5e5;">
                                 <div class="panel-heading" style="background-color: rgba(96, 92, 168, 0.58);     border-color: rgba(96, 92, 168, 0.58);">
                                     <div class="panel-title">Rangos
-                                      <button id="addRange" class="btn btn-default" data-toggle="modal" data-target="#addRangeModal" style="float: right;">
+                                      <button id="addRange" class="btn btn-primary" data-toggle="modal" data-target="#addRangeModal" style="float: right;">
                                           <i class="fa fa-plus" aria-hidden="true" class="pull-right" ></i>
                                           Agregar rango
                                         </button>

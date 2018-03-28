@@ -18,6 +18,9 @@ body {
 .layout-boxed body {
   height: 100%;
 }
+.content{
+  background: #fff
+}
 body {
   font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 400;

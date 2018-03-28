@@ -13,7 +13,12 @@
     border: none;
     cursor: pointer;
 }
-
+.content{
+    background: #fff;
+}
+.content-header, .skin-purple .content-header{
+    background: #fff !important;
+}
 .icheckbox_flat-blue {
     background-position: 0 0;
 }

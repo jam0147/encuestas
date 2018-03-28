@@ -1,12 +1,8 @@
 @extends('admin.layouts.app')
 
 @section('main-content')
-	<div class="content-wrapper">
-	  	<section class="content-header">
-	    	<ol class="breadcrumb" style="font-size: 20px">
-		      <li><a href="{{ route('categories.index') }}"><i class="fa fa-dashboard"></i> Index</a></li>
-		    </ol>
-	  	</section>
+	<div class="content-wrapper" style="background: #fff;">
+	  	
 		<section class="content" style="float: left; margin-top: 47px; background: #fff">
 		    <div class="row">
 		    	<fieldset>

@@ -17,9 +17,9 @@
               <li class="header">Opciones {{Auth::user()->name}} </li>
                <li class="header"></li>
                 <li class="active treeview menu-open">
-                  <a href="{{ route('admins.index') }}">
-                    <i class="fa fa-users"></i> 
-                    <span>Administradores</span>
+                  <a href="{{ route('user.index') }}">
+                      <i class="fa fa-circle-o"></i> 
+                      <span>index</span>
                   </a>
                   <a href="{{ route('categories.index') }}">
                     <i class="fa fa-folder"></i> 
@@ -33,10 +33,7 @@
                     <i class="fa fa-calendar"></i>        
                     <span>Establecer Rangos</span>  
                   </a>
-                  <a href="{{ route('user.index') }}">
-                      <i class="fa fa-circle-o"></i> 
-                      <span>index</span>
-                  </a>
+                  
                   <a href="{{ route('admin.logout') }}" onclick="event.preventDefault();
                                    document.getElementById('logout-form').submit();">
                       <i class="fa fa-sign-out"></i><span>Salir</span></a></li> 

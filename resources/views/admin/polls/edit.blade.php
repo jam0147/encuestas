@@ -1,13 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('main-content')
-	<div class="content-wrapper">
-	  	<section class="content-header">
-		    <ol class="breadcrumb" style="font-size: 20px">
-		      <li><a href="{{ route('polls.index') }}"> Inicio </a> / <a href="{{ route('polls.index') }}"></a>Encuestas </li>
-		    </ol>
-	  	</section>
-
+	<div class="content-wrapper" style="background: #fff">
 	  	<section class="content" style="background: #fff;">
 		    <div class="row">
 	            <fieldset>
@@ -56,7 +50,7 @@
 										<tr >
 											<td ><strong>DESCRIPCION</strong></td>
 											<td>
-												<button id="addPregunta" class="btn btn-default" data-toggle="modal" data-target="#modalPreguntas" style="float: right;" style="background-color: #f4f4f4 !important; color: #000 #000 !important;" poll_id="{{$poll->id}}">
+												<button id="addPregunta" class="btn btn-primary" data-toggle="modal" data-target="#modalPreguntas" style="float: right;"  poll_id="{{$poll->id}}">
 		    										<i class="fa fa-plus" aria-hidden="true" class="pull-right" ></i> Agregar Pregunta
 		    									</button>
 		    								</td>

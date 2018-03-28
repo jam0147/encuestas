@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Poll;
 use App\Range;
+use DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
 
@@ -81,6 +82,8 @@ class RangeController extends Controller
     
     public function destroy($id)
     {
-        //
+        $range = DB::table('ranges')->where('poll_id', '=', $id)->delete();
+        return redirect('admin/ranges');
+
     }
 }
