@@ -13,10 +13,7 @@
                     </button>
 					<!-- /responsive nav button -->
 					
-					<!-- logo -->
-					<h1 class="navbar-brand">
-						<a href="{{ url('/') }}">Inicio</a>
-					</h1>
+					
 					<!-- /logo -->
                 </div>
 

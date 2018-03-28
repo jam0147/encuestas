@@ -28,8 +28,9 @@
                                             @foreach ($polls as $item)
                                         <tr>                                
                                             <td class="active">{{ $item->name }}{{--  <a href="#"></a>  --}}</td>
-                                            <td><a href="{{ route('encuestas.show', $item->id) }}">Comenzar</a></td>
+                                            
                                             @if ($item->category->hour > 0 || $item->category->minutes > 0 || $item->category->seconds > 0)
+                                                <td><a href="{{ route('encuestas.show', $item->id) }}">Comenzar</a></td>
                                             @else
                                                 <td><a href="{{ route('encuestas.reanudar', $item->id) }}">Reanudar</a>
                                                 </td>
