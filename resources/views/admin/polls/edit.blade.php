@@ -282,8 +282,8 @@
 						}
 					}
 				});
-				
 			});
+
 			$(".eliminarPregunta").click(function(){
 				if(!confirm("¿Realmente desea eliminar esta pregunta?"))
 					return false;
@@ -338,6 +338,23 @@
 
 		function agregarRespuestaTabla($question_id, $info){
 			$(".tblPregunta[question_id='"+ $question_id +"']").append("<tr class='answer'><td>-</td><td answer_id='"+ $info.id +"'> "+ $info.name +" </td> <td class='text-center'> <span class='btn btn-danger btn-xs btnEliminarRespuesta'> <i class='fa fa-remove'></i> </span> </td>	 <td><span class='badge bg-light-blue'> " + $info.value + " </span></td></tr>");
+
+			$(".btnEliminarRespuesta").click(function(){
+				if(!confirm("¿Realmente desea eliminar esta respuesta?"))
+					return false;
+				$btn = $(this);
+				$.ajax({
+					url 	 : '{{ url('admin/answers/eliminar') }}/' + $(this).attr('answer_id'),
+					dataType :'json',
+					type 	 :'GET',
+					success  :function(r){
+						alert(r.msj);
+						if(r.s == 's'){
+							$btn.parents("tr").detach();
+						}
+					}
+				});
+			});
 		}
 	</script>
 @endpush
