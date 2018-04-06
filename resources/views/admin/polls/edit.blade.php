@@ -262,6 +262,9 @@
 						if(r.s == 's'){
 							agregarRespuestaTabla(r.respuesta.question_id, r.respuesta);
 							$("#modalRespuestas").modal("hide");
+						}else{
+							alert(r.msj);
+						    $("#modalRespuestas").modal("show");
 						}
 					}
 				});
