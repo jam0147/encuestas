@@ -26,6 +26,12 @@
   <br><br><br><br>
     <div class="row">
     <p>{{-- categoria  {{ $encuesta->category }} --}}
+      <div id="mensaje">
+           <h1 style="text-align: center;font-weight:bolder;color:blue;"> 
+              {{ $generaldefinitions->description }}
+           </h1>
+      </div>
+      
       @if(session()->has('message'))
         <div class="alert alert-success">
             {{ session()->get('message') }}
@@ -139,6 +145,7 @@
         $timer = 1;
     @endphp
 </div>
+
 <script src="{{ asset('admin/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
 <script>
 var hour, min, seg;
@@ -153,6 +160,7 @@ var avanzarFilaReloj = false;
 var $filaActiva = 1;
 var cantidadPreguntas = 0;
 var temporizador;
+
 $(function () {  
   cantidadPreguntas = $(".panelPregunta", ".contenedorRows").length;
 
@@ -200,9 +208,9 @@ $(function () {
       }).appendTo($divRadio);
     }
 
-     if($(".panelPregunta").length == nroFila){
-          alert("esta es la ultima pregunta");
-     }
+    if($(".panelPregunta").length == nroFila){
+      alert("esta es la ultima pregunta");
+    }
   });
 
   //Encuesta por tiempo
@@ -220,6 +228,11 @@ $(function () {
     reloj();
     //reloj_pregunta();
   }
+  
+  // Coloca texto de Bienvenida a la encuesta
+  $("#mensaje").fadeOut(15000);
+  alert("Bienvenido");
+    
 });
 
 function enviarDatos(){
@@ -285,6 +298,7 @@ function deshabilitarFilaActiva(){
 
      $filaActiva++;
 }
+
 </script>
 
 @endsection

@@ -71,3 +71,5 @@ Route::prefix('admin')->group(function() {
 	//Route::get('/home', 'Admin\AdminController@index')->name('admin.dashboard');
 
 }); 
+
+Route::resource('admin/general_definitions','GeneralDefinitionsController');
