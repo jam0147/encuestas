@@ -2,8 +2,7 @@
     <div class="pull-right hidden-xs">
       <b>Version</b> 0.1.2
     </div>
-    <strong>Copyright &copy; 2017 <a href="#">Ahorro y Gano</a>.</strong> All rights
-    reserved.
+
     <script src="{{ asset('admin/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
     <!-- jQuery UI 1.11.4 -->
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
