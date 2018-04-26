@@ -14,13 +14,9 @@
       </div>
     
       <ul class="sidebar-menu tree" data-widget="tree">
-              <li class="header">Opciones {{Auth::user()->name}} </li>
+              <li class="header">Opciones Administrador </li>
                <li class="header"></li>
                 <li class="active treeview menu-open">
-                  <a href="{{ route('user.index') }}">
-                      <i class="fa fa-circle-o"></i> 
-                      <span>index</span>
-                  </a>
                   <a href="{{ route('categories.index') }}">
                     <i class="fa fa-folder"></i> 
                     <span>Categorias</span>

@@ -47,7 +47,7 @@
                                 <div class="radio">
                                   @if (!empty($pregunta->answers))
                                     @foreach($pregunta->answers as $answer)
-                                      <div style="float: left;padding: 6px; margin-bottom: 8px; border: 1px solid #bad3e8; border-radius: 10px;width: 100%;     font-weight: bold !important;">
+                                      <div style="float: left;padding: 6px; margin-bottom: 8px; width: 100%;     font-weight: bold !important;">
                                           <input type="radio" name="respuestas{{$pregunta->id}}" value="{{ $answer->id }}" class="rad" id="{{ $answer->id }}" style="margin-left: 0px !important; "/>                                              
                                           <label style="font-weight: bold;"> {{ $answer->name }} </label> 
                                         </div>
@@ -62,10 +62,10 @@
                 <br>    
                 <br>
                 <div class="col-md-2 col-xs-4 pull-right">
-                  <button id="terminar_encuesta" class="btn btn-danger block">Terminar encuesta</button>
+                  <button id="terminar_encuesta" class="btn btn-danger block pull-right">Finalizar</button>
                   
                   @if($encuesta->category->pausable == 1)
-                      <button id="pausar" class="btn btn-success block">pausar encuesta</button>
+                      <button id="pausar" class="btn btn-success block pull-right">Pausar</button>
                   @endif
                 </div>                     
             </div>

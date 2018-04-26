@@ -17,8 +17,8 @@
 
 						<div class="slide-caption">
                             <div class="caption-content">
-                                <h2 class="animated fadeInDown">Bienvenido</h2>
-                                <span class="animated fadeInDown">El mejor sistema de encuestas on-line</span>
+                                <h2 class="animated fadeInDown">Bienvenido {{ Auth::user()->name }}</h2>
+                                <span class="animated fadeInDown">¡ Nos alegra que te hayas unido !</span>
                                 <a href="{{ route('login') }}" class="btn btn-blue btn-effect">ingresa!</a>
                             </div>
                         </div>
@@ -30,8 +30,8 @@
 						<div class="bg-img bg-img-2"></div>
 						<div class="slide-caption">
                             <div class="caption-content">
-                                <h2>Bienvenido</h2>
-                                <span>El mejor sistema de encuestas on-line</span>
+                                <h2>Bienvenido {{ Auth::user()->name }}</h2>
+                                <span> ¡ Nos alegra que te hayas unido ! </span>
                                 <a href="{{ route('login') }}" class="btn btn-blue btn-effect">ingresa!</a>
                             </div>
                         </div>
@@ -43,8 +43,8 @@
 						<div class="bg-img bg-img-3"></div>
 						<div class="slide-caption">
                             <div class="caption-content">
-                                <h2>Bienvenido</h2>
-                                <span>El mejor sistema de encuestas on-line</span>
+                                <h2>Bienvenido {{ Auth::user()->name }}</h2>
+                                <span> ¡ Nos alegra que te hayas unido ! </span>
                                 <a href="{{ route('login') }}" class="btn btn-blue btn-effect">ingresa!</a>
                             </div>
                         </div>

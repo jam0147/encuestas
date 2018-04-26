@@ -10,8 +10,14 @@
     <section class="content">
         <div class="row">
             <fieldset>
-                <legend style="text-align: center;font-weight: 900;padding: 10px;">LISTADO DE CATEGORIAS <small></small></legend>
+                <legend style="text-align: center;font-weight: 900;padding: 10px;">
+                    <h2> ¿ Qué tipo de encuesta deseas crear ? </h2>
+                    <small style="font-weight: normal;">
+                        Esto nos da una idea de los tipos de encuesta que quieres crear para que puedas clasificarla fácilmente 
+                    </small>
+                </legend>
                 <div class="box-header with-border">
+                    <h3> Listado de Categorías </h3>
                     <p>{{-- categoria  {{ $encuesta->category }} --}}
                       @if(session()->has('message'))
                         <div class="alert alert-danger">
@@ -26,7 +32,6 @@
                     <table id="example1" class="table table-striped table-hover table-bordered dataTable">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Nombre de la categoria</th>
                                 <th>Tipo de tiempo</th>
                                 <th>Es pausable</th>
@@ -38,7 +43,6 @@
                         @if (!empty($categories))
                             @foreach ($categories as $item)
                                 <tr>
-                                    <td>{{ $item->id }}</td>
                                     <td>
                                         <a href="{{ url('admin/categories', $item->id . '/edit' ) }}">{{ $item->name }}</a>{{ $item->nif_cif }}
                                     </td>

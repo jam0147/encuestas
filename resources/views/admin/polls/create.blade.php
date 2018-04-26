@@ -37,7 +37,7 @@
 	              </div>
 	              
 	              <div class="form-group">
-	                <label for="name">Nombre de la encuesta</label>
+	                <label for="name">Título de la encuesta</label>
 	                <input type="text" class="form-control" id="name" name="name" placeholder="Nombre de la encuesta">
 	              </div>
 	              

@@ -9,6 +9,7 @@ use App\Question;
 use App\Answer;
 use App\AplicationPoll;
 use Session;
+use DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
 

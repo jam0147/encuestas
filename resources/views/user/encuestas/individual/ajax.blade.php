@@ -42,7 +42,7 @@
                                       @if (!empty($pregunta->answers))
                                         @foreach($pregunta->answers as $answer)
                                           @if ($pregunta->multiple_answers == 1)
-                                              <div style="float: left;padding: 6px;margin-bottom: 8px;border: 1px solid #bad3e8;border-radius: 10px; width: 100%;     font-weight: bold !important;">
+                                              <div style="float: left;padding: 6px;margin-bottom: 8px; width: 100%;     font-weight: bold !important;">
                                                 <input type="checkbox" 
                                                 name="respuestas" 
                                                 value="{{ $answer->id }}" 
@@ -59,7 +59,7 @@
                                                 {{ $answer->name }}
                                               </div>
                                           @else
-                                            <div style="float: left;padding: 6px; margin-bottom: 8px; border: 1px solid #bad3e8; border-radius: 10px;width: 100%;     font-weight: bold !important;">
+                                            <div style="float: left;padding: 6px; margin-bottom: 8px;width: 100%;     font-weight: bold !important;">
                                               <input type="radio" 
                                               name="respuestas{{$pregunta->id}}" 
                                               value="{{ $answer->id }}" 
@@ -105,10 +105,10 @@
                 <br>    
                 <br>
                 <div class="col-md-4 col-xs-4"">
-                  <button id="terminar_encuesta" class="btn btn-danger block">Terminar encuesta</button>
+                  <button id="terminar_encuesta" class="btn btn-danger block pull-right">Finalizar</button>
                   
                   @if($encuesta->category->pausable == 1)
-                      <button id="pausar" class="btn btn-success block">pausar encuesta</button>
+                      <button id="pausar" class="btn btn-success block pull-right">Pausar</button>
                   @endif
 
                   <input type="text" id="arreglo" class="form-control" name="arreglo[]">

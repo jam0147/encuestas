@@ -25,7 +25,6 @@
                     <table id="example1" class="table table-striped table-hover table-bordered dataTable">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Nombre de la encuesta</th>
                                 <th>Mostrar todas las preguntas?</th>
                                 <th>Categoria</th>
@@ -36,7 +35,6 @@
                             @if (!empty($polls))
                                 @foreach ($polls as $item)
                                     <tr>
-                                        <td>{{ $item->id }}</td>
                                         <td>
                                             <a href="{{ url('admin/polls/' . $item->id . '/edit') }}">{{ $item->name }}</a>
                                         </td>

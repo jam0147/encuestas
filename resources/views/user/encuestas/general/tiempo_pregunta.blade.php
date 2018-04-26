@@ -12,8 +12,6 @@
   }
 
   .respuesta{
-    border: 1px solid #bad3e8;
-    border-radius: 10px;
     float: left;
     font-weight: bold !important;
     margin-bottom: 8px;
@@ -121,11 +119,11 @@
                   @endif
                 </div>
                 <!-- <input type="submit"   value="Registrar encuesta" > --> 
-                <button id="evaluar" class="btn btn-danger">Terminar encuesta</button>
+                <button id="evaluar" class="btn btn-danger pull-right">Finalizar</button>
                 @if($encuesta->category->pausable == 0)
                     <input type="hidden" name="pausable" value="0">                    
                 @else
-                    <button id="pausar" class="btn btn-success">pausar encuesta</button>
+                    <button id="pausar" class="btn btn-success pull-right">Pausar</button>
                     <input type="hidden" name="pausable" value="1">                    
                 @endif
                 <input type="text" id="arreglo" class="form-control" placeholder="" name="arreglo[]">

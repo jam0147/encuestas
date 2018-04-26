@@ -1,4 +1,4 @@
-<!--
+    <!--
         Fixed Navigation
         ==================================== -->
         <header id="navigation" class="navbar-inverse navbar-fixed-top animated-header">

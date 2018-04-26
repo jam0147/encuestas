@@ -24,7 +24,6 @@
                     <table id="example1" class="table table-striped table-hover table-bordered dataTable">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Nombre de la encuesta</th>
                                 <th>Acciones</th>
                             </tr>
@@ -33,7 +32,6 @@
                             @if (!empty($polls))
                                 @foreach ($polls as $item)
                                     <tr>
-                                        <td>{{ $item->id }}</td>
                                         <td>
                                             <a href="{{ url('admin/ranges', $item->id ) }}">{{ $item->name }}</a>{{ $item->nif_cif }}
                                         </td>

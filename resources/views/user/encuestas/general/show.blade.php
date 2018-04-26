@@ -28,7 +28,7 @@
     <p>{{-- categoria  {{ $encuesta->category }} --}}
       <div id="mensaje">
            <h1 style="text-align: center;font-weight:bolder;color:blue;"> 
-              {{ $generaldefinitions->description }}
+              
            </h1>
       </div>
       
@@ -96,7 +96,7 @@
                                                 {{ $answer->name }}
                                               </div>
                                           @else
-                                            <div style="float: left;padding: 6px; margin-bottom: 8px; border: 1px solid #bad3e8; border-radius: 10px;width: 100%;     font-weight: bold !important;">
+                                            <div style="float: left;padding: 6px; margin-bottom: 8px;width: 100%;     font-weight: bold !important;">
                                               <input type="radio" 
                                               name="respuestas{{$pregunta->id}}" 
                                               value="{{ $answer->id }}" 
@@ -127,11 +127,11 @@
                   @endif
                 </div>
                 <!-- <input type="submit"   value="Registrar encuesta" > --> 
-                <button id="evaluar" class="btn btn-danger">Terminar encuesta</button>
+                <button id="evaluar" class="btn btn-danger pull-right">Finalizar</button>
                 @if($encuesta->category->pausable == 0)
                     <input type="hidden" name="pausable" value="0">                    
                 @else
-                    <button id="pausar" class="btn btn-success">pausar encuesta</button>
+                    <button id="pausar" class="btn btn-success pull-right">Pausar</button>
                     <input type="hidden" name="pausable" value="1">                    
                 @endif
                 <input type="text" id="arreglo" class="form-control" placeholder="" name="arreglo[]">

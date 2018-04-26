@@ -45,6 +45,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Rodolfo',            
             'email' => 'halconrod@gmail.com',
             'password' => bcrypt('12345678'),               
+            'verificado' => true,               
             'created_at'  => Carbon::now()->format('Y-m-d H:i:s'),        
         ]);
         
@@ -52,6 +53,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Moises',            
             'email' => 'moycs777@gmail.com',
             'password' => bcrypt('12345678'),               
+            'verificado' => true,               
             'created_at'  => Carbon::now()->format('Y-m-d H:i:s'),        
         ]);
         
