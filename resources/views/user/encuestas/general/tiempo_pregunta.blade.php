@@ -152,7 +152,14 @@ var cantidadPreguntas = 0;
 var temporizador;
 var $reiniciaReloj = false;
 
-$(function () {  
+$(function () { 
+  console.log("tiempo  por pregunta");
+
+  $("#mensaje").fadeOut(15000);
+    console.log("mensaje");
+    alert("Bienvenido");      
+  
+   
    cantidadPreguntas = $(".panelPregunta", ".contenedorRows").length;
 
    $("input:submit").click(function() { return false; });

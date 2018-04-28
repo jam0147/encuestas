@@ -28,7 +28,9 @@
     <p>{{-- categoria  {{ $encuesta->category }} --}}
       <div id="mensaje">
            <h1 style="text-align: center;font-weight:bolder;color:blue;"> 
-              
+              <h1 style="text-align: center;font-weight:bolder;color:blue;"> 
+                  {{ $generaldefinitions->description }}
+              </h1>
            </h1>
       </div>
       
@@ -230,10 +232,12 @@ $(function () {
   }
   
   // Coloca texto de Bienvenida a la encuesta
+  console.log("inicio");
+  
   $("#mensaje").fadeOut(15000);
-  alert("Bienvenido");
-    
-});
+    console.log("mensaje");
+    alert("Bienvenido");      
+  
 
 function enviarDatos(){
   document.getElementById('evaluar').click();
