@@ -20,9 +20,11 @@ class GeneralDefinitionsController extends Controller
     
     public function index(){
 
-    	$generaldefinitions = GeneralDefinitions::all();
+        $generaldefinitions = GeneralDefinitions::all();
+        
+        $puede_crear = GeneralDefinitions::where('id', '>', 0)->first();
     	
-    	return view('admin.general_definitions.index',compact('generaldefinitions'));
+    	return view('admin.general_definitions.index',compact('generaldefinitions', 'puede_crear'));
     }
 
     public function create()

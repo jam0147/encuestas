@@ -23,7 +23,9 @@
                     {{-- <h1> <a href="{{ url('admin/general_definitions/create') }}" class="btn btn-primary pull-right btn-sm" style="float: right;">Crear Mensaje de Bienvenida a Encuestas</a></h1> --}}
                     
                    {{--  @unless ({{ $generaldefinitions->id }} <= 0)  --}}
+                    @if($puede_crear==null)
                         <h1> <a href="{{ url('admin/general_definitions/create') }}" class="btn btn-primary pull-right btn-sm" style="float: right;">Crear Mensaje de Bienvenida a Encuestas</a></h1>
+                    @endif
                     {{-- @endunless --}}
 
                 </div>
