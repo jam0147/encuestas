@@ -17,6 +17,9 @@ Route::group(['namespace' => 'Admin'],function(){
 	Route::resource('admin/questions','QuestionController');
 	Route::resource('admin/answers','AnswerController');
 	Route::resource('admin/ranges','RangeController');
+	Route::resource('admin/general_definitions','GeneralDefinitionsController');
+	Route::get('admin/clients/users', 'ClientsController@users')->name('admins.users');
+
 	// Admin Auth Routes
 	Route::get('admin/login', 'Auth\LoginController@showLoginForm')->name('admin.login');
 	Route::post('admin/login', 'Auth\LoginController@login')->name('admin.login.post');
@@ -31,6 +34,10 @@ Route::group(['namespace' => 'Admin'],function(){
 	Route::put('admin/answers/actualizar/{id}','AnswerController@actualizar')->name('respuestas.actualizar');
 	Route::get('admin/answers/eliminar/{id}','AnswerController@eliminar')->name('respuestas.eliminar');
 	Route::put('admin/polls/eliminar/{id}', 'PollsController@eliminar')->name('polls.eliminar');
+
+	Route::get('admin/pollsusers/index', 'PollsUsersController@index')->name('polls_users.index');
+	Route::post('admin/pollsusers/save', 'PollsUsersController@save')->name('polls_users.save');
+	Route::get('admin/pollsusers/search/{id}', 'PollsUsersController@search')->name('polls_users_search.index');
 });
 
 Route::group(['namespace' => 'User'],function(){
@@ -71,5 +78,3 @@ Route::prefix('admin')->group(function() {
 	//Route::get('/home', 'Admin\AdminController@index')->name('admin.dashboard');
 
 }); 
-
-Route::resource('admin/general_definitions','GeneralDefinitionsController');

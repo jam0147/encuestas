@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+
 use Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -12,7 +13,6 @@ use App\GeneralDefinitions;
 
 class GeneralDefinitionsController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth:admin');
@@ -83,3 +83,5 @@ class GeneralDefinitionsController extends Controller
         return redirect('admin/general_definitions');
 
     }
+
+}

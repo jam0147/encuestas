@@ -93,12 +93,12 @@ class AnswerController extends Controller
         $valor_anterior = DB::table('answers')->max('Value');
                    
         // El valor debe ser mayor al ultimo id de las preguntas de la encuesta (Answers)
-        if (intval($request->value) <= $valor_anterior) {
+        /* if (intval($request->value) <= $valor_anterior) {
            exit(json_encode([
               's'         => 'n', 
               'msj'       => 'Valor de la pregunta debe ser mayor que el valor anterior de la ultima respuesta...'
            ]));
-        }
+        } */
 
         $this->validate($request, ['name' => 'required' ]);
 

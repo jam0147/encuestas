@@ -17,7 +17,7 @@
 
 						<div class="slide-caption">
                             <div class="caption-content">
-                                <h2 class="animated fadeInDown">Bienvenido {{ Auth::user()->name }}</h2>
+                                <h2 class="animated fadeInDown">Bienvenido @if(Auth::user() ) {{ Auth::user()->name }} @endif</h2>
                                 <span class="animated fadeInDown">¡ Nos alegra que te hayas unido !</span>
                                 <a href="{{ route('login') }}" class="btn btn-blue btn-effect">ingresa!</a>
                             </div>
@@ -30,7 +30,7 @@
 						<div class="bg-img bg-img-2"></div>
 						<div class="slide-caption">
                             <div class="caption-content">
-                                <h2>Bienvenido {{ Auth::user()->name }}</h2>
+                                <h2>Bienvenido @if(Auth::user() ) {{ Auth::user()->name }} @endif</h2>
                                 <span> ¡ Nos alegra que te hayas unido ! </span>
                                 <a href="{{ route('login') }}" class="btn btn-blue btn-effect">ingresa!</a>
                             </div>
@@ -43,7 +43,7 @@
 						<div class="bg-img bg-img-3"></div>
 						<div class="slide-caption">
                             <div class="caption-content">
-                                <h2>Bienvenido {{ Auth::user()->name }}</h2>
+                                <h2>Bienvenido @if(Auth::user() ) {{ Auth::user()->name }} @endif</h2>
                                 <span> ¡ Nos alegra que te hayas unido ! </span>
                                 <a href="{{ route('login') }}" class="btn btn-blue btn-effect">ingresa!</a>
                             </div>

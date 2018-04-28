@@ -26,19 +26,19 @@
           <!-- /.box-header -->
           
           <!-- form start -->
-          <form role="form" action="{{ route('user.update', $user->id) }}" method="post" >
+          <form role="form" action="{{ route('admins.update', $admin->id) }}" method="post" >
             {{ csrf_field() }}
             {{ method_field('PATCH') }}
             <div class="box-body">
             <div class="col-lg-6">
               <div class="form-group">
                 <label for="title">nombre</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="name"  value="{{ $user->name }}" >
+                <input type="text" class="form-control" id="name" name="name" placeholder="name"  value="{{ $admin->name }}" >
               </div>
 
               <div class="form-group">
                 <label for="subtitle">email</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="email" required value="{{ $user->email }}">
+                <input type="email" disabled class="form-control" id="email" name="email" placeholder="email" required value="{{ $admin->email }}">
               </div>
 
               <div class="form-group">
@@ -48,66 +48,22 @@
 
               <div class="form-group">
                 <label for="slug">confirmar password</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="password" required>
+                <input type="password" class="form-control" id="password_confirm" name="password_confirm" placeholder="confirmar password" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="slug">tipo de administrador</label>
+                <select name="level" id="level" class="form-control" required>
+                    <option disabled selected>Seleccione</option>
+                    <option value="1"  @if($admin->level == 1) selected='selected' @endif >administrador</option>
+                    <option value="3"  @if($admin->level == 3) selected='selected' @endif >asesor</option>
+                </select>
               </div>
             	
             </div>
-			<div class="col-lg-6">
-          <div class="form-group">
-            <label for="subtitle">Telefono</label>
-            <input type="phone" class="form-control" id="phone" name="phone" placeholder="Telefono"  value="{{ $user->phone }}" required>
-          </div>    
-				<br>
-              <div class="form-group">
-                  <label for="form-group">Activo</label>
-                  <br>
-                  <input type="radio" name="status" value="1"> Si<br>
-                  <input type="radio" name="status" value="0"> No<br>
-                </label>
-              </div>
-              <br>
-              <div class="form-group">
-                <label for="cargo">Cargo</label>
-                <br>
-                <input type="hidden" name="level" value="{{$user->level}}">
-                @if($user->level ==1)
-                  <p>Administrador</p>
-                @endif
-                @if($user->level == 2 )
-                  <p>Delegado</p>
-                @endif 
-                @if($user->level == 3 )
-                  <p>Agente</p>
-                @endif
-              </div>
-				
-			</div>
-
-
-      <div class="col-lg-6">
-        
-        <div class="form-group">
-          <label for="subtitle">Provincia</label>
-          <input type="state" class="form-control" id="state" name="state" placeholder="Provincia"  value="{{ $user->state }}" required>
-        </div>
-
-        <div class="form-group">
-          <label for="subtitle">Ciudad</label>
-          <input type="city" class="form-control" id="city" name="city" placeholder="Ciudad"  value="{{ $user->city }}" required>
-        </div>
-
-        <div class="form-group">
-          <label for="subtitle">Direccion</label>
-          <input type="address" class="form-control" id="address" name="address" placeholder="Direccion"  value="{{ $user->address }}}" required>
-        </div>
-
-      </div>
-      
+			
             </div>
             <!-- /.box-body -->
-			
-		
-
             <div class="box-footer">
               <button type="submit" class="btn btn-primary">Grabar</button>
             </div>
