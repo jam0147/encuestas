@@ -131,9 +131,6 @@ class AdminController extends Controller
         Session::flash('status', 'success');
         return redirect('/admin/admins');
     }
-    
-    
-
 
     public function perfilUpdate(Request $request)
     {
