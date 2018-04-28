@@ -222,6 +222,7 @@ class EncuestasController extends Controller
         //return $encuesta->category->timer_type;
         if($encuesta->category->timer_type == 2){ // Cuando es tiempo por pregunta
             if ($encuesta->category->show_all_questions == 0) 
+                //return $generaldefinitions;
                 return view('user.encuestas.individual.tiempo_pregunta_individual', compact('encuesta', 'preguntas', 'contestadas', 'numero_preguntas', 'generaldefinitions'));
             
             return view('user.encuestas.general.tiempo_pregunta', compact('encuesta', 'preguntas', 'detail_aplication', 'contestadas', 'generaldefinitions'));

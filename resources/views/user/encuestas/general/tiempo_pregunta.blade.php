@@ -44,6 +44,12 @@
   <br><br><br><br>
     <div class="row">
     <p>{{-- categoria  {{ $encuesta->category }} --}}
+      <div id="mensaje">
+           <h1 style="text-align: center;font-weight:bolder;color:blue;"> 
+              {{ $generaldefinitions->description }}
+           </h1>
+      </div>
+      
       @if(session()->has('message'))
         <div class="alert alert-success">
             {{ session()->get('message') }}
@@ -153,11 +159,11 @@ var temporizador;
 var $reiniciaReloj = false;
 
 $(function () { 
-  console.log("tiempo  por pregunta");
+  console.log("**tiempo por pregunta");
 
   $("#mensaje").fadeOut(15000);
     console.log("mensaje");
-    alert("Bienvenido");      
+    //alert("Bienvenido");      
   
    
    cantidadPreguntas = $(".panelPregunta", ".contenedorRows").length;

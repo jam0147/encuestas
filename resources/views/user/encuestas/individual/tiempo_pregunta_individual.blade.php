@@ -12,6 +12,18 @@
   </style>
   <br><br><br><br>
     <div class="row">
+
+       <div id="mensaje">
+           <h1 style="text-align: center;font-weight:bolder;color:blue;"> 
+              {{ $generaldefinitions->description }}
+           </h1>
+      </div>
+      
+      @if(session()->has('message'))
+        <div class="alert alert-success">
+            {{ session()->get('message') }}
+        </div>
+      @endif
         
         <form action="{{ route('encuestas.individual') }}" method="post" id="formid"> 
             {{ csrf_field()  }} 
@@ -98,6 +110,9 @@ $(function () {
       wrap: false,
       autoPlay : false
   });*/
+
+  $("#mensaje").fadeOut(15000);
+    console.log("tiempo pregunta individual");
 
 
   $("#owl-demo").owlCarousel({
