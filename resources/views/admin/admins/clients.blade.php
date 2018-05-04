@@ -10,7 +10,7 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-     Listado de usuarios de la app y la web 2
+     Listado de usuarios
     </h1>    
   </section>
   <!-- Main content -->
@@ -30,23 +30,21 @@
               <thead>
               <tr>
                 <th>Nro</th>
-                <th>Codigo</th>
+                <th>id</th>
                 <th>Nombre</th>
                 <th>Email</th>
-                <th>Creador</th>
                 <th></th>
                 <th></th>
               </tr>
               </thead>
               <tbody>
-              @if (!empty($clients))
-                @foreach ($clients as $item)
+              @if (!empty($users))
+                @foreach ($users as $item)
                   <tr>
                     <td>{{ $loop->index + 1 }}</td>
                     <td>{{ $item->id }}</td>
                     <td>{{ $item->name }}</td>
                     <td>{{ $item->email }}</td>
-                    <td>{{ $item->reffer_id }}</td>   
                       
                    
                   </tr>

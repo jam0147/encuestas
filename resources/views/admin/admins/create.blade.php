@@ -47,52 +47,20 @@
 
               <div class="form-group">
                 <label for="slug">confirmar password</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="password" required>
+                <input type="password" class="form-control" id="password_confirm" name="password_confirm" placeholder="confirmar password" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="slug">tipo de administrador</label>
+                <select name="level" id="level" class="form-control" required>
+                    <option disabled selected>Seleccione</option>
+                    <option value="1" {{ old('level') == "1" ? 'selected' : '' }}>administrador</option>
+                    <option value="3" {{ old('level') == "3" ? 'selected' : '' }}>asesor</option>
+                </select>
               </div>
             	
             </div>
-			{{-- div class="col-lg-6">
-          <div class="form-group">
-            <label for="subtitle">Telefono</label>
-            <input type="phone" class="form-control" id="phone" name="phone" placeholder="Telefono"  value="{{ old('phone') }}" required>
-          </div>    
-				<br>
-              <div class="form-group">
-                  <label for="form-group">Activo</label>
-                  <br>
-                  <input type="radio" name="status" value="1"> Si<br>
-                  <input type="radio" name="status" value="0"> No<br>
-                </label>
-              </div>
-              <br>
-              <div class="form-group">
-                <label for="cargo">Cargo</label>
-                <br>
-                  <input type="radio" name="level" value="1" required="required"> Administrador<br>
-                  <input type="radio" name="level" value="2">Delegado <br>
-                
-              </div>
-				
-			</div> --}}
-      
-      {{-- <div class="col-lg-6">
-        
-        <div class="form-group">
-          <label for="subtitle">Provincia</label>
-          <input type="state" class="form-control" id="state" name="state" placeholder="Provincia"  value="{{ old('state') }}" required>
-        </div>
-
-        <div class="form-group">
-          <label for="subtitle">Ciudad</label>
-          <input type="city" class="form-control" id="city" name="city" placeholder="Ciudad"  value="{{ old('city') }}" required>
-        </div>
-
-        <div class="form-group">
-          <label for="subtitle">Direccion</label>
-          <input type="address" class="form-control" id="address" name="address" placeholder="Direccion"  value="{{ old('address') }}" required>
-        </div>
-
-      </div> --}}
+			
             </div>
             <!-- /.box-body -->
             <div class="box-footer">

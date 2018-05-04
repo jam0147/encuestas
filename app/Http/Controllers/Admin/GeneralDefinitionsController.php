@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+
 use Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -12,7 +13,6 @@ use App\GeneralDefinitions;
 
 class GeneralDefinitionsController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth:admin');
@@ -20,9 +20,11 @@ class GeneralDefinitionsController extends Controller
     
     public function index(){
 
-    	$generaldefinitions = GeneralDefinitions::all();
+        $generaldefinitions = GeneralDefinitions::all();
+        
+        $puede_crear = GeneralDefinitions::where('id', '>', 0)->first();
     	
-    	return view('admin.general_definitions.index',compact('generaldefinitions'));
+    	return view('admin.general_definitions.index',compact('generaldefinitions', 'puede_crear'));
     }
 
     public function create()
@@ -83,3 +85,5 @@ class GeneralDefinitionsController extends Controller
         return redirect('admin/general_definitions');
 
     }
+
+}

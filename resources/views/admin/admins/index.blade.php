@@ -21,12 +21,25 @@
     <!-- Default box -->
     <div class="box">
       <div class="box-header with-border">
+        <div class="caption">
+          <i class="icon-social-dribbble font-yellow"></i>
+          <span class="caption-subject font-green bold uppercase">Usuarios registrados</span>
+          <a class='btn btn-success' href="{{ route('admins.users') }}">Clientes</a>
+          
+          @if(session()->has('message'))
+              <div class="alert alert-info">
+                  {{ session()->get('message') }}
+              </div>
+          @endif
+        </div>
           <a class='col-lg-offset-5 btn btn-success' href="{{ route('admins.create') }}">Crear nuevo Administrador</a>
+
         <div class="box-tools pull-right">
           <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
             <i class="fa fa-minus"></i></button>
           <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-            <i class="fa fa-times"></i></button>
+          <i class="fa fa-times"></i></button>
+          
         </div>
       </div>
       <div class="box-body">
@@ -59,11 +72,9 @@
                     @if ($admin->level == 1)
                       Administrador
                     @endif
-                    @if ($admin->level == 2)
-                      Delegado
-                    @endif
+                  
                     @if ($admin->level == 3)
-                      Comercial
+                      Asesor
                     @endif
                   </td>
                   <td>{{ $admin->created_at }}</td>
@@ -74,7 +85,7 @@
                       {{ method_field('DELETE') }}
                     </form>
                     <a href="" onclick="
-                    if(confirm('Are you sure, You Want to delete this?'))
+                    if(confirm('seguro?'))
                         {
                           event.preventDefault();
                           document.getElementById('delete-form-{{ $admin->id }}').submit();
