@@ -20,19 +20,32 @@
                                 <h3 class="text-center">Debes estar registrado para ver las encuestas</h3>
                             @else
                                 @if (!$polls == null)
-                                    <div class="table-responsive">                          
-                                    <table class="table"><tr>
-                                        <th>Nombre</th><th></th><th></th></tr>
+                                    <div class="table-responsive"> 
+                                    <table class="table">
+                                        <thead style="background: #999; color: #fff;">
+                                            <tr>
+                                                <th>TITULO DE LA ENCUESTA</th>
+                                                <th>MODIFICADO</th>
+                                                <th>PREGUNTAS</th>
+                                                
+                                                <th>ACCION</th>
+                                            </tr>
                                         </thead>
                                         <tbody>                          
                                             @foreach ($polls as $item)
                                         <tr>                                
-                                            <td class="active">{{ $item->name }}{{--  <a href="#"></a>  --}}</td>
-                                            
+                                            <td class="active" style='font-size: 13px;font-weight: bold;'>{{ $item->name }}{{--  <a href="#"></a>  --}}</td>
+                                            <td class="active">{{ $item->updated_at }}</td>
+                                            <td class="active">{{ count($item->questions) }}</td>
                                             @if ($item->category->hour > 0 || $item->category->minutes > 0 || $item->category->seconds > 0)
-                                                <td><a href="{{ route('encuestas.show', $item->id) }}">Comenzar</a></td>
+                                                <td class="active">
+                                                    <a href="{{ route('encuestas.show', $item->id) }}" style="cursor:pointer">
+                                                        <i class="fa fa-pencil-square-o">Comenzar</i> 
+                                                    </a>
+                                                </td>
                                             @else
-                                                <td><a href="{{ route('encuestas.reanudar', $item->id) }}">Reanudar</a>
+                                                <td class="active">
+                                                    <a href="{{ route('encuestas.reanudar', $item->id) }}"><i class="fa fa-history">Reanudar</i></a>
                                                 </td>
                                             @endif
                                         </tr>

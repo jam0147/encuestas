@@ -32,7 +32,7 @@ class EncuestasController extends Controller
         return view('user.encuestas.index', compact('polls'));*/
         $respuestas = Answer::where('id', '>', 0)->distinct('poll_id')->pluck('poll_id');
         $polls = Poll::find($respuestas);
-
+        
         return view('user.encuestas.index', compact('polls'));
     }
   
