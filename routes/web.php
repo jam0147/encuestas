@@ -11,6 +11,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['namespace' => 'Admin'],function(){
 	Route::get('admin/home','IndexController@home')->name('admin.index');
+	Route::get('admin/home/estadsticas','IndexController@estadisticas')->name('admin.estadisticas');
+
 	Route::resource('admin/admins','AdminController');
 	Route::resource('admin/categories','CategoryController');
 	Route::resource('admin/polls','PollsController');
