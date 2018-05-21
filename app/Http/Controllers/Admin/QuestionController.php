@@ -45,7 +45,7 @@ class QuestionController extends Controller
 
         $question = Question::create($request->all());
 
-        Session::flash('message', 'question added!');
+        Session::flash('message', 'Pregunta guardada!');
         Session::flash('status', 'success');
 
         $poll = Poll::find($request->poll_id);
@@ -89,7 +89,7 @@ class QuestionController extends Controller
         $question = Question::findOrFail($id);
         $question->update($request->all());
 
-        Session::flash('message', 'question updated!');
+        Session::flash('message', 'Pregunta actualizada!');
         Session::flash('status', 'success');
 
         $poll = Poll::find($request->poll_id);

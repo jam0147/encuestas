@@ -23,7 +23,8 @@ class IndexController extends Controller
     {
         $estadisticas = 61.3;
         return response()->json([
-            'name' => 'Abigail',
+            'name' => 'Informacion y estadisticas. '. date('g:ia \o\n l jS F Y'),
+            /* 'name' => 'Informacion y estadisticas. '.date("Y-m-d H:i:s"), */
             'state' => 'CA',
             'estadisticas' => $estadisticas
         ]);

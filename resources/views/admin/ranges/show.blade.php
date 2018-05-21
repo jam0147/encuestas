@@ -97,9 +97,9 @@
                     </div>  
                     <div class="panel-footer" style="margin-bottom:-14px;">
                         {{-- <button type="button" class="btn btn-default" style="background: #605ca8 !important;" data-dismiss="modal"><span class="glyphicon glyphicon-remove-sign"></span></button> --}}
-                         <button type="button" id="delete" style="display: none" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-trash"></span></button>
-                         <button type="button" id="saveChanges" style="display: none" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk"></span></button>
-                         <button type="button" id="add" style="display: none" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+                         <button type="button" id="delete" style="display: none" class="btn btn-default" data-dismiss="modal"><span class="">Eliminar</span></button>
+                         <button type="button" id="saveChanges" style="display: none" class="btn btn-primary" data-dismiss="modal"><span class="">Guardar</span></button>
+                         <button type="button" id="add" style="display: none" class="btn btn-primary" data-dismiss="modal"><span class="">Guardar</span></button>
                     </div>
                 </div>
             </div>

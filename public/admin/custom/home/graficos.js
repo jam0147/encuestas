@@ -11,7 +11,7 @@ $(function () {
                 type: 'column'
             },
             title: {
-                text: 'Browser market shares. January, 2018'
+                text: data.name
             },
             subtitle: {
                 text: 'Click the columns to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'

@@ -99,7 +99,7 @@
               @endif
               </tbody>
               <tfoot>
-              <tr>
+              {{-- <tr>
                 <th>S.No</th>
                 <th>Title</th>
                 <th>Sub Title</th>
@@ -107,7 +107,7 @@
                 <th>Creatd At</th>
                 <th>Edit</th>
                 <th>Delete</th>
-              </tr>
+              </tr> --}}
               </tfoot>
             </table>
           </div>
@@ -116,7 +116,7 @@
       </div>
       <!-- /.box-body -->
       <div class="box-footer">
-        Footer
+        {{-- Footer --}}
       </div>
       <!-- /.box-footer-->
     </div>

@@ -121,18 +121,22 @@
 			            <input type="hidden" name="pregunta_id" value="0">
 	              
 	              		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-			                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group">
-			                    <label for="name">Nombre de la pregunta</label>
+							  <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 form-group">
+								  <label for="name">Nombre de la pregunta</label>
 			                  	<input type="text" class="form-control" id="name" name="name" placeholder="pregunta" value="">
 			                </div>
-
-			                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group">
+							
+			            </div>
+						
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group">
 			                  <label for="slug">¿Múltiples respuestas?</label>
 			                  <br>
 			                  <input type="radio" name="multiple_answers" value="1" checked="checked" > Si<br>
 			                  <input type="radio" name="multiple_answers" value="0"> No<br>
 			                </div>
-			              </div>
+						</div>
+
 	           		</form>
 
 	           		<div class="clearfix"></div>
@@ -165,16 +169,19 @@
 	              			<input type="hidden" name="answer_id" value="0">
 		              
 		              		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-				                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group">
+				                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 form-group">
 				                    <label for="name">Respuesta</label>
 				                  <input type="text" class="form-control" id="name" name="name" placeholder="Respuesta">
 				                </div>
+							</div>
+							
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group">
+									<label for="name">Valoracion</label>
+								  <input type="number" class="form-control" id="value" name="value" placeholder="Valoracion" min="0" required>
+								</div>
+							</div>
 
-				                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group">
-				                    <label for="name">Valoracion</label>
-				                  <input type="number" class="form-control" id="value" name="value" placeholder="Valoracion" min="0" required>
-				                </div>
-				            </div>
 		           		</form>
 
 		           		<div class="clearfix"></div>
@@ -239,7 +246,8 @@
 					success:function(r){
 						if(r.s == 's'){
 							$("#modalPreguntas").modal("hide");
-							alert("Pregunta Guardada Satisfactoriamente");
+							console.log("Pregunta Guardada Satisfactoriamente");
+							//alert("Pregunta Guardada Satisfactoriamente");
 							location.reload();
 						}
 					}
