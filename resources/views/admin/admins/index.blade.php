@@ -24,7 +24,7 @@
         <div class="caption">
           <i class="icon-social-dribbble font-yellow"></i>
           <span class="caption-subject font-green bold uppercase">Usuarios registrados</span>
-          <a class='btn btn-success' href="{{ route('admins.users') }}">Clientes</a>
+          <a class='btn btn-success' href="{{ route('admins.users') }}">Usuarios</a>
           
           @if(session()->has('message'))
               <div class="alert alert-info">

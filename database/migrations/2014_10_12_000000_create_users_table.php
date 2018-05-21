@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->date('birth')->nullable();
             $table->string('provider')->nullable();
             $table->string('provider_id')->nullable();
+            $table->string('codigo_confirmacion')->nullable();
             $table->text('avatar')->nullable();
             $table->boolean('verificado');
             $table->rememberToken();
