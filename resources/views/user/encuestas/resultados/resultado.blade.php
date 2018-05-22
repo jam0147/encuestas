@@ -25,9 +25,7 @@
                                 <h3> <b> Puntaje </b> <br> {{ $total }} </h3>
                                 <br>
                                 <h3> <b> Calificación </b> <br>
-                                        @if (!$resume->text == null)
-                                            {{ $resume->text }}
-                                        @endif
+                                        {{ $resume->text }} ad
                                 </h3>
                             </div>
                             <div class="col-md-8">

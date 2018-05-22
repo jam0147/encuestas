@@ -40,7 +40,7 @@ class GeneralDefinitionsController extends Controller
 
         $store = GeneralDefinitions::create($request->all());
 
-        Session::flash('message', 'Information added!');
+        Session::flash('message', 'Informacion Agregada!');
         
         Session::flash('status', 'success');
 
@@ -64,7 +64,7 @@ class GeneralDefinitionsController extends Controller
 
         $generaldefinitions->update($request->all());
 
-        Session::flash('message', 'Information updated!');
+        Session::flash('message', 'Informacion actualizada!');
 
         Session::flash('status', 'success');
 
@@ -78,7 +78,7 @@ class GeneralDefinitionsController extends Controller
 
         $generaldefinitions->delete();
 
-        Session::flash('message', 'Information deleted!');
+        Session::flash('message', 'Informacion eliminada!');
 
         Session::flash('status', 'success');
          
