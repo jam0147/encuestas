@@ -82,10 +82,10 @@ class AnswerController extends Controller
     public function guardar(Request $request, $id)
     {
         //validar que los valores del rango no sean <=0
-        if (intval($request->value) <= 0){
+        if (intval($request->value) < 0){
             exit(json_encode([
                 's'         => 'n', 
-                'msj'       => 'Valor no pueder ser cero (0)  o menor que cero (0)'
+                'msj'       => 'Valor no pueder ser menor a cero (0)'
             ]));
         }
 

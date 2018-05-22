@@ -45,7 +45,7 @@ class CategoryController extends Controller
 
         $store = Category::create($request->all());
 
-        Session::flash('message', 'Category added!');
+        Session::flash('message', 'Categoria guardada!');
         Session::flash('status', 'success');
 
         return redirect('admin/categories');
@@ -94,7 +94,7 @@ class CategoryController extends Controller
         $categories = Category::findOrFail($id);
         $categories->update($request->all());
 
-        Session::flash('message', 'Category updated!');
+        Session::flash('message', 'Categoria actualizada!');
         Session::flash('status', 'success');
 
         return redirect('admin/categories');
@@ -116,7 +116,7 @@ class CategoryController extends Controller
 
         $categories->delete();
 
-        Session::flash('message', 'category deleted!');
+        Session::flash('message', 'Categoria eliminada');
         Session::flash('status', 'success');
 
         return redirect('admin/categories');

@@ -113,7 +113,7 @@
                                         @endif
                                         <div class="input-group {{ $errors->has('password') ? ' has-error' : '' }}" style="margin-bottom:10px; ">
                                             <label for="name" class="col-md-4 control-label">Password</label>
-                                            <input id="password" type="text" class="form-control" name="password" value="{{ old('password') }}" placeholder="Password"  required autofocus>
+                                            <input id="password" type="password" class="form-control" name="password" value="{{ old('password') }}" placeholder="Password"  required autofocus>
                                         </div>
                                         @if ($errors->has('password'))
                                             <span class="help-block">

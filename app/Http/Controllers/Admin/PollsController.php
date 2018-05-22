@@ -45,7 +45,7 @@ class PollsController extends Controller
 
         $poll = Poll::create($request->all());
 
-        Session::flash('message', 'poll added!');
+        Session::flash('message', 'Encuesta guardada!');
         Session::flash('status', 'success');
 
         return redirect('admin/polls');
@@ -76,7 +76,7 @@ class PollsController extends Controller
         $polls = Poll::findOrFail($id);
         $polls->update($request->all());
 
-        Session::flash('message', 'Poll updated!');
+        Session::flash('message', 'Encuesta actualizada!');
         Session::flash('status', 'success');
 
         return redirect('admin/polls');

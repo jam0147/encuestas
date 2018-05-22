@@ -15,6 +15,18 @@ class IndexController extends Controller
     
     public function home()
     {
-        return view('admin.home');
+        $estadisticas = 123;
+        return view('admin.home',compact('estadisticas'));
+    }
+    
+    public function estadisticas()
+    {
+        $estadisticas = 61.3;
+        return response()->json([
+            'name' => 'Informacion y estadisticas. '. date('g:ia \o\n l jS F Y'),
+            /* 'name' => 'Informacion y estadisticas. '.date("Y-m-d H:i:s"), */
+            'state' => 'CA',
+            'estadisticas' => $estadisticas
+        ]);
     }
 }
