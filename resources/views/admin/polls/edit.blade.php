@@ -121,7 +121,7 @@
 			            <input type="hidden" name="pregunta_id" value="0">
 	              
 	              		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							  <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 form-group">
+							  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
 								  <label for="name">Nombre de la pregunta</label>
 			                  	<input type="text" class="form-control" id="name" name="name" placeholder="pregunta" value="">
 			                </div>
@@ -169,7 +169,7 @@
 	              			<input type="hidden" name="answer_id" value="0">
 		              
 		              		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-				                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 form-group">
+				                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
 				                    <label for="name">Respuesta</label>
 				                  <input type="text" class="form-control" id="name" name="name" placeholder="Respuesta">
 				                </div>
