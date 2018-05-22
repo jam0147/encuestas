@@ -44,7 +44,9 @@
                             @foreach ($categories as $item)
                                 <tr>
                                     <td>
-                                        <a href="{{ url('admin/categories', $item->id . '/edit' ) }}">{{ $item->name }}</a>{{ $item->nif_cif }}
+                                        <a href="{{ url('admin/categories/' . $item->id . '/edit') }}">
+                                            {{ $item->name }}
+                                        </a> {{ $item->nif_cif }}
                                     </td>
                                       
                                     <td> 
