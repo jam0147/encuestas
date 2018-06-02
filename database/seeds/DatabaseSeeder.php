@@ -98,5 +98,11 @@ class DatabaseSeeder extends Seeder
             'category_id' => 1,
             'created_at'  => Carbon::now()->format('Y-m-d H:i:s'),        
         ]);
+        
+        DB::table('general_definitions')->insert([
+            'name' => 'mucha suerte al responder',            
+            'description' => "esperamos tenags suerte en esta encuesta",
+        ]);
+        
     }
 }

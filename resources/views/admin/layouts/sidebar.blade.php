@@ -17,6 +17,10 @@
               <li class="header">Opciones Administrador </li>
                <li class="header"></li>
                 <li class="active treeview menu-open">
+                  <a href="{{ route('admin.index') }}">
+                      <i class="fa fa-circle-o"></i>
+                      <span>Home</span>
+                  </a>
                   <a href="{{ route('user.index') }}">
                       <i class="fa fa-circle-o"></i>
                       <span>index</span>

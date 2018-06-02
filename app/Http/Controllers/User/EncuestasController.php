@@ -24,16 +24,32 @@ class EncuestasController extends Controller
 {
     public function __construct()
     {
-      $this->middleware('auth', ['except' => ['index']]);
+      $this->middleware('auth'/*,  ['except' => ['index'] ]*/);
     }
    
     public function index()
     {
         /*$polls = Poll::all();
         return view('user.encuestas.index', compact('polls'));*/
-        $respuestas = Answer::where('id', '>', 0)->distinct('poll_id')->pluck('poll_id');
-        $polls = Poll::find($respuestas);
-        
+        //$respuestas = Answer::where('id', '>', 0)->distinct('poll_id')->pluck('poll_id');
+        //$polls = Poll::find($respuestas);
+        $aprobadas =  DB::table('poll__users')->where('user_id', '=',  Auth::user()->id)
+            ->get();
+        $respuestas = Answer::where('id', '>', 0)
+            ->distinct('poll_id')
+            //->where('')
+            ->pluck('poll_id');
+        $polls2 = Poll::find($respuestas);
+        $polls = [];
+        foreach ($polls2 as $encuesta) {
+            foreach ($aprobadas as  $key => $apro) {
+                if ($encuesta->id == $apro->poll_id) {
+                    //dd($apro);
+                    $polls[$key] = $encuesta; 
+                }
+            }
+        }
+        //dd($polls);       
         return view('user.encuestas.index', compact('polls'));
     }
   

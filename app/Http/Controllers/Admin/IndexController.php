@@ -21,6 +21,13 @@ class IndexController extends Controller
     
     public function estadisticas()
     {
+        /* 
+            CANTIDAD DE ENCUESTAS CON RESPUESTAS
+
+        */
+        $respuestas = Answer::where('id', '>', 0)->distinct('poll_id')->pluck('poll_id');
+        $polls = Poll::find($respuestas);
+        
         $estadisticas = 61.3;
         return response()->json([
             'name' => 'Informacion y estadisticas. '. date('g:ia \o\n l jS F Y'),
