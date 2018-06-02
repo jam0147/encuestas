@@ -134,6 +134,12 @@ class EncuestasController extends Controller
         $rangos[] = $rango_usuario;
 
         $rangos = json_encode($rangos);
+        //desvincular encuesta de usuario para que no la vuelva a aplicar
+        
+        $poll__users =  DB::table('poll__users')
+            ->where('user_id', '=',  Auth::user()->id)
+            ->where('poll_id', '=',  $request->poll_id)
+            ->delete();
 
         return view('user.encuestas.resultados.resultado', compact('resume', 'total', 'encuesta', 'rangos'));
     }
@@ -211,6 +217,13 @@ class EncuestasController extends Controller
         $rangos[] = $rango_usuario;
 
         $rangos = json_encode($rangos);
+
+        //desvincular encuesta de usuario para que no la vuelva a aplicar
+        
+        $poll__users =  DB::table('poll__users')
+            ->where('user_id', '=',  Auth::user()->id)
+            ->where('poll_id', '=',  $request->poll_id)
+            ->delete();
 
         return view('user.encuestas.resultados.resultado', compact('resume', 'total', 'encuesta', 'rangos'));
     }
