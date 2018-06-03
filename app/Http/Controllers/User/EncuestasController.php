@@ -59,6 +59,8 @@ class EncuestasController extends Controller
     }
     
     public function store(Request $request){
+        //return " store";
+        
         $st = Session::get('start_date');
 
         MasterAplication::where('user_id', '=', Auth::user()->id)
@@ -134,19 +136,16 @@ class EncuestasController extends Controller
         $rangos[] = $rango_usuario;
 
         $rangos = json_encode($rangos);
+
         //desvincular encuesta de usuario para que no la vuelva a aplicar
-        
-        $poll__users =  DB::table('poll__users')
-            ->where('user_id', '=',  Auth::user()->id)
-            ->where('poll_id', '=',  $request->poll_id)
-            ->delete();
+        $this->desvincular(Auth::user()->id, $request->poll_id);
 
         return view('user.encuestas.resultados.resultado', compact('resume', 'total', 'encuesta', 'rangos'));
     }
 
     public function individualStore(Request $request)
     {
-
+        return "individual store";
         $encuesta = Poll::find($request->poll_id);
 
         if($request->id_respuestas == null) {
@@ -218,12 +217,7 @@ class EncuestasController extends Controller
 
         $rangos = json_encode($rangos);
 
-        //desvincular encuesta de usuario para que no la vuelva a aplicar
-        
-        $poll__users =  DB::table('poll__users')
-            ->where('user_id', '=',  Auth::user()->id)
-            ->where('poll_id', '=',  $request->poll_id)
-            ->delete();
+        $this->desvincular(Auth::user()->id, $request->poll_id);
 
         return view('user.encuestas.resultados.resultado', compact('resume', 'total', 'encuesta', 'rangos'));
     }
@@ -291,5 +285,17 @@ class EncuestasController extends Controller
     public function destroy($id)
     {
         //
+    }
+    
+    public function desvincular($id, $poll_id)
+    {
+        //desvincular encuesta de usuario para que no la vuelva a aplicar
+        return;
+        $poll__users =  DB::table('poll__users')
+            ->where('user_id', '=',  $id)
+            ->where('poll_id', '=',  $poll_id)
+            ->delete();
+        
+        return;
     }
 }
