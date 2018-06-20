@@ -35,13 +35,15 @@ class EncuestasController extends Controller
         //$polls = Poll::find($respuestas);
         $aprobadas =  DB::table('poll__users')->where('user_id', '=',  Auth::user()->id)
             ->get();
+        //obtenemos los ids de las encuestas que tienen preguntas
         $respuestas = Answer::where('id', '>', 0)
             ->distinct('poll_id')
             //->where('')
             ->pluck('poll_id');
-        $polls2 = Poll::find($respuestas);
+        //dd($respuestas);
+        $encuestas_con_preguntas = Poll::find($respuestas);
         $polls = [];
-        foreach ($polls2 as $encuesta) {
+        foreach ($encuestas_con_preguntas as $encuesta) {
             foreach ($aprobadas as  $key => $apro) {
                 if ($encuesta->id == $apro->poll_id) {
                     //dd($apro);
@@ -224,6 +226,11 @@ class EncuestasController extends Controller
    
     public function show($id)
     {
+        //validar que la encuesta tengas sus rangos
+        /*
+        select a.poll_id,count(*) from answers a, ranges b 
+	        where a.poll_id = b.poll_id and b.`from` > 0 and b.`to` > 0
+        */
         $contestadas = null;
         $generaldefinitions = GeneralDefinitions::where('id', '>',0)->first();
 
