@@ -50,7 +50,7 @@
           <div class="col-md-12">
             <div class=""><br>               
                 <div class="sec-title text-center">
-                  <h2 class="wow animated text-center" style="color: #999999;"> {{ $encuesta->name }}</h2>
+                  <h2 class="wow animated text-center" style="color: #999999;">*{{ $encuesta->category }} - {{ $encuesta->name }}</h2>
                 </div>
                 @if ($encuesta->category->timer_type >1)                
                   <div style="text-align:center;">
@@ -150,6 +150,8 @@
 
 <script src="{{ asset('admin/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
 <script>
+console.log("/general/show");
+
 var hour, min, seg;
 
 var $horas    = "{{ $encuesta->category->hour }}";
@@ -164,6 +166,8 @@ var cantidadPreguntas = 0;
 var temporizador;
 
 $(function () {  
+  console.log("/general/show");
+
   cantidadPreguntas = $(".panelPregunta", ".contenedorRows").length;
 
   $("input:submit").click(function() { return false; });
@@ -217,6 +221,7 @@ $(function () {
 
   //Encuesta por tiempo
   if ($timer == 1){
+    console.log("es por tiempo");
     var n = 0;
     var nn = 0;
     hour = $horas;

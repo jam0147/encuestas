@@ -25,7 +25,7 @@
                                         <thead style="background: #999; color: #fff;">
                                             <tr>
                                                 <th>TITULO DE LA ENCUESTA</th>
-                                                <th>MODIFICADO</th>
+                                                <!-- <th>MODIFICADO</th> -->
                                                 <th>PREGUNTAS</th>
                                                 
                                                 <th>ACCION</th>
@@ -35,7 +35,7 @@
                                             @foreach ($polls as $item)
                                         <tr>                                
                                             <td class="active" style='font-size: 13px;font-weight: bold;'>{{ $item->name }}{{--  <a href="#"></a>  --}}</td>
-                                            <td class="active">{{ $item->updated_at }}</td>
+                                            {{-- <td class="active">{{ $item->updated_at }}</td> --}}
                                             <td class="active">{{ count($item->questions) }}</td>
                                             @if ($item->category->hour > 0 || $item->category->minutes > 0 || $item->category->seconds > 0)
                                                 <td class="active">

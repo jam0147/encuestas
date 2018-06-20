@@ -226,6 +226,7 @@ class EncuestasController extends Controller
    
     public function show($id)
     {
+
         //validar que la encuesta tengas sus rangos
         /*
         select a.poll_id,count(*) from answers a, ranges b 
@@ -257,10 +258,12 @@ class EncuestasController extends Controller
             
             return view('user.encuestas.general.tiempo_pregunta', compact('encuesta', 'preguntas', 'detail_aplication', 'contestadas', 'generaldefinitions'));
         }else{
-            if ($encuesta->category->show_all_questions == 0) // tiempo por pregunta y mostrar una sola pregunta
+            // tiempo por pregunta y mostrar una sola pregunta
+            if ($encuesta->category->show_all_questions == 0) 
+                //return $generaldefinitions;
                 return view('user.encuestas.individual.ajax', compact('encuesta', 'preguntas', 'contestadas', 'numero_preguntas', 'generaldefinitions'));
-
-            return view('user.encuestas.general.show', compact('encuesta', 'preguntas', 'detail_aplication', 'contestadas', 'generaldefinitions'));
+            //tiempo general
+            return view('user.encuestas.general.respaldo_show', compact('encuesta', 'preguntas', 'detail_aplication', 'contestadas', 'generaldefinitions'));
         }
     }
 

@@ -26,6 +26,14 @@
   <br><br><br><br>
     <div class="row">
     <p>{{-- categoria  {{ $encuesta->category }} --}}
+      <div id="mensaje">
+           <h1 style="text-align: center;font-weight:bolder;color:blue;"> 
+              <h1 style="text-align: center;font-weight:bolder;color:blue;"> 
+                  {{ $generaldefinitions->description }}
+              </h1>
+           </h1>
+      </div>
+      
       @if(session()->has('message'))
         <div class="alert alert-success">
             {{ session()->get('message') }}
@@ -42,7 +50,7 @@
           <div class="col-md-12">
             <div class=""><br>               
                 <div class="sec-title text-center">
-                  <h2 class="wow animated text-center" style="color: #999999;"> {{ $encuesta->name }}</h2>
+                  <h2 class="wow animated text-center" style="color: #999999;">*{{ $encuesta->category }} - {{ $encuesta->name }}</h2>
                 </div>
                 @if ($encuesta->category->timer_type >1)                
                   <div style="text-align:center;">
@@ -90,7 +98,7 @@
                                                 {{ $answer->name }}
                                               </div>
                                           @else
-                                            <div style="float: left;padding: 6px; margin-bottom: 8px; border: 1px solid #bad3e8; border-radius: 10px;width: 100%;     font-weight: bold !important;">
+                                            <div style="float: left;padding: 6px; margin-bottom: 8px;width: 100%;     font-weight: bold !important;">
                                               <input type="radio" 
                                               name="respuestas{{$pregunta->id}}" 
                                               value="{{ $answer->id }}" 
@@ -121,11 +129,11 @@
                   @endif
                 </div>
                 <!-- <input type="submit"   value="Registrar encuesta" > --> 
-                <button id="evaluar" class="btn btn-danger">Terminar encuesta</button>
+                <button id="evaluar" class="btn btn-danger pull-right">Finalizar</button>
                 @if($encuesta->category->pausable == 0)
                     <input type="hidden" name="pausable" value="0">                    
                 @else
-                    <button id="pausar" class="btn btn-success">pausar encuesta</button>
+                    <button id="pausar" class="btn btn-success pull-right">Pausar</button>
                     <input type="hidden" name="pausable" value="1">                    
                 @endif
                 <input type="text" id="arreglo" class="form-control" placeholder="" name="arreglo[]">
@@ -139,100 +147,129 @@
         $timer = 1;
     @endphp
 </div>
+
 <script src="{{ asset('admin/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
-<script>    
-var $horas    = "{{ $encuesta->category->hour }}";
-var $minutos  = "{{ $encuesta->category->minutes }}";
-var $segundos = "{{ $encuesta->category->seconds }}";
-var poll_id = "{{ $encuesta->id }}";
-var $timer = "{{ $timer }}";
-$(function () {  
-  $("input:submit").click(function() { return false; });
-  
-  $("input", ".radio").click(function(){
-    $divRadio = $(this).parents('.radio');
 
-    var fila = $(this).parents(".panelPregunta");
-    var filaId = $(this).parents(".panelPregunta").attr("panelpregunta");
-    var nroFila = $(this).parents(".panelPregunta").attr("id_fila");//Determina el numero de fila donde estoy ubicado
 
-    $vacios = 0; 
-    $(".panelPregunta", ".contenedorRows").each(function(){
-      $filaAnterior = $(this).attr("id_fila");
-      if($filaAnterior < fila.attr("id_fila") ){
-        if($("input:disabled", ".panelPregunta[id_fila='" + $filaAnterior +"']").length == 0)
-          if($("input[name='id_respuestas[]']", ".panelPregunta[id_fila='" + $filaAnterior +"']").length == 0)  
-            $vacios++;
+<script>
+  console.log("prueba");
+  console.log("/general/show");
+
+  var hour, min, seg;
+
+  var $horas    = "{{ $encuesta->category->hour }}";
+  var $horas_categoria = "{{ $encuesta->category->hour }}";
+  var $mins_categoria = "{{ $encuesta->category->minutes }}";
+  var $segs_categoria = "{{ $encuesta->category->seconds }}";
+  var $minutos  = "{{ $encuesta->category->minutes }}";
+  var $segundos = "{{ $encuesta->category->seconds }}";
+  var poll_id = "{{ $encuesta->id }}";
+  var $timer = "{{ $timer }}";
+  var finEncuesta = false;
+  var avanzarFilaReloj = false;
+  var $filaActiva = 1;
+  var cantidadPreguntas = 0;
+  var temporizador;
+
+  $(function () {  
+    console.log("/general/show");
+
+    cantidadPreguntas = $(".panelPregunta", ".contenedorRows").length;
+
+    $("input:submit").click(function() { return false; });
+    
+    
+
+      /*if($(".panelPregunta").length == nroFila){
+        alert("esta es la ultima pregunta");
+      }*/
+      if ( {{ $timer }} == 1){
+        var n = 0;
+        var nn = 0;
+
+        if ( $horas_categoria == null) {$horas_categoria=0; }
+        if ( $mins_categoria == null) {$mins_categoria=0; }
+        if ( $segs_categoria == null) {$segs_categoria=0; }
+        
+        reloj();
       }
-    });
 
-    if ($vacios > 0) {
-      alert("Tiene " + $vacios + " preguntas anteriores sin responder");
-      return false;
-    }
-
-    if($divRadio.hasClass('deshabilitada'))
-      return false;
-
-    $idRespuesta = $(this).attr('id');
-
-    $("input.oculto[r='" + $idRespuesta + "']", $divRadio).detach();
-
-    if($(this).attr('type') == 'radio')
-      $("input.oculto", $divRadio).detach();
-
-    if($(this).prop('checked')){
-      $('<input>').attr({
-          type  : 'hidden',
-          name  : 'id_respuestas[]',
-          value : $idRespuesta,
-          'r'   : $idRespuesta,
-          class : 'oculto'
-      }).appendTo($divRadio);
-    }
   });
 
-  //Encuesta por tiempo
-  if ($timer == 1){
-    var n = 0;
-    var nn = 0;
-    var hour = $horas;
-    var min = $minutos;
-    var seg = $segundos;
+   
+    
+    // Coloca texto de Bienvenida a la encuesta
+    console.log("inicio");
+    
+    /*$("#mensaje").fadeOut(15000);
+      console.log("mensaje");
+      alert("Bienvenido"); */     
+    
 
-    if ( hour == null || hour == '') {hour=0; }
-    if ( min == null || min == '') {min=0; }
-    if ( seg == null || seg == '') {seg=0; }
-
-    //reloj();
-  }
-});
-
-function enviarDatos(){
-  document.getElementById('evaluar').click();
-}
-
-function reloj() {
-  if (seg > 0)
-  seg = seg - 1;
-
-  if ((min > 0)  && (seg == 0)){
-    min = min - 1;
-    seg = 60;
+  function enviarDatos(){
+    document.getElementById('evaluar').click();
   }
 
-  if ((hour > 0) && (min == 0)){
-    hour = hour - 1;
-    min = 60;
+  function reloj() {
+    console.log("funcion reloj");
+    if (seg > 0)
+    seg = seg - 1;
+
+    if ((min > 0)  && (seg == 0)){
+      min = min - 1;
+      seg = 60;
+    }
+
+    if ((hour > 0) && (min == 0)){
+      hour = hour - 1;
+      min = 60;
+    }
+
+    document.getElementById('displayReloj').innerHTML = hour + " : " + min + " : " + seg;
+
+    if ((hour == 0) && (min == 0) && (seg == 0))
+      enviarDatos();
+
+    var t = setTimeout(function(){ reloj() }, 1000 );
   }
 
-  document.getElementById('displayReloj').innerHTML = hour + " : " + min + " : " + seg;
+  function reloj_pregunta() {
+       console.log("filaactiva" +  $filaActiva);
 
-  if ((hour == 0) && (min == 0) && (seg == 0))
-    enviarDatos();
+       if (min > 0  && seg <= 1){
+            min = min - 1;
+            seg = 59;
+       }
 
-  var t = setTimeout(function(){ reloj() }, 1000 );
-}
+       document.getElementById('displayReloj').innerHTML = min + " : " + seg;
+
+       if (min == 0 && seg == 0)
+            deshabilitarFilaActiva();
+
+       var temporizador = setTimeout(function(){
+            reloj_pregunta();
+            seg--;
+       }, 1000);
+  }
+
+  function deshabilitarFilaActiva(){
+       $(".panelPregunta[id_fila='" + $filaActiva +"']").removeClass('panel-primary');
+       $(".panelPregunta[id_fila='" + $filaActiva +"']").addClass('panel-warning');
+
+       $(".input_respuesta", ".panelPregunta[id_fila='" + $filaActiva +"']").prop("disabled", "disabled");
+
+       if ($filaActiva >= cantidadPreguntas) 
+            finEncuesta = true;
+
+       if(finEncuesta)
+            enviarDatos();
+
+       hour = $horas;
+       min = $minutos;
+       seg = $segundos;
+
+       $filaActiva++;
+  }
 </script>
 
 @endsection
