@@ -147,7 +147,7 @@ class EncuestasController extends Controller
 
     public function individualStore(Request $request)
     {
-        return "individual store";
+        //return "individual store";
         $encuesta = Poll::find($request->poll_id);
 
         if($request->id_respuestas == null) {
@@ -263,7 +263,7 @@ class EncuestasController extends Controller
                 //return $generaldefinitions;
                 return view('user.encuestas.individual.ajax', compact('encuesta', 'preguntas', 'contestadas', 'numero_preguntas', 'generaldefinitions'));
             //tiempo general
-            return view('user.encuestas.general.respaldo_show', compact('encuesta', 'preguntas', 'detail_aplication', 'contestadas', 'generaldefinitions'));
+            return view('user.encuestas.general.show', compact('encuesta', 'preguntas', 'detail_aplication', 'contestadas', 'generaldefinitions'));
         }
     }
 

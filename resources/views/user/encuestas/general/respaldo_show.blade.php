@@ -212,6 +212,7 @@
 
   function reloj() {
     console.log("funcion reloj");
+    console.log("h: " + hour +" ,m: " +min);
     if (seg > 0)
     seg = seg - 1;
 
