@@ -1,9 +1,10 @@
 $(function () {
     myUrl = $("#myurl").val();
     //console.log("url de ajax " + myUrl );
+    //myUrl = "http://localhost:8000/admin/home/estadsticas";
     $.get(myUrl, function (data) {
-        console.log("datos del ajax" + JSON.stringify(data ));
-        console.log("datos del ajax" + data );
+        console.log("metodo estadisticas en IndexController" + JSON.stringify(data ));
+        console.log("metodo estadisticas en IndexController" + data );
 
         // Create the chart
         Highcharts.chart('container', {
@@ -11,10 +12,10 @@ $(function () {
                 type: 'column'
             },
             title: {
-                text: data.name
+                text: "Cantidad de encuestas poor categoria"
             },
             subtitle: {
-                text: 'Click the columns to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
+                text: '*-*'
             },
             xAxis: {
                 type: 'category'
@@ -49,13 +50,13 @@ $(function () {
                     "colorByPoint": true,
                     "data": [
                         {
-                            "name": "Chrome",
-                            "y": data.estadisticas,
+                            "name": data.total_encuestas_por_categoria[1].name,
+                            "y": data.total_encuestas_por_categoria[1].tot_enc,
                             "drilldown": "Chrome"
                         },
                         {
-                            "name": "Firefox",
-                            "y": 10.57,
+                            "name": data.total_encuestas_por_categoria[0].name,
+                            "y": data.total_encuestas_por_categoria[0].tot_enc,
                             "drilldown": "Firefox"
                         },
                         {
@@ -89,7 +90,7 @@ $(function () {
             "drilldown": {
                 "series": [
                     {
-                        "name": "Chrome",
+                        "name": "drillChrome",
                         "id": "Chrome",
                         "data": [
                             [
