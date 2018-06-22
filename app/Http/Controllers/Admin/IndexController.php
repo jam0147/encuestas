@@ -72,6 +72,7 @@ class IndexController extends Controller
         return response()->json([
             'total_encuestas_por_categoria' => $total_encuestas_por_categoria,
             'total_encuestas_sin_rangos' => $total_encuestas_sin_rangos,
+            'total' => $total_encuestas
         ], 200);
     
        
