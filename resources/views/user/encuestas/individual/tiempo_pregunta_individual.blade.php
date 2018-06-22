@@ -105,30 +105,25 @@
   var inicio = 0;
   var $preguntaActual = 1;
   var owl;
-$(function () {
-  /*$('.carousel').carousel({
-      wrap: false,
-      autoPlay : false
-  });*/
 
-  $("#mensaje").fadeOut(15000);
-    console.log("tiempo pregunta individual");
+  $(function () {
+  
+    $("#mensaje").fadeOut(15000);
+      console.log("tiempo pregunta individual");
 
+      $("#owl-demo").owlCarousel({
+        navigation  : false, // Show next and prev buttons
+        slideSpeed  : 300,
+        paginationSpeed : 400,
+        singleItem  :true,
+        autoPlay    : false,
+        navigationText : ["anterior",'<a class="btn btn-primary" id="right.carousel-control"> Siguiente </a>']
+      });
 
-  $("#owl-demo").owlCarousel({
-      navigation  : false, // Show next and prev buttons
-      slideSpeed  : 300,
-      paginationSpeed : 400,
-      singleItem  :true,
-      autoPlay    : false,
-      navigationText : ["anterior",'<a class="btn btn-primary" id="right.carousel-control"> Siguiente </a>']
-  });
-
-  owl = $(".owl-carousel").data('owlCarousel');
+    owl = $(".owl-carousel").data('owlCarousel');
 
   /*
     Pendiente:
-      
       - Hacer que se deshabilite el div.item de la pregunta que se ha respondido, venció el tiempo o le dió a "siguiente".
       - Cuando se haga click en pausar, se debe eliminar todo lo que tiene el detalle de la encuesta y volver a guardar.
   */
@@ -139,77 +134,73 @@ $(function () {
     }
   });
 */
-  $("input.rad").click(function(){
-    deshabilitarActiva();
-  });
+    $("input.rad").click(function(){
+        deshabilitarActiva();
+    });
 
-  $("input:submit").click(function() { return false; });
+    $("input:submit").click(function() { return false; });
   
-  if ( {{ $timer }} == 1){
-    var n = 0;
-    var nn = 0;
+    if ( {{ $timer }} == 1){
+        var n = 0;
+        var nn = 0;
+        if ( $horas_categoria == null) {$horas_categoria=0; }
+        if ( $mins_categoria == null) {$mins_categoria=0; }
+        if ( $segs_categoria == null) {$segs_categoria=0; }
+        setTimeout(function(){reloj()},1000);
+    }
 
-    if ( $horas_categoria == null) {$horas_categoria=0; }
-    if ( $mins_categoria == null) {$mins_categoria=0; }
-    if ( $segs_categoria == null) {$segs_categoria=0; }
-    
-    setTimeout(function(){reloj()},1000);
-  }
+    $("#terminar_encuesta").click(function(){
+        var preguntas_input = $(":input");      
 
-  $("#terminar_encuesta").click(function(){
-      var preguntas_input = $(":input");      
+        var i = 0;
+        preguntas_input.each(function(index , valor){
+          if ($(this).prop( "checked")) {
+              id = $(this).attr('id');
+              nombre = 'id_respuestas['+i+']';
 
-      var i = 0;
-      preguntas_input.each(function(index , valor){
-        if ($(this).prop( "checked")) {
-          id = $(this).attr('id');
-          nombre = 'id_respuestas['+i+']';
-
-          $('<input>').attr({
-              type: 'hidden',
-              id: 'foo',
-              name: nombre,
-              value: id
-          }).appendTo('form');
-
-          i += 1;
-        }
-      });
+              $('<input>').attr({
+                type: 'hidden',
+                id: 'foo',
+                name: nombre,
+                value: id
+              }).appendTo('form');
+              i += 1;
+          }
+        });
+    });
   });
+
+  function reloj() {
+    if ($segs_categoria > 0)
+      $segs_categoria = $segs_categoria - 1;
+
+    if (($mins_categoria > 0)  && ($segs_categoria == 0)){
+      $mins_categoria = $mins_categoria - 1;
+      $segs_categoria = 60;
+    }
+      
+    if (($mins_categoria == 0) && ($segs_categoria == 0))
+      deshabilitarActiva();
+
+    document.getElementById('displayReloj').innerHTML = $mins_categoria + " : " + $segs_categoria;
+    var t = setTimeout(function(){reloj()},1000);
+  }
+
+  function deshabilitarActiva(){
+    if($preguntaActual == $numero_preguntas){
+      $("#terminar_encuesta").trigger("click");
+      return false;
+    }
+
+    $horas_categoria = $horasDefecto;
+    $mins_categoria = $minsDefecto;
+    $segs_categoria = $segsDefecto;
+
+    owl.next(); //$(".owl-next").trigger("click");
+    //  $(".item[nro_pregunta='" + ($preguntaActual - 1) + "']").appendTo("#deshabilitadas");
+    $preguntaActual++;
+  }
 });
-
-function reloj() {
-  if ($segs_categoria > 0)
-    $segs_categoria = $segs_categoria - 1;
-
-  if (($mins_categoria > 0)  && ($segs_categoria == 0)){
-    $mins_categoria = $mins_categoria - 1;
-    $segs_categoria = 60;
-  }
-    
-  if (($mins_categoria == 0) && ($segs_categoria == 0))
-    deshabilitarActiva();
-
-  document.getElementById('displayReloj').innerHTML = $mins_categoria + " : " + $segs_categoria;
-  var t = setTimeout(function(){reloj()},1000);
-}
-
-function deshabilitarActiva(){
-  if($preguntaActual == $numero_preguntas){
-    $("#terminar_encuesta").trigger("click");
-    return false;
-  }
-
-  $horas_categoria = $horasDefecto;
-  $mins_categoria = $minsDefecto;
-  $segs_categoria = $segsDefecto;
-
-  owl.next(); //$(".owl-next").trigger("click");
-  //  $(".item[nro_pregunta='" + ($preguntaActual - 1) + "']").appendTo("#deshabilitadas");
-
-
-  $preguntaActual++;
-}
 </script>
 @endsection
 

@@ -244,70 +244,71 @@ $(function () {
     alert("Bienvenido");      
   
 
-function enviarDatos(){
-  document.getElementById('evaluar').click();
-}
-
-function reloj() {
-  if (seg > 0)
-  seg = seg - 1;
-
-  if ((min > 0)  && (seg == 0)){
-    min = min - 1;
-    seg = 60;
+  function enviarDatos(){
+    document.getElementById('evaluar').click();
   }
 
-  if ((hour > 0) && (min == 0)){
-    hour = hour - 1;
-    min = 60;
+  function reloj() {
+    if (seg > 0)
+        seg = seg - 1;
+
+    if ((min > 0)  && (seg == 0)){
+        min = min - 1;
+        seg = 60;
+    }
+
+    if ((hour > 0) && (min == 0)){
+        hour = hour - 1;
+        min = 60;
+    }
+
+    document.getElementById('displayReloj').innerHTML = hour + " : " + min + " : " + seg;
+
+    if ((hour == 0) && (min == 0) && (seg == 0))
+        enviarDatos();
+
+    var t = setTimeout(function(){ reloj() }, 1000 );
   }
 
-  document.getElementById('displayReloj').innerHTML = hour + " : " + min + " : " + seg;
-
-  if ((hour == 0) && (min == 0) && (seg == 0))
-    enviarDatos();
-
-  var t = setTimeout(function(){ reloj() }, 1000 );
-}
-
-function reloj_pregunta() {
+  function reloj_pregunta() {
      console.log("filaactiva" +  $filaActiva);
 
-     if (min > 0  && seg <= 1){
-          min = min - 1;
-          seg = 59;
-     }
+    if (min > 0  && seg <= 1){
+        min = min - 1;
+        seg = 59;
+    }
 
-     document.getElementById('displayReloj').innerHTML = min + " : " + seg;
+    document.getElementById('displayReloj').innerHTML = min + " : " + seg;
 
-     if (min == 0 && seg == 0)
-          deshabilitarFilaActiva();
+    if (min == 0 && seg == 0)
+        deshabilitarFilaActiva();
 
-     var temporizador = setTimeout(function(){
-          reloj_pregunta();
-          seg--;
-     }, 1000);
-}
+    var temporizador = setTimeout(function(){
+      reloj_pregunta();
+      seg--;
+    }, 1000);
+  }
 
-function deshabilitarFilaActiva(){
-     $(".panelPregunta[id_fila='" + $filaActiva +"']").removeClass('panel-primary');
-     $(".panelPregunta[id_fila='" + $filaActiva +"']").addClass('panel-warning');
+  function deshabilitarFilaActiva(){
+    $(".panelPregunta[id_fila='" + $filaActiva +"']").removeClass('panel-primary');
+    $(".panelPregunta[id_fila='" + $filaActiva +"']").addClass('panel-warning');
 
-     $(".input_respuesta", ".panelPregunta[id_fila='" + $filaActiva +"']").prop("disabled", "disabled");
+    $(".input_respuesta", ".panelPregunta[id_fila='" + $filaActiva +"']").prop("disabled", "disabled");
 
-     if ($filaActiva >= cantidadPreguntas) 
-          finEncuesta = true;
+    if ($filaActiva >= cantidadPreguntas) 
+        finEncuesta = true;
 
-     if(finEncuesta)
-          enviarDatos();
+    if(finEncuesta)
+        enviarDatos();
 
-     hour = $horas;
-     min = $minutos;
-     seg = $segundos;
+      hour = $horas;
+      min = $minutos;
+      seg = $segundos;
 
-     $filaActiva++;
-}
-
+      $filaActiva++;
+  }
+  
+});
 </script>
 
 @endsection
