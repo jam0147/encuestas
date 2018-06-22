@@ -26,41 +26,55 @@ class IndexController extends Controller
     
     public function estadisticas()
     {
-        /* 
-            CANTIDAD DE ENCUESTAS CON RESPUESTAS
-
-        */
+        
         // $respuestas = Answer::where('id', '>', 0)->distinct('poll_id')->pluck('poll_id');
         // $polls = Poll::find($respuestas);
         
         // $estadisticas = 61.3;
         
-        // return response()->json([
-        //     'name' => 'Informacion y estadisticas. '. date('g:ia \o\n l jS F Y'),
-        //     /* 'name' => 'Informacion y estadisticas. '.date("Y-m-d H:i:s"), */
-        //     'state' => 'CA',
-        //     'estadisticas' => $estadisticas,
-        //     'rodolfo' => 100
-        // ]);
-
-       
-         $total_encuestas_por_categoria = DB::select('select category_id,count(*) Total_Encuestas from polls
-                 where category_id in (select id from categories) group by category_id');
-            
-        foreach ($total_encuestas_por_categoria as $item){
+        // ************************************************************************************
+        // Total encuestas por categorias
+        $total_encuestas_por_categoria = DB::table('polls')
+            ->select('polls.category_id','categories.name',DB::raw('count(*) as tot_enc'))
+            ->join("categories","categories.id","=","polls.category_id")
+            ->groupBy('polls.category_id','categories.name')
+            ->get();
+         
+         $total_encuestas = 0;
+         foreach ($total_encuestas_por_categoria as $item){
             $catego  = $item->category_id;
-            $nomcat =  Category::where('id', '=', $catego)->select("name")->get();
-            $tot_enc = $item->Total_Encuestas;
-            
-       
-        }
-         dd($nomcat);
-        // return response()->json([
-        //   'name' => name,
-        //   'categoria' => Categoria,
-        //   'Total'  => Total_Cat
-        // ]);
+            //$nomcat =  Category::where('id', '=', $catego)->select("name")->get();
+            $nomcat = $item->name;
+            $tot_enc = $item->tot_enc;
+            $total_encuestas += $tot_enc;
+        } 
         
+        //*************************************************************************** */
+        // Total encuestas sin valorizacion (Ranges)
+        $total_encuestas_sin_rangos = DB::table('polls')
+               ->select('polls.category_id','categories.name', DB::raw('COUNT(*) as tot_enc_sin_rango'))
+                ->whereNotIn('polls.id',function($query){
+                   $query->select('ranges.poll_id')->from('ranges');
+                })
+                ->join("categories","categories.id","=","polls.category_id")
+                ->groupBy('polls.category_id','categories.name')
+                ->get();
+
+        $total_encuestas = 0;
+        foreach ($total_encuestas_sin_rangos as $items) {
+            $catego  = $items->category_id;
+            $nomcat =  $items->name;
+            $tot_enc = $items->tot_enc_sin_rango;
+            $total_encuestas += $tot_enc;
+        }
+        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        //dd($total_encuestas_sin_rangos);
+        return response()->json([
+            'total_encuestas_por_categoria' => $total_encuestas_por_categoria,
+            'total_encuestas_sin_rangos' => $total_encuestas_sin_rangos,
+        ], 200);
+    
+       
 
     }
 }
