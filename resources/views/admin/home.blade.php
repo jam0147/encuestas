@@ -10,6 +10,8 @@
   <input type="hidden" name="myurl" id="myurl" value="{{ route('admin.estadisticas') }}">
   @if (!$estadisticas == null)
     <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+    <br>
+    <div id="container-2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
   @endif
 </div>
 
