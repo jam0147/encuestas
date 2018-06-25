@@ -64,7 +64,7 @@ class IndexController extends Controller
             'total_encuestas_por_categoria' => $total_encuestas_por_categoria,
             //'total_encuestas_sin_rangos' => $total_encuestas_sin_rangos,
             'total' => $total_encuestas,
-            'json_data' => $total_encuestas_por_categoria
+            //'json_data' => $total_encuestas_por_categoria
         ], 200);
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                

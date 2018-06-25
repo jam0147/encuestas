@@ -26,7 +26,7 @@ $(function () {
             "name": "total de encuestas",
             "y": data.total,
             "drilldown": null
-        })
+        });
         var myDataAjax = ele_array;       
 
         // Create the chart
