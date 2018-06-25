@@ -59,11 +59,12 @@ class IndexController extends Controller
             $tot_enc = $items->tot_enc_sin_rango;
             $total_encuestas += $tot_enc;
         } */
-        
+        $json = json_encode($total_encuestas_por_categoria);
         return response()->json([
             'total_encuestas_por_categoria' => $total_encuestas_por_categoria,
             //'total_encuestas_sin_rangos' => $total_encuestas_sin_rangos,
-            'total' => $total_encuestas
+            'total' => $total_encuestas,
+            'json_data' => $total_encuestas_por_categoria
         ], 200);
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                
