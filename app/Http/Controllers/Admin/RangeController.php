@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Answer;
 use App\Poll;
 use App\Range;
 use DB;
@@ -20,7 +21,11 @@ class RangeController extends Controller
     
     public function index()
     {
-        $polls = Poll::all();
+        //$polls = Poll::all();
+        $respuestas = Answer::where('id', '>', 0)
+            ->distinct('poll_id')
+            ->pluck('poll_id');
+        $polls = Poll::find($respuestas);
         return view('admin.ranges.index', compact('polls'));
     }
 
@@ -44,6 +49,7 @@ class RangeController extends Controller
         if ($validator->fails ())
             return Response::json ( array (
                 'errors' => $validator->getMessageBag ()->toArray ()
+                
             ) );
         else {
             $data = new Range ();

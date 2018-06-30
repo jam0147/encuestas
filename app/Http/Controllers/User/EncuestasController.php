@@ -51,7 +51,7 @@ class EncuestasController extends Controller
                 }
             }
         }
-        //dd($polls);       
+        //dd($encuestas_con_preguntas);       
         return view('user.encuestas.index', compact('polls'));
     }
   

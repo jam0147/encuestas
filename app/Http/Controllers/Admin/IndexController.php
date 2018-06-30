@@ -29,11 +29,14 @@ class IndexController extends Controller
         // Total encuestas por categorias
         $total_encuestas_por_categoria = DB::table('polls')
             ->select('polls.category_id','categories.name',DB::raw('count(*) as tot_enc'))
+            ->whereIn('polls.id',function($query){
+                   $query->select('ranges.poll_id')->from('ranges');
+            })
             ->join("categories","categories.id","=","polls.category_id")
             ->groupBy('polls.category_id','categories.name')
             ->get();
-         
-         $total_encuestas = 0;
+
+            $total_encuestas = 0;
          foreach ($total_encuestas_por_categoria as $item){
             $catego  = $item->category_id;
             $nomcat = $item->name;

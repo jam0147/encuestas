@@ -37,7 +37,7 @@ class PollsUsersController extends Controller
       //$polls = Poll::find($respuestas);
       $polls = Poll::all();
       $users = User::all();
-
+      
       return view('admin.polls_users.index', compact('polls', 'users'));
   }
 
