@@ -129,11 +129,19 @@
 			            </div>
 						
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group">
-			                  <label for="slug">¿Múltiples respuestas?</label>
-			                  <br>
-			                  <input type="radio" name="multiple_answers" value="1" checked="checked" > Si<br>
-			                  <input type="radio" name="multiple_answers" value="0"> No<br>
+							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group">
+							@if ( $poll->category->answers_yes_or_not === 1)
+								<label for="slug">¿Múltiples respuestas?</label>
+								<br>
+								<input type="radio" name="multiple_answers" value="1"  disabled> Si<br>
+								<input type="radio" name="multiple_answers" value="0" checked > No<br>							
+							@else
+								<label for="slug">¿Múltiples respuestas?</label>
+								<br>
+								<input type="radio" name="multiple_answers" value="1" checked="checked" > Si<br>
+								<input type="radio" name="multiple_answers" value="0"> No<br>
+							@endif
+							
 			                </div>
 						</div>
 

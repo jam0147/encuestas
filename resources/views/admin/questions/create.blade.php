@@ -40,10 +40,12 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="slug">Multiples respuestas?</label>
+                  <label for="slug">' Multiples respuestas?</label>
                   <br>
+
                   <input type="radio" name="multiple_answers" value="1" checked="checked" > Si<br>
                   <input type="radio" name="multiple_answers" value="0"> No<br>
+
                 </div>
                   
                  
