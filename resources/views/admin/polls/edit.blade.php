@@ -72,9 +72,10 @@
 												</th>
 
 												<th style="width: 65px">
-													<span name="addRespuesta" class="btn btn-success btn-xs addRespuesta" title="Agregar Respuesta"  data-toggle="modal" data-target="#modalRespuestas" poll_id="{{$poll->id}}" question_id="{{ $item->id }}"> <i class="fa fa-plus"></i> </span>
-													<span class="btn btn-danger btn-xs eliminarPregunta" title="Eliminar Pregunta" poll_id="{{$poll->id}}"question_id="{{ $item->id }}"> <i class="fa fa-minus"></i> </span>
-
+													@if ( $poll->category->answers_yes_or_not != 1)
+														<span name="addRespuesta" class="btn btn-success btn-xs addRespuesta" title="Agregar Respuesta"  data-toggle="modal" data-target="#modalRespuestas" poll_id="{{$poll->id}}" question_id="{{ $item->id }}"> <i class="fa fa-plus"></i> </span>
+														<span class="btn btn-danger btn-xs eliminarPregunta" title="Eliminar Pregunta" poll_id="{{$poll->id}}"question_id="{{ $item->id }}"> <i class="fa fa-minus"></i> </span>
+													@endif
 												</th>
 												<th style="width: 20px">Valoracion</th>
 											</tr>
@@ -83,13 +84,22 @@
 												@foreach($item->answers as $answer)
 												<tr>
 													<td>-</td>
-													<td class="answer" answer_id="{{ $answer->id }}" data-toggle="modal" data-target="#answerModal">
-														{{ $answer->name }}
-													</td>
-													<td class="text-center"> <span class="btn btn-danger btn-xs btnEliminarRespuesta" answer_id="{{ $answer->id }}"> <i class="fa fa-remove"></i> </span> </td>		               
-													<td>
-														<span class="badge bg-light-blue">{{ $answer->value }}</span>
-													</td>
+													@if ( $poll->category->answers_yes_or_not === 1)
+														<td class="answer" answer_id="{{ $answer->id }}" >
+															{{ $answer->name }}
+														</td>
+														<td>
+															<span class="badge bg-light-blue">{{ $answer->value }}</span>
+														</td>
+													@else
+														<td class="answer" answer_id="{{ $answer->id }}" data-toggle="modal" data-target="#answerModal">
+															{{ $answer->name }}
+														</td>
+														<td class="text-center"> <span class="btn btn-danger btn-xs btnEliminarRespuesta" answer_id="{{ $answer->id }}"> <i class="fa fa-remove"></i> </span> </td>		               
+														<td>
+															<span class="badge bg-light-blue">{{ $answer->value }}</span>
+														</td>
+													@endif
 												</tr>
 												@endforeach
 											@endif      
