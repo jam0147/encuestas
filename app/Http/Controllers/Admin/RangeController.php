@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Answer;
 use App\Poll;
 use App\Range;
+use Response;
 use DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
@@ -46,6 +47,12 @@ class RangeController extends Controller
                     'text' => 'required',
             );
         $validator = Validator::make ( Input::all (), $rules );
+        //validar que desde sea menor que hasta
+        if ($request->from >= $request->to) {
+            return Response::json ( array (
+                'errors' => 'desde debe ser menor que hasta'
+            ));
+        }
         if ($validator->fails ())
             return Response::json ( array (
                 'errors' => $validator->getMessageBag ()->toArray ()
@@ -65,12 +72,16 @@ class RangeController extends Controller
    
     public function show($id)
     {
+        $poll = Poll::find($id);
+
+        if ( $poll->category->answers_yes_or_not == 1 && $poll->category->percentage_values == 1 ) {
+            //return "una vista especial";
+        }
          //return $id;
-         $poll = Poll::find($id);
-         $ranges = Range::where('poll_id', '=', $poll->id)
-             ->get();
+        $ranges = Range::where('poll_id', '=', $poll->id)
+            ->get();
          
-         return view('admin.ranges.show', compact('poll', 'ranges'));
+        return view('admin.ranges.show', compact('poll', 'ranges'));
     }
 
     

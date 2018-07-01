@@ -42,13 +42,31 @@ class QuestionController extends Controller
     {
         //dd($request->all());
         $this->validate($request, ['name' => 'required' ]);
+        
+        $poll = Poll::find($request->poll_id);
 
         $question = Question::create($request->all());
+
+        //verificar si a la encuesta se le deben agregar respuestas automaticamente
+        if ($poll->category->answers_yes_or_not) {
+            $answer_yes = new Answer([
+                'name' => 'Si',
+                'value' => 1,
+                'question_id' => $question->id,
+                'poll_id' => $poll->id
+            ]);
+            $answer_not = new Answer([
+                'name' => 'No',
+                'value' => 0,
+                'question_id' => $question->id,
+                'poll_id' => $poll->id
+            ]);
+        }
+
 
         Session::flash('message', 'Pregunta guardada!');
         Session::flash('status', 'success');
 
-        $poll = Poll::find($request->poll_id);
         $questions = Question::where('poll_id', '=', $request->poll_id)
              ->get();
         //deberi ir un return redirect toroute questions index con un id en el req 
@@ -131,7 +149,7 @@ class QuestionController extends Controller
     }
 
     public function createquestion(Request $request){
-        //return $request->all();
+        return $request->all();
         //dd( $request->all());
         $rules = array (
                     'name' => 'required'
@@ -146,6 +164,23 @@ class QuestionController extends Controller
             $data->name = $request->name;
             $data->poll_id = $request->poll_id;
             $data->save ();
+
+            $poll = Poll::find($request->poll_id);
+            //verificar si a la encuesta se le deben agregar respuestas automaticamente
+            if ($poll->category->answers_yes_or_not) {
+                $answer_yes = new Answer([
+                    'name' => 'Si',
+                    'value' => 1,
+                    'question_id' => $data->id,
+                    'poll_id' => $request->poll_id
+                ]);
+                $answer_not = new Answer([
+                    'name' => 'No',
+                    'value' => 0,
+                    'question_id' => $data->id,
+                    'poll_id' => $request->poll_id
+                ]);
+            }
             return response ()->json ( $data );
         }
     }
@@ -223,9 +258,27 @@ class QuestionController extends Controller
 
         $question = Question::create($request->all());
 
+        $poll = Poll::find($request->poll_id);
+        //verificar si a la encuesta se le deben agregar respuestas automaticamente
+        if ($poll->category->answers_yes_or_not) {
+            $answer_yes =  Answer::create([
+                'name' => 'Si',
+                'value' => 1,
+                'question_id' => $question->id,
+                'poll_id' => $request->poll_id
+            ]);
+            $answer_not =  Answer::create([
+                'name' => 'No',
+                'value' => 0,
+                'question_id' => $question->id,
+                'poll_id' => $request->poll_id
+            ]);
+            
+        }
+
         exit(json_encode([
             's'         => 's', 
-            'msj'       => 'Pregunta agregada satisfactoriamente'
+            'msj'       => '*-* Pregunta agregada satisfactoriamente'
         ]));
     }
 

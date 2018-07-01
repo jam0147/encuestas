@@ -179,7 +179,7 @@ $(function () {
     var filaId = $(this).parents(".panelPregunta").attr("panelpregunta");
     var nroFila = $(this).parents(".panelPregunta").attr("id_fila");//Determina el numero de fila donde estoy ubicado
 
-    $vacios = 0; 
+    /* $vacios = 0; 
     $(".panelPregunta", ".contenedorRows").each(function(){
       $filaAnterior = $(this).attr("id_fila");
       if($filaAnterior < fila.attr("id_fila") ){
@@ -192,7 +192,7 @@ $(function () {
     if ($vacios > 0) {
       alert("Tiene " + $vacios + " preguntas anteriores sin responder");
       return false;
-    }
+    } */
 
     if($divRadio.hasClass('deshabilitada'))
       return false;

@@ -83,6 +83,23 @@
 					                <input type="radio" name="pausable" class="pausable" value="0"> No<br>
 					            </div>
 			              	</div>	
+							   
+							  <div class="col-md-4">
+			               		<div class="form-group">
+					                <label for="slug">Mostrar por porcentaje?</label>
+					                <br>
+					                <input type="radio" name="percentage_values" value="1"  > Si 
+					                <input type="radio" name="percentage_values" value="0" checked="checked"> No<br>
+					            </div>
+			              	</div>
+			              	<div class="col-md-4">
+			               		<div class="form-group" id="answers_yes_or_not">
+					                <label for="slug">Agregar solo 'si' y 'no' como respuestas?</label>
+					                <br>
+					                <input type="radio" name="answers_yes_or_not" class="pausable" value="1"  > Si
+					                <input type="radio" name="answers_yes_or_not" class="pausable" value="0" checked="checked"> No<br>
+					            </div>
+			              	</div>	
 			               	<div class="col-md-12">
 			               		<div style="margin-left: auto; margin-right: auto;     text-align: center;">
 					                <button type="submit" class="btn btn-primary">Guardar</button>

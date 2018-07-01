@@ -127,6 +127,33 @@
 				                @endif
 				            </div>
 		              	</div>	
+						   
+						  <div class="col-md-4">
+		               		<div class="form-group">
+				                <label for="slug">Mostrar por porcentaje?</label>
+				                <br>
+				                @if ($category->percentage_values == 1)
+							    	<input type="radio" name="percentage_values" id="percentage_values" value="1" checked="checked"> Si<br>
+							    	<input type="radio" name="percentage_values" id="percentage_values" value="0"> No<br>
+							    @else
+							    	<input type="radio" name="percentage_values" id="percentage_values" value="1"> Si<br>
+							    	<input type="radio" name="percentage_values" id="percentage_values" value="0" checked="checked"> No<br>
+							    @endif<br>
+				            </div>
+		              	</div>
+		              	<div class="col-md-4">
+		               		<div class="form-group" id="pausable">
+				                <label for="slug">Agregar solo 'si' y 'no' como respuestas?</label>
+				                <br>
+				                @if ($category->answers_yes_or_not == 1)
+				                	<input type="radio" name="answers_yes_or_not" value="1" checked="checked"> Si<br>
+				                	<input type="radio" name="answers_yes_or_not" value="0"> No<br>
+				                @else
+				                	<input type="radio" name="answers_yes_or_not" value="1"> Si<br>
+				                	<input type="radio" name="answers_yes_or_not" value="0" checked="checked"> No<br>
+				                @endif
+				            </div>
+		              	</div>	
 		               	<div class="col-md-12">
 		               		<div style="margin-left: auto; margin-right: auto;     text-align: center;">
 				                <button type="submit" class="btn btn-primary">Guardar</button>

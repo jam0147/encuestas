@@ -24,6 +24,9 @@ class CreateCategoriesTable extends Migration
             $table->boolean('status')->default(1);
             $table->boolean('answer_required');
             $table->boolean('show_all_questions')->default(1);
+            $table->integer('percentage_values')->nullable();
+            $table->integer('answers_yes_or_not')->nullable();
+
             $table->timestamps();
         });
     }
