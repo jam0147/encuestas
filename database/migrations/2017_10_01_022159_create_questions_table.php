@@ -18,6 +18,8 @@ class CreateQuestionsTable extends Migration
             $table->string('name');
             $table->integer('poll_id');
             $table->boolean('multiple_answers');
+            $table->string('group_name')->nullable();
+            
             $table->timestamps();
         });
     }
