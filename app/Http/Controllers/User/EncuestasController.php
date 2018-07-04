@@ -222,7 +222,7 @@ class EncuestasController extends Controller
                     'drilldown' => 'Su rango'
                 );
             }
-        }
+        } 
         $rangos[] = $rango_usuario;
 
         $rangos = json_encode($rangos);
