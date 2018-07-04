@@ -75,8 +75,7 @@ class EncuestasController extends Controller
         $master_aplication->poll_id = $request->poll_id;;
         $master_aplication->status = 0;
         $master_aplication->save();
-        //dd($request->all());        
-
+     
         $encuesta = Poll::find($request->poll_id);
         $preguntas = Question::where('poll_id', '=', $request->poll_id)->get();
         //$respuestas = Answer::where('poll_id', $encuesta->id)->get();
@@ -101,55 +100,23 @@ class EncuestasController extends Controller
                 $aplication_poll->save();
             }        
         // cuando la encuesta es por porcentaje y con 2 respuestas
-        if ( $encuesta->category->answers_yes_or_not == 1 && $encuesta->category->percentage_values == 1 ) {
-            $numero_preguntas = Question::where('poll_id', '=', $encuesta->id)->count();
-            $preguntas_contestadas = $total;
-            //return "tu porcentaje es: " . ($preguntas_contestadas * 100 ) /  $numero_preguntas;
-            $resume = new \stdClass();
-            $resume->text = null;
-            $ranges = Range::where('poll_id', '=', $request->poll_id)->get();
-            $rangos = array();
-            $rango_usuario = array();
-            if(count($ranges) > 0)
-                foreach ($ranges as $key => $value) {
-                    $rangos[] = array(
-                        'name'      => $value->text,
-                        'y'         => $value->to,
-                        'drilldown' => $value->text
-                    );
-                    if ( $total >= $value->from && $total <= $value->to) {
-                        $range = $value;
-                        $resume = new Resume();
-                        $resume->user_id = Auth::user()->id;
-                        $resume->poll_id = $request->poll_id;
-                        $resume->total = $total;
-                        $resume->from = $value->from;
-                        $resume->to = $value->to;
-                        $resume->text = $value->text;
-                        $resume->save();
-                        $rango_usuario = array(
-                            'name'      => 'Su rango',
-                            'y'         => $value->to,
-                            'drilldown' => 'Su rango'
-                        );
-                    }
-                }
-            $rangos[] = $rango_usuario;
-            $rangos = json_encode($rangos);
-            //desvincular encuesta de usuario para que no la vuelva a aplicar
-            $this->desvincular(Auth::user()->id, $request->poll_id);
-            $total = ($preguntas_contestadas * 100 ) /  $numero_preguntas . '%'; 
-            return view('user.encuestas.resultados.resultado', compact('resume', 'total', 'encuesta', 'rangos'));
-        }
-        //fin       -*                       -*-             -*-              -*-*     
-
-
+        $yes_or_not = false;
         $resume = new \stdClass();
         $resume->text = null;
         $ranges = Range::where('poll_id', '=', $request->poll_id)->get();
         $rangos = array();
         $rango_usuario = array();
 
+        if ( $encuesta->category->answers_yes_or_not == 1 && $encuesta->category->percentage_values == 1 ) {
+            $yes_or_not = true;
+            $numero_preguntas = Question::where('poll_id', '=', $encuesta->id)->count();
+            $preguntas_contestadas = $total;
+            $total = 0;
+            $total = ($preguntas_contestadas * 100 ) /  $numero_preguntas; 
+            //dd($total);
+        }
+        //***************************************************************** */
+        
         if(count($ranges) > 0)
             foreach ($ranges as $key => $value) {
                 $rangos[] = array(
@@ -157,7 +124,6 @@ class EncuestasController extends Controller
                     'y'         => $value->to,
                     'drilldown' => $value->text
                 );
-
                 if ( $total >= $value->from && $total <= $value->to) {
                     $range = $value;
                     $resume = new Resume();
@@ -183,7 +149,7 @@ class EncuestasController extends Controller
 
         //desvincular encuesta de usuario para que no la vuelva a aplicar
         $this->desvincular(Auth::user()->id, $request->poll_id);
-
+        if ($yes_or_not) $total = $total . ' %';
         return view('user.encuestas.resultados.resultado', compact('resume', 'total', 'encuesta', 'rangos'));
     }
 
