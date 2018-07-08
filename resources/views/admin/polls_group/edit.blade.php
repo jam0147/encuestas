@@ -160,7 +160,6 @@
 								<input type="radio" name="multiple_answers" value="1"  disabled> Si<br>
 								<input type="radio" name="multiple_answers" value="0" checked > No<br>
 								<br>
-			                  	<input type="text" class="form-control" id="group_name" name="group_name" placeholder="grupo" value="">
 
 							@else
 								<label for="slug">¿Múltiples respuestas?</label>

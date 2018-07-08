@@ -84,7 +84,7 @@ class PollsGroupController extends Controller
                 $group_name = "d";
             }
             $question = Question::create([
-                'name' => ' ',
+                'name' => 'pregunta ' . $i,
                 'poll_id' => $poll_id, 
                 'multiple_answers' => 0,
                 'group_name' => $group_name,
