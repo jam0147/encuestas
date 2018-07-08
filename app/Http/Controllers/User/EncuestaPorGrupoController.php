@@ -55,10 +55,11 @@ class EncuestaPorGrupoController extends Controller
             $grupo_d =0;
 
             foreach ($request->id_respuestas as $key => $value) {
-                //print_r('llave: '.$key .' valor: '. $value. ' ');
+                //print_r('llave: '.$key .' valor o id: '. $value. ' ');
                 $respuesta = Answer::where('id', $value)->first();
                 
                 if ($respuesta->group_name == 'a' && $respuesta->value >0) {
+                    //return 1;
                     $grupo_a += 1;
                     $group_a_total = Answer::where('poll_id', $request->poll_id)
                         ->where('group_name', 'a')

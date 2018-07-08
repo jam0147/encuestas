@@ -98,12 +98,15 @@ class PollsGroupController extends Controller
                 'value' => 1,
                 'question_id' => $question->id,
                 'poll_id' => $poll_id,
+                'group_name' => $group_name
             ]);
             $answer_not =  Answer::create([
                 'name' => 'Menos',
                 'value' => 0,
                 'question_id' => $question->id,
-                'poll_id' => $poll_id
+                'poll_id' => $poll_id,
+                'group_name' => $group_name
+
             ]);
         }
         //agregar y verificar q tenga rango        
