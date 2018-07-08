@@ -102,7 +102,7 @@
 				            </div>
 		              	</div>	
 		               	<div class="col-md-4">
-		               		<div class="form-group">
+		               		<div class="form-group" id="show_all_questions">
 				                <label for="slug">Mostrar todas las preguntas?</label>
 				                <br>
 				                @if ($category->show_all_questions == 1)
@@ -142,7 +142,7 @@
 				            </div>
 		              	</div>
 		              	<div class="col-md-4">
-		               		<div class="form-group" id="pausable">
+		               		<div class="form-group" id="">
 				                <label for="slug">Agregar solo 'si' y 'no' como respuestas?</label>
 				                <br>
 				                @if ($category->answers_yes_or_not == 1)
@@ -156,15 +156,15 @@
 		              	</div>	
 		              	
 						  <div class="col-md-4">
-		               		<div class="form-group" id="pausable">
+		               		<div class="form-group" id="group_type">
 				                <label for="slug">Grupos de preguntas?</label>
 				                <br>
 				                @if ($category->group_type == 1)
-				                	<input type="radio" name="group_type" value="1" checked="checked"> Si<br>
-				                	<input type="radio" name="group_type" value="0"> No<br>
+				                	<input type="radio" name="group_type" id="group_type" value="1" checked="checked"> Si<br>
+				                	<input type="radio" name="group_type" id="group_type" value="0"> No<br>
 				                @else
-				                	<input type="radio" name="group_type" value="1"> Si<br>
-				                	<input type="radio" name="group_type" value="0" checked="checked"> No<br>
+				                	<input type="radio" name="group_type" id="group_type" value="1"> Si<br>
+				                	<input type="radio" name="group_type" id="group_type" value="0" checked="checked"> No<br>
 				                @endif
 				            </div>
 		              	</div>	
@@ -222,7 +222,33 @@
 		    		
 				}       
 	          
+	        });
+
+			//cuando las encuestas son por grupos
+			$('#group_type').on('change',function () {
+		        var group_type = $('input:radio[name=group_type]:checked').val();
+		        console.log(group_type);  
+		        if (group_type == 1 ) {
+		        	console.log("desabilitar solo 1 preg" + group_type);  
+					$('input:radio[name=show_all_questions]')[0].checked = true;
+				}
+		        if (group_type == 0) {
+		        	console.log("no hacer nada" + group_type);  
+					//$('input:radio[name=show_all_questions]:checked').prop('checked',false);
+				}       
 	        });  
+			
+			$('#show_all_questions').on('change',function () {
+		        var show_all_questions = $('input:radio[name=show_all_questions]:checked').val();
+		        if (show_all_questions == 1 ) {
+					//$('input:radio[name=show_all_questions]')[0].checked = true;
+				}
+		        if (show_all_questions == 0) {
+					$('input:radio[name=group_type]')[1].checked = true;
+				}       
+	          
+	        });  
+
 
 		});
 	</script>

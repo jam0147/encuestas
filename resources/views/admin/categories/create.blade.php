@@ -105,8 +105,8 @@
 			               		<div class="form-group" id="group_type">
 					                <label for="slug">Grupos de preguntas?</label>
 					                <br>
-					                <input type="radio" name="group_type" class="pausable" value="1"  > Si
-					                <input type="radio" name="group_type" class="pausable" value="0" checked="checked"> No<br>
+					                <input type="radio" name="group_type" class="" value="1"  > Si
+					                <input type="radio" name="group_type" class="" value="0" checked="checked"> No<br>
 					            </div>
 			              	</div>	
 
@@ -175,9 +175,13 @@
 		        var group_type = $('input:radio[name=group_type]:checked').val();
 		        console.log(group_type);  
 		        if (group_type == 1 ) {
+		        	console.log("desabilitar solo 1 preg" + group_type);  
+
 					$('input:radio[name=show_all_questions]')[0].checked = true;
 				}
 		        if (group_type == 0) {
+		        	console.log("no hacer nada" + group_type);  
+
 					//$('input:radio[name=show_all_questions]:checked').prop('checked',false);
 				}       
 	        });  
