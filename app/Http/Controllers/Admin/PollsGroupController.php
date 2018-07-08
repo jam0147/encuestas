@@ -13,6 +13,8 @@ use App\Category;
 use App\AplicationPoll;
 use App\Question;
 use App\Answer;
+use App\Range;
+
 
 class PollsGroupController extends Controller
 {
@@ -104,6 +106,14 @@ class PollsGroupController extends Controller
                 'poll_id' => $poll_id
             ]);
         }
+        //agregar y verificar q tenga rango        
+        $rango =  Range::firstOrCreate([
+            'from' => 1,
+            'to' => 123456789,
+            'text' => 'Flight 10',
+            'poll_id' => $poll->id,
+        ]);
+        
         return redirect()->route('polls-group.edit', ['id' => $poll_id]);
         
     }
