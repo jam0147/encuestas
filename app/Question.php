@@ -10,7 +10,8 @@ class Question extends Model
         'name',
         'poll_id', 
         'multiple_answers',
-        'group_name' 
+        'group_name',
+        'group_number' 
     ];
 
     public function answers()

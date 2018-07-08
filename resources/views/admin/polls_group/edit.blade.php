@@ -5,14 +5,14 @@
 	  	<section class="content" style="background: #fff;">
 		    <div class="row">
 	            <fieldset>
-	                <legend style="text-align: center;font-weight: 900;padding: 10px;">ENCUESTAS </legend>
+	                <legend style="text-align: center;font-weight: 900;padding: 10px;">-ENCUESTAS </legend>
 	                <div class="col-md-12">@include('includes.messages')</div>
 	                <div class="col-md-12">
 	                    <form role="form" action="{{ route('polls.update', $poll->id) }}" method="post">
 	                        {{ csrf_field() }}
 	                        {{ method_field('PUT') }}
 	                        <div class="box-body">
-	                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	                            {{-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 	                                <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
 	                                    <label for="categoria">Categoria</label><br>
 
@@ -32,7 +32,7 @@
 	                                    <button type="submit" class="btn btn-primary">Guardar</button>
 	                                    <a href='{{ route('polls.index') }}' class="btn btn-warning">Regresar</a>
 	                                </div>
-	                            </div>
+	                            </div> --}}
 	                        </div>
 	                    </form>
 	                </div>
@@ -54,6 +54,13 @@
 												<button id="addPregunta" class="btn btn-primary" data-toggle="modal" data-target="#modalPreguntas" style="float: right;"  poll_id="{{$poll->id}}">
 		    										<i class="fa fa-plus" aria-hidden="true" class="pull-right" ></i> Agregar Pregunta
 		    									</button>
+		    								</td>
+											<td>
+												<a href="{{ url('admin/polls-group/add/' . $groups_numbers . '/' .  $poll->id ) }}">
+													<button id="agregar_grupo" class="btn btn-primary"  style="float: right;"  poll_id="{{$poll->id}}">
+														<i class="fa fa-plus" aria-hidden="true" class="pull-right" ></i> Agregar Grupo : {{ $groups_numbers }} 
+													</button>													
+												</a>
 		    								</td>
 										</tr>
 									</tbody>
@@ -392,5 +399,8 @@
 				});
 			});
 		}
+
+		
+
 	</script>
 @endpush
