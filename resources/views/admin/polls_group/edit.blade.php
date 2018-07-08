@@ -50,11 +50,11 @@
 									<tbody style="background-color: rgba(96, 92, 168, 0.58);border-color: rgb(8, 1, 125);">
 										<tr >
 											<td ><strong>DESCRIPCION</strong></td>
-											<td>
+											{{-- <td>
 												<button id="addPregunta" class="btn btn-primary" data-toggle="modal" data-target="#modalPreguntas" style="float: right;"  poll_id="{{$poll->id}}">
 		    										<i class="fa fa-plus" aria-hidden="true" class="pull-right" ></i> Agregar Pregunta
 		    									</button>
-		    								</td>
+		    								</td> --}}
 											<td>
 												<a href="{{ url('admin/polls-group/add/' . $groups_numbers . '/' .  $poll->id ) }}">
 													<button id="agregar_grupo" class="btn btn-primary"  style="float: right;"  poll_id="{{$poll->id}}">
@@ -69,9 +69,10 @@
 									<div class="box-body">
 										<table class="table table-bordered tblPregunta" question_id="{{ $item->id }}">
 											<tr>												
-												<th style="width: 10px">{{ $loop->iteration }}
+												<th style="width: 10px">{{ $item->group_number }}
+												{{-- <th style="width: 10px">{{ $loop->iteration }} --}}
 													@if ( !$item->group_name == null)
-														 {{  $item->group_name }}
+														{{  $item->group_name }}
 													@endif</th> 
 												<th class="question" id="{{ $item->id }}" if >
 													<input type="hidden" id="question_id" value="{{ $item->id }}">
