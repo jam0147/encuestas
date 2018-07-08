@@ -61,30 +61,15 @@ class EncuestaPorGrupoController extends Controller
                 if ($respuesta->group_name == 'a' && $respuesta->value >0) {
                     //return 1;
                     $grupo_a += 1;
-                    $group_a_total = Answer::where('poll_id', $request->poll_id)
-                        ->where('group_name', 'a')
-                        ->count();
                 }
                 if ($respuesta->group_name == 'b' && $respuesta->value >0) {
                     $grupo_b += 1;
-
-                    $group_b_total = Answer::where('poll_id', $request->poll_id)
-                        ->where('group_name', 'b')
-                        ->count();
                 }
                 if ($respuesta->group_name == 'c' && $respuesta->value >0) {
                     $grupo_c += 1;
-
-                    $group_c_total = Answer::where('poll_id', $request->poll_id)
-                        ->where('group_name', 'c')
-                        ->count();
                 }
                 if ($respuesta->group_name == 'd' && $respuesta->value >0) {
                     $grupo_d += 1;
-
-                    $group_d_total = Answer::where('poll_id', $request->poll_id)
-                        ->where('group_name', 'd')
-                        ->count();
                 }
                 
             } 
