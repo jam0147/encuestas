@@ -88,7 +88,7 @@ class EncuestaPorGrupoController extends Controller
                 }
                 
             } 
-            return " grupo a : " . $grupo_a . " grupo b : " . $grupo_b . " grupo c : " . $grupo_c. " grupo d : " . $grupo_d;
+            //return " grupo a : " . $grupo_a . " grupo b : " . $grupo_b . " grupo c : " . $grupo_c. " grupo d : " . $grupo_d;
             $st = Session::get('start_date');
 
             MasterAplication::where('user_id', '=', Auth::user()->id)
@@ -102,8 +102,6 @@ class EncuestaPorGrupoController extends Controller
             $master_aplication->status = 0;
             $master_aplication->save();
         
-            $encuesta = Poll::find($request->poll_id);
-            $preguntas = Question::where('poll_id', '=', $request->poll_id)->get();
             //$respuestas = Answer::where('poll_id', $encuesta->id)->get();
             $total = 0;
 
@@ -174,7 +172,7 @@ class EncuestaPorGrupoController extends Controller
             $rangos = json_encode($rangos);
 
             //desvincular encuesta de usuario para que no la vuelva a aplicar
-            $this->desvincular(Auth::user()->id, $request->poll_id);
+            //$this->desvincular(Auth::user()->id, $request->poll_id);
             if ($yes_or_not) $total = $total . ' %';
             return view('user.encuestas.resultados.resultado', compact('resume', 'total', 'encuesta', 'rangos'));
 
