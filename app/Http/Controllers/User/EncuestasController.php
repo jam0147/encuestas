@@ -309,7 +309,6 @@ class EncuestasController extends Controller
     public function desvincular($id, $poll_id)
     {
         //desvincular encuesta de usuario para que no la vuelva a aplicar
-        return;
         $poll__users =  DB::table('poll__users')
             ->where('user_id', '=',  $id)
             ->where('poll_id', '=',  $poll_id)

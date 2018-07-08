@@ -109,8 +109,26 @@ class PollsGroupController extends Controller
         //agregar y verificar q tenga rango        
         $rango =  Range::firstOrCreate([
             'from' => 1,
-            'to' => 123456789,
-            'text' => 'Flight 10',
+            'to' => 1,
+            'text' => 'grupo a tu pesonalidaddd',
+            'poll_id' => $poll->id,
+        ]);
+        $rango =  Range::firstOrCreate([
+            'from' => 2,
+            'to' => 2,
+            'text' => 'grupo b tu pesonalidaddd',
+            'poll_id' => $poll->id,
+        ]);
+        $rango =  Range::firstOrCreate([
+            'from' => 3,
+            'to' => 3,
+            'text' => 'grupo c tu pesonalidaddd',
+            'poll_id' => $poll->id,
+        ]);
+        $rango =  Range::firstOrCreate([
+            'from' => 4,
+            'to' => 4,
+            'text' => 'grupo d tu pesonalidaddd',
             'poll_id' => $poll->id,
         ]);
         
