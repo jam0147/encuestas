@@ -68,8 +68,11 @@
 								@foreach($questions as $item)
 									<div class="box-body">
 										<table class="table table-bordered tblPregunta" question_id="{{ $item->id }}">
-											<tr>												
-												<th style="width: 10px">{{ $item->group_number }}
+											<tr>			
+												@if ($loop->iteration == 1)
+													<th style="width: 10px">{{ $item->group_number }}
+												@endif									
+												<th style="width: 10px">
 												{{-- <th style="width: 10px">{{ $loop->iteration }} --}}
 												@if ( !$item->group_name == null)
 													{{  $item->group_name }}

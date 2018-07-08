@@ -71,11 +71,23 @@ class PollsGroupController extends Controller
 
         for ($i=1; $i <= 4; $i++) { 
             //return $i;
+            if ($i == 1) {
+                $group_name = "a";
+            }
+            if ($i == 2) {
+                $group_name = "b";
+            }
+            if ($i == 3) {
+                $group_name = "c";
+            }
+            if ($i == 4) {
+                $group_name = "d";
+            }
             $question = Question::create([
                 'name' => ' ',
                 'poll_id' => $poll_id, 
                 'multiple_answers' => 0,
-                'group_name' => ''.$i,
+                'group_name' => $group_name,
                 'group_number' => $count,
             ]);
 
