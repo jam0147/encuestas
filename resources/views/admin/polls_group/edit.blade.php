@@ -71,22 +71,21 @@
 											<tr>												
 												<th style="width: 10px">{{ $item->group_number }}
 												{{-- <th style="width: 10px">{{ $loop->iteration }} --}}
-													@if ( !$item->group_name == null)
-														{{  $item->group_name }}
-													@endif</th> 
+												@if ( !$item->group_name == null)
+													{{  $item->group_name }}
+												@endif</th> 
 												<th class="question" id="{{ $item->id }}" if >
 													<input type="hidden" id="question_id" value="{{ $item->id }}">
 
 													<a class="linkPregunta" href="#" id_pregunta="{{ $item->id }}">
-														{{ $item->name }}
-														
+														{{ $item->name }}														
 													</a>
 												</th>
 
 												<th style="width: 65px">
 													@if ( $poll->category->answers_yes_or_not != 1)
-														<span name="addRespuesta" class="btn btn-success btn-xs addRespuesta" title="Agregar Respuesta"  data-toggle="modal" data-target="#modalRespuestas" poll_id="{{$poll->id}}" question_id="{{ $item->id }}"> <i class="fa fa-plus"></i> </span>
-														<span class="btn btn-danger btn-xs eliminarPregunta" title="Eliminar Pregunta" poll_id="{{$poll->id}}"question_id="{{ $item->id }}"> <i class="fa fa-minus"></i> </span>
+														{{-- <span name="addRespuesta" class="btn btn-success btn-xs addRespuesta" title="Agregar Respuesta"  data-toggle="modal" data-target="#modalRespuestas" poll_id="{{$poll->id}}" question_id="{{ $item->id }}"> <i class="fa fa-plus"></i> </span>
+														<span class="btn btn-danger btn-xs eliminarPregunta" title="Eliminar Pregunta" poll_id="{{$poll->id}}"question_id="{{ $item->id }}"> <i class="fa fa-minus"></i> </span> --}}
 													@endif
 												</th>
 												<th style="width: 20px">Valoracion</th>
@@ -107,7 +106,7 @@
 														<td class="answer" answer_id="{{ $answer->id }}" data-toggle="modal" data-target="#answerModal">
 															{{ $answer->name }}
 														</td>
-														<td class="text-center"> <span class="btn btn-danger btn-xs btnEliminarRespuesta" answer_id="{{ $answer->id }}"> <i class="fa fa-remove"></i> </span> </td>		               
+														{{-- <td class="text-center"> <span class="btn btn-danger btn-xs btnEliminarRespuesta" answer_id="{{ $answer->id }}"> <i class="fa fa-remove"></i> </span> </td>	 --}}	               
 														<td>
 															<span class="badge bg-light-blue">{{ $answer->value }}</span>
 														</td>
