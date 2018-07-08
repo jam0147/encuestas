@@ -72,7 +72,7 @@
                               <div class="panel panel-primary panelPregunta" panelPregunta='{{ $pregunta->id }}' id_fila="{{$contador}}">
                                   <div class="panel-heading">
                                     <h3 class="panel-title">
-                                      <span class="glyphicon "></span> {{  $pregunta->group_name }} -- {{  $pregunta->name }}? <a href="http://www.jquery2dotnet.com" target="_blank"><span
+                                      <span class="glyphicon "></span>{{ $pregunta->group_number }}.{{  $pregunta->group_name }} -- {{  $pregunta->name }}? <a href="http://www.jquery2dotnet.com" target="_blank"><span
                                           class="glyphicon "></span></a>
                                     </h3>
                                   </div>

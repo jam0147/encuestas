@@ -91,10 +91,10 @@
 														<span class="btn btn-danger btn-xs eliminarPregunta" title="Eliminar Pregunta" poll_id="{{$poll->id}}"question_id="{{ $item->id }}"> <i class="fa fa-minus"></i> </span> --}}
 													@endif
 												</th>
-												<th style="width: 20px">Valoracion</th>
+												{{-- <th style="width: 20px">Valoracion</th> --}}
 											</tr>
 
-											@if (!empty($item->answers))
+											{{-- @if (!empty($item->answers))
 												@foreach($item->answers as $answer)
 												<tr>
 													<td>-</td>
@@ -109,14 +109,13 @@
 														<td class="answer" answer_id="{{ $answer->id }}" data-toggle="modal" data-target="#answerModal">
 															{{ $answer->name }}
 														</td>
-														{{-- <td class="text-center"> <span class="btn btn-danger btn-xs btnEliminarRespuesta" answer_id="{{ $answer->id }}"> <i class="fa fa-remove"></i> </span> </td>	 --}}	               
 														<td>
 															<span class="badge bg-light-blue">{{ $answer->value }}</span>
 														</td>
 													@endif
 												</tr>
 												@endforeach
-											@endif      
+											@endif --}}      
 										</table>
 									</div>
 								@endforeach	{{-- FIN PREGUNTAS --}}
