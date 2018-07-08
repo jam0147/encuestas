@@ -61,13 +61,17 @@
 								@foreach($questions as $item)
 									<div class="box-body">
 										<table class="table table-bordered tblPregunta" question_id="{{ $item->id }}">
-											<tr>
-												<th style="width: 10px">{{ $loop->iteration }}</th>
-												<th class="question" id="{{ $item->id }}">
+											<tr>												
+												<th style="width: 10px">{{ $loop->iteration }}
+													@if ( !$item->group_name == null)
+														 {{  $item->group_name }}
+													@endif</th> 
+												<th class="question" id="{{ $item->id }}" if >
 													<input type="hidden" id="question_id" value="{{ $item->id }}">
 
 													<a class="linkPregunta" href="#" id_pregunta="{{ $item->id }}">
 														{{ $item->name }}
+														
 													</a>
 												</th>
 
@@ -140,11 +144,14 @@
 						
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group">
-							@if ( $poll->category->answers_yes_or_not === 1)
+							@if ( $poll->category->answers_yes_or_not === 1 || $poll->category->group_type == 1)
 								<label for="slug">¿Múltiples respuestas?</label>
 								<br>
 								<input type="radio" name="multiple_answers" value="1"  disabled> Si<br>
-								<input type="radio" name="multiple_answers" value="0" checked > No<br>							
+								<input type="radio" name="multiple_answers" value="0" checked > No<br>
+								<br>
+			                  	<input type="text" class="form-control" id="group_name" name="group_name" placeholder="grupo" value="">
+
 							@else
 								<label for="slug">¿Múltiples respuestas?</label>
 								<br>
