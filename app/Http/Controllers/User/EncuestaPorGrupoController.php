@@ -87,7 +87,95 @@ class EncuestaPorGrupoController extends Controller
                 }
                 
             } 
-            return " grupo a : " . $grupo_a . " grupo b : " . $grupo_b . " grupo c : " . $grupo_c. " grupo d : " . $grupo_d;
+            //return " grupo a : " . $grupo_a . " grupo b : " . $grupo_b . " grupo c : " . $grupo_c. " grupo d : " . $grupo_d;
+            $st = Session::get('start_date');
+
+            MasterAplication::where('user_id', '=', Auth::user()->id)
+                ->where('poll_id', '=', $request->poll_id)
+                ->delete();
+
+            $master_aplication = new MasterAplication();
+            $master_aplication->start_date = $st; 
+            $master_aplication->user_id = Auth::user()->id;
+            $master_aplication->poll_id = $request->poll_id;;
+            $master_aplication->status = 0;
+            $master_aplication->save();
+        
+            $encuesta = Poll::find($request->poll_id);
+            $preguntas = Question::where('poll_id', '=', $request->poll_id)->get();
+            //$respuestas = Answer::where('poll_id', $encuesta->id)->get();
+            $total = 0;
+
+            AplicationPoll::where('user_id', '=', Auth::user()->id)
+                ->where('poll_id', '=', $request->poll_id)
+                ->delete();
+            if(isset($request->id_respuestas) && count($request->id_respuestas) > 0)
+                foreach ($request->id_respuestas as $key => $value) {
+                    //print_r('llave: '.$key .' valor: '. $value. ' ');
+                    $aplication_poll = new AplicationPoll();
+                    $total += Answer::where('id', $value)->first()->value;
+                    $answer = Answer::find($value);
+                    $aplication_poll->start = $st;
+                    $aplication_poll->end = Carbon::now();
+                    $aplication_poll->value = $answer->value;
+                    $aplication_poll->user_id = Auth::user()->id;
+                    $aplication_poll->poll_id = $request->poll_id;
+                    $aplication_poll->question_id = $answer->question_id;
+                    $aplication_poll->answer_id = $answer->id;
+                    $aplication_poll->save();
+                }        
+            // cuando la encuesta es por porcentaje y con 2 respuestas
+            $yes_or_not = false;
+            $resume = new \stdClass();
+            $resume->text = null;
+            $ranges = Range::where('poll_id', '=', $request->poll_id)->get();
+            $rangos = array();
+            $rango_usuario = array();
+
+            if ( $encuesta->category->answers_yes_or_not == 1 && $encuesta->category->percentage_values == 1 ) {
+                $yes_or_not = true;
+                $numero_preguntas = Question::where('poll_id', '=', $encuesta->id)->count();
+                $preguntas_contestadas = $total;
+                $total = 0;
+                $total = ($preguntas_contestadas * 100 ) /  $numero_preguntas; 
+                //dd($total);
+            }
+            //***************************************************************** */
+            
+            if(count($ranges) > 0)
+                foreach ($ranges as $key => $value) {
+                    $rangos[] = array(
+                        'name'      => $value->text,
+                        'y'         => $value->to,
+                        'drilldown' => $value->text
+                    );
+                    if ( $total >= $value->from && $total <= $value->to) {
+                        $range = $value;
+                        $resume = new Resume();
+                        $resume->user_id = Auth::user()->id;
+                        $resume->poll_id = $request->poll_id;
+                        $resume->total = $total;
+                        $resume->from = $value->from;
+                        $resume->to = $value->to;
+                        $resume->text = $value->text;
+                        $resume->save();
+
+                        $rango_usuario = array(
+                            'name'      => 'Su rango',
+                            'y'         => $value->to,
+                            'drilldown' => 'Su rango'
+                        );
+                    }
+                }
+
+            $rangos[] = $rango_usuario;
+
+            $rangos = json_encode($rangos);
+
+            //desvincular encuesta de usuario para que no la vuelva a aplicar
+            $this->desvincular(Auth::user()->id, $request->poll_id);
+            if ($yes_or_not) $total = $total . ' %';
+            return view('user.encuestas.resultados.resultado', compact('resume', 'total', 'encuesta', 'rangos'));
 
             
         }
@@ -96,13 +184,8 @@ class EncuestaPorGrupoController extends Controller
   
     public function show($id)
     {
-        return "ashow grupos";
+        //return "ashow grupos";
 
-        //validar que la encuesta tengas sus rangos
-        /*
-        select a.poll_id,count(*) from answers a, ranges b 
-	        where a.poll_id = b.poll_id and b.`from` > 0 and b.`to` > 0
-        */
         $contestadas = null;
         $generaldefinitions = GeneralDefinitions::where('id', '>',0)->first();
 
@@ -125,16 +208,11 @@ class EncuestaPorGrupoController extends Controller
         if($encuesta->category->timer_type == 2){ // Cuando es tiempo por pregunta
             if ($encuesta->category->show_all_questions == 0) 
                 //return $generaldefinitions;
-                return view('user.encuestas.individual.tiempo_pregunta_individual', compact('encuesta', 'preguntas', 'contestadas', 'numero_preguntas', 'generaldefinitions'));
-            
-            return view('user.encuestas.general.tiempo_pregunta', compact('encuesta', 'preguntas', 'detail_aplication', 'contestadas', 'generaldefinitions'));
+                return view('user.encuestas.grupos.grupos', compact('encuesta', 'preguntas', 'contestadas', 'numero_preguntas', 'generaldefinitions'));
+            return view('user.encuestas.grupos.grupos', compact('encuesta', 'preguntas', 'detail_aplication', 'contestadas', 'generaldefinitions'));
         }else{
-            // tiempo por pregunta y mostrar una sola pregunta
-            if ($encuesta->category->show_all_questions == 0) 
-                //return $generaldefinitions;
-                return view('user.encuestas.individual.ajax', compact('encuesta', 'preguntas', 'contestadas', 'numero_preguntas', 'generaldefinitions'));
             //tiempo general
-            return view('user.encuestas.general.show', compact('encuesta', 'preguntas', 'detail_aplication', 'contestadas', 'generaldefinitions'));
+            return view('user.encuestas.grupos.grupos', compact('encuesta', 'preguntas', 'detail_aplication', 'contestadas', 'generaldefinitions'));
         }
     }
     
@@ -183,6 +261,7 @@ class EncuestaPorGrupoController extends Controller
         
         return;
     }
+    
 
 
 }

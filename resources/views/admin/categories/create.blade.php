@@ -68,7 +68,7 @@
 					            </div>
 			              	</div>	
 			               	<div class="col-md-4">
-			               		<div class="form-group">
+			               		<div class="form-group" id="show_all_questions">
 					                <label for="slug">Mostrar todas las preguntas?</label>
 					                <br>
 					                <input type="radio" name="show_all_questions" value="1" checked="checked" > Si 
@@ -167,6 +167,28 @@
 		    		$('.hour').val(0);
 		    		$('.minutes').val(0);
 		    		$('.seconds').val(0);
+				}       
+	          
+	        });  
+			
+			$('#group_type').on('change',function () {
+		        var group_type = $('input:radio[name=group_type]:checked').val();
+		        console.log(group_type);  
+		        if (group_type == 1 ) {
+					$('input:radio[name=show_all_questions]')[0].checked = true;
+				}
+		        if (group_type == 0) {
+					//$('input:radio[name=show_all_questions]:checked').prop('checked',false);
+				}       
+	        });  
+			
+			$('#show_all_questions').on('change',function () {
+		        var show_all_questions = $('input:radio[name=show_all_questions]:checked').val();
+		        if (show_all_questions == 1 ) {
+					//$('input:radio[name=show_all_questions]')[0].checked = true;
+				}
+		        if (show_all_questions == 0) {
+					$('input:radio[name=group_type]')[1].checked = true;
 				}       
 	          
 	        });  

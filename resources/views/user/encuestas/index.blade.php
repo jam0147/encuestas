@@ -50,9 +50,9 @@
                                             @else
                                                 <td class="active">
                                                     @if ($item->category->group_type == 1)
-                                                        <a href="{{ route('encuestas-grupos.reanudar', $item->id) }}"><i class="fa fa-history">Reanudar</i></a>
+                                                        <a href="{{ route('encuestas-grupos.show', $item->id) }}"><i class="fa fa-history">Comenzar por grupos</i></a>
                                                     @else 
-                                                        <a href="{{ route('encuestas.reanudar', $item->id) }}"><i class="fa fa-history">Reanudar</i></a>
+                                                        <a href="{{ route('encuestas.reanudar', $item->id) }}"><i class="fa fa-history">Comenzar</i></a>
                                                     @endif
                                                 </td>
                                             @endif
