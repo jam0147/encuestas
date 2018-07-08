@@ -87,7 +87,7 @@ class EncuestaPorGrupoController extends Controller
                 }
                 
             } 
-            //return " grupo a : " . $grupo_a . " grupo b : " . $grupo_b . " grupo c : " . $grupo_c. " grupo d : " . $grupo_d;
+            return " grupo a : " . $grupo_a . " grupo b : " . $grupo_b . " grupo c : " . $grupo_c. " grupo d : " . $grupo_d;
             $st = Session::get('start_date');
 
             MasterAplication::where('user_id', '=', Auth::user()->id)
