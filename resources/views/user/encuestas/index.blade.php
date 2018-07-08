@@ -39,13 +39,21 @@
                                             <td class="active">{{ count($item->questions) }}</td>
                                             @if ($item->category->hour > 0 || $item->category->minutes > 0 || $item->category->seconds > 0)
                                                 <td class="active">
-                                                    <a href="{{ route('encuestas.show', $item->id) }}" style="cursor:pointer">
+                                                    @if ($item->category->group_type == 1)
+                                                        <a href="{{ route('encuestas-grupos.show', $item->id) }}" style="cursor:pointer">
+                                                    @else    
+                                                        <a href="{{ route('encuestas.show', $item->id) }}" style="cursor:pointer">
+                                                    @endif
                                                         <i class="fa fa-pencil-square-o">Comenzar</i> 
                                                     </a>
                                                 </td>
                                             @else
                                                 <td class="active">
-                                                    <a href="{{ route('encuestas.reanudar', $item->id) }}"><i class="fa fa-history">Reanudar</i></a>
+                                                    @if ($item->category->group_type == 1)
+                                                        <a href="{{ route('encuestas-grupos.reanudar', $item->id) }}"><i class="fa fa-history">Reanudar</i></a>
+                                                    @else 
+                                                        <a href="{{ route('encuestas.reanudar', $item->id) }}"><i class="fa fa-history">Reanudar</i></a>
+                                                    @endif
                                                 </td>
                                             @endif
                                         </tr>

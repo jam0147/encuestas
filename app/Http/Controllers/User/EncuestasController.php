@@ -63,52 +63,8 @@ class EncuestasController extends Controller
     public function store(Request $request){
         //dd($request->all());
         //return " store";
-        $group_a_total = 0;
-        $group_b_total = 0;
-        $group_c_total = 0;
-        $group_d_total = 0;
-
-        $grupo_a =0;
-        $grupo_b =0;
-        $grupo_c =0;
-        $grupo_d =0;
-
-        foreach ($request->id_respuestas as $key => $value) {
-            //print_r('llave: '.$key .' valor: '. $value. ' ');
-            $respuesta = Answer::where('id', $value)->first();
-            
-            if ($respuesta->group_name == 'a' && $respuesta->value >0) {
-                $grupo_a += 1;
-                $group_a_total = Answer::where('poll_id', $request->poll_id)
-                    ->where('group_name', 'a')
-                    ->count();
-            }
-            if ($respuesta->group_name == 'b' && $respuesta->value >0) {
-                $grupo_b += 1;
-
-                $group_b_total = Answer::where('poll_id', $request->poll_id)
-                    ->where('group_name', 'b')
-                    ->count();
-            }
-            if ($respuesta->group_name == 'c' && $respuesta->value >0) {
-                $grupo_c += 1;
-
-                $group_c_total = Answer::where('poll_id', $request->poll_id)
-                    ->where('group_name', 'c')
-                    ->count();
-            }
-            if ($respuesta->group_name == 'd' && $respuesta->value >0) {
-                $grupo_d += 1;
-
-                $group_d_total = Answer::where('poll_id', $request->poll_id)
-                    ->where('group_name', 'd')
-                    ->count();
-            }
-            
-        } 
-        return " grupo a : " . $grupo_a . " grupo b : " . $grupo_b . " grupo c : " . $grupo_c. " grupo d : " . $grupo_d;
-
         
+
         $st = Session::get('start_date');
 
         MasterAplication::where('user_id', '=', Auth::user()->id)

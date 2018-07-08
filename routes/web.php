@@ -48,6 +48,11 @@ Route::group(['namespace' => 'User'],function(){
 		->name('encuestas.reanudar');
 	Route::post('user/encuestas1','EncuestasController@individualStore')->name('encuestas.individual');
 	Route::resource('user/test','TestController');
+
+	Route::resource('user/encuestas-grupos','EncuestaPorGrupoController');
+	Route::get('user/encuestas-grupos/reanudar/{id}','EncuestaPorGrupoController@reanudar')
+		->name('encuestas-grupos.reanudar');
+
 	
 });
 
