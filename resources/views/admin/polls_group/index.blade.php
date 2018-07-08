@@ -36,11 +36,7 @@
                                 @foreach ($polls as $item)
                                     <tr>
                                         <td>
-                                            @if ($item->category->group_type == 1)
-                                                <a href="{{ url('admin/polls-group/' . $item->id . '/edit') }}">{{ $item->name }} </a>
-                                            @else
-                                                <a href="{{ url('admin/polls/' . $item->id . '/edit') }}">{{ $item->name }}</a>
-                                            @endif
+                                            <a href="{{ url('admin/polls/' . $item->id . '/edit') }}">{{ $item->name }}</a>
                                         </td>
                                         <td>
                                             @if ($item->show_all_questions == 1)
@@ -53,11 +49,7 @@
                                         <td>{{ $item->category->name }}</td>
 
                                         <td>
-                                            @if ($item->category->group_type == 1)
-                                                <a href="{{ url('admin/polls-group/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs">
-                                            @else
-                                                <a href="{{ url('admin/polls/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs">
-                                            @endif
+                                            <a href="{{ url('admin/polls/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs">
                                             <i class="fa fa-pencil"></i>
                                             </a>                            
                                             <form action="{{ route('polls.destroy',  $item->id) }}" method="post" style="display:inline">

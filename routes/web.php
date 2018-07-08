@@ -16,6 +16,7 @@ Route::group(['namespace' => 'Admin'],function(){
 	Route::resource('admin/admins','AdminController');
 	Route::resource('admin/categories','CategoryController');
 	Route::resource('admin/polls','PollsController');
+	Route::resource('admin/polls-group','PollsGroupController');
 	Route::resource('admin/questions','QuestionController');
 	Route::resource('admin/answers','AnswerController');
 	Route::resource('admin/ranges','RangeController');
