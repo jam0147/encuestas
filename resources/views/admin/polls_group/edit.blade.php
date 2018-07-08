@@ -69,10 +69,10 @@
 									<div class="box-body">
 										<table class="table table-bordered tblPregunta" question_id="{{ $item->id }}">
 											<tr>			
-												@if ($loop->iteration == 1)
+												{{-- @if ($loop->iteration == 1)
 													<th style="width: 10px">{{ $item->group_number }}
-												@endif									
-												<th style="width: 10px">
+												@endif		 --}}							
+												<th style="width: 10px">{{ $item->group_number }}
 												{{-- <th style="width: 10px">{{ $loop->iteration }} --}}
 												@if ( !$item->group_name == null)
 													{{  $item->group_name }}
