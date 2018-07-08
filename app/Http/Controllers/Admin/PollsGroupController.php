@@ -101,7 +101,7 @@ class PollsGroupController extends Controller
                 'group_name' => $group_name
             ]);
             $answer_not =  Answer::create([
-                'name' => 'Menos',
+                'name' => 'Menos' . $group_name,
                 'value' => 0,
                 'question_id' => $question->id,
                 'poll_id' => $poll_id,

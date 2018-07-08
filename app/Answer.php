@@ -6,7 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Answer extends Model
 {
-	protected $fillable = ['name', 'value', 'question_id', 'poll_id'];   
+	protected $fillable = [
+        'name', 
+        'value', 
+        'question_id', 
+        'poll_id',
+        'group_name'
+    ];   
 
 	public function question()
     {
