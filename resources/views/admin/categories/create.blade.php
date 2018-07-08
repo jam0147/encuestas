@@ -100,6 +100,16 @@
 					                <input type="radio" name="answers_yes_or_not" class="pausable" value="0" checked="checked"> No<br>
 					            </div>
 			              	</div>	
+			              	
+							  <div class="col-md-4">
+			               		<div class="form-group" id="group_type">
+					                <label for="slug">Grupos de preguntas?</label>
+					                <br>
+					                <input type="radio" name="group_type" class="pausable" value="1"  > Si
+					                <input type="radio" name="group_type" class="pausable" value="0" checked="checked"> No<br>
+					            </div>
+			              	</div>	
+
 			               	<div class="col-md-12">
 			               		<div style="margin-left: auto; margin-right: auto;     text-align: center;">
 					                <button type="submit" class="btn btn-primary">Guardar</button>

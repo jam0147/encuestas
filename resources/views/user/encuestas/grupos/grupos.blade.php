@@ -50,7 +50,7 @@
           <div class="col-md-12">
             <div class=""><br>               
                 <div class="sec-title text-center">
-                  <h2 class="wow animated text-center" style="color: #999999;">*{{ $encuesta->category }} - {{ $encuesta->name }}</h2>
+                  <h2 class="wow animated text-center" style="color: #999999;">* - {{ $encuesta->name }}</h2>
                 </div>
                 @if ($encuesta->category->timer_type >1)                
                   <div style="text-align:center;">
@@ -72,7 +72,7 @@
                               <div class="panel panel-primary panelPregunta" panelPregunta='{{ $pregunta->id }}' id_fila="{{$contador}}">
                                   <div class="panel-heading">
                                     <h3 class="panel-title">
-                                      <span class="glyphicon "></span>{{  $pregunta->name }}? <a href="http://www.jquery2dotnet.com" target="_blank"><span
+                                      <span class="glyphicon "></span> {{  $pregunta->group_name }} -- {{  $pregunta->name }}? <a href="http://www.jquery2dotnet.com" target="_blank"><span
                                           class="glyphicon "></span></a>
                                     </h3>
                                   </div>
@@ -215,7 +215,8 @@ $(function () {
     }
 
     if($(".panelPregunta").length == nroFila){
-      alert("esta es la ultima pregunta");
+      //alert("esta es la ultima pregunta");
+      console.log("esta es la ultima pregunta");
     }
   });
 
@@ -241,7 +242,7 @@ $(function () {
   
   $("#mensaje").fadeOut(15000);
     console.log("mensaje");
-    alert("Bienvenido");      
+    //alert("Bienvenido");      
   
 
   function enviarDatos(){

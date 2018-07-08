@@ -135,7 +135,18 @@ class EncuestaPorGrupoController extends Controller
     
     public function reanudar($id)
     {
-        return "reanudar grupos";
+        //dd($id);
+        $generaldefinitions = GeneralDefinitions::where('id', '>',0)->first();
+        $contestadas = AplicationPoll::where('poll_id', '=', $id)
+            //->where('user_id', '=', Auth::user()->id)
+            ->get();
+        //dd($contestadas);
+        $encuesta = Poll::find($id);
+
+        $preguntas = Question::where('poll_id', '=', $encuesta->id)
+            ->get();
+        return view('user.encuestas.grupos.grupos', compact('encuesta', 'preguntas', 'contestadas', 'generaldefinitions'));
+
     }
 
     
@@ -155,4 +166,18 @@ class EncuestaPorGrupoController extends Controller
     {
         //
     }
+
+    public function desvincular($id, $poll_id)
+    {
+        //desvincular encuesta de usuario para que no la vuelva a aplicar
+        return;
+        $poll__users =  DB::table('poll__users')
+            ->where('user_id', '=',  $id)
+            ->where('poll_id', '=',  $poll_id)
+            ->delete();
+        
+        return;
+    }
+
+
 }

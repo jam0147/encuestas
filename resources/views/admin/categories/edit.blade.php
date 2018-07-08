@@ -35,9 +35,9 @@
 	              		<div class="form-group">
 	              			<label for="name">Tipo:</label>
 		                   	<select name="timer_type" id="type" class="form-control" required>
-			                 	<option value="1">Sin tiempo</option>
-			                 	<option value="2">Tiempo por pregunta</option>
-			                 	<option value="3">Tiempo por encuesta</option>
+			                 	<option value="1" @if($category->timer_type == 1) selected @endif>Sin tiempo</option>
+			                 	<option value="2" @if($category->timer_type == 2) selected @endif >Tiempo por pregunta</option>
+			                 	<option value="3" @if($category->timer_type == 3) selected @endif >Tiempo por encuesta</option>
 			              	</select>
 			          	</div>
 	              	</div>
@@ -151,6 +151,20 @@
 				                @else
 				                	<input type="radio" name="answers_yes_or_not" value="1"> Si<br>
 				                	<input type="radio" name="answers_yes_or_not" value="0" checked="checked"> No<br>
+				                @endif
+				            </div>
+		              	</div>	
+		              	
+						  <div class="col-md-4">
+		               		<div class="form-group" id="pausable">
+				                <label for="slug">Grupos de preguntas?</label>
+				                <br>
+				                @if ($category->group_type == 1)
+				                	<input type="radio" name="group_type" value="1" checked="checked"> Si<br>
+				                	<input type="radio" name="group_type" value="0"> No<br>
+				                @else
+				                	<input type="radio" name="group_type" value="1"> Si<br>
+				                	<input type="radio" name="group_type" value="0" checked="checked"> No<br>
 				                @endif
 				            </div>
 		              	</div>	

@@ -18,6 +18,7 @@ class Category extends Model
         'show_all_questions',
         'percentage_values',
         'answers_yes_or_not',
+        'group_type',
     ];
 
     public function polls()
